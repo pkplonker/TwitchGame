@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.stuartheath.stuartheathtools": {
+      "version": "https://github.com/pkplonker/Unity-Stuart-Heath-Custom-Tools.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "01f249d54d88febb894b4aa033c30fc55a2d2093"
+    },
     "com.unity.collab-proxy": {
       "version": "1.13.5",
       "depth": 0,
