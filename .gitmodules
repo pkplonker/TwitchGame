@@ -1,0 +1,3 @@
+[submodule "Assets/Scripts/TwitchIntegration"]
+	path = Assets/Scripts/TwitchIntegration
+	url = https://github.com/pkplonker/UnityTwitchIntegration.git
