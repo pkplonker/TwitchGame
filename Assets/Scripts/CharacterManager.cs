@@ -11,17 +11,33 @@ public class CharacterManager : MonoBehaviour
 {
 	[SerializeField] private GameObject characterPrefab;
 	[SerializeField] private List<Character> characters = new List<Character>();
+	[SerializeField] private Commands commands;
 
 	private void OnEnable()
 	{
 		ActiveMembers.OnMemberJoin += MemberJoin;
 		ActiveMembers.OnMemberLeave += MemberLeave;
+		IRCParser.OnPRIVMSG += ParseMessage;
 	}
 
 	private void OnDisable()
 	{
 		ActiveMembers.OnMemberJoin -= MemberJoin;
 		ActiveMembers.OnMemberLeave -= MemberLeave;
+		IRCParser.OnPRIVMSG += ParseMessage;
+	}
+
+	private void ParseMessage(string sender, string message)
+	{
+		if (message.Contains(commands.GetMoveCommand()))
+		{
+			foreach (var c in characters.Where(c => c.GetUserName() == sender))
+			{
+				c.RequestMove();
+				Debug.Log("moving at request");
+				return;
+			}
+		}
 	}
 
 	private void MemberJoin(string username)
@@ -31,9 +47,9 @@ public class CharacterManager : MonoBehaviour
 			return;
 		}
 
-		Character c = Instantiate(characterPrefab,transform).GetComponent<Character>();
+		Character c = Instantiate(characterPrefab, transform).GetComponent<Character>();
 		characters.Add(c);
-		c.Init(this,username);
+		c.Init(this, username);
 	}
 
 	private void MemberLeave(string username)

@@ -27,7 +27,7 @@ public class CharacterUI : MonoBehaviour
 		character.OnTakeDamage -= TakeDamage;
 	}
 
-	private void Start() => SetFill(1, 0.5f);
+	private void Start() => SetFill(1f, 1f);
 
 
 	public void SetName(string username) => userName.text = username;

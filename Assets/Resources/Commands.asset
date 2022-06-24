@@ -15,5 +15,6 @@ MonoBehaviour:
   commandInitialChar: '!'
   joinCommand: join
   leaveCommand: leave
-  fightcommand: '!fight'
-  moveCommand: '!move'
+  fightcommand: fight
+  moveCommand: move
+  commandsCommand: commands

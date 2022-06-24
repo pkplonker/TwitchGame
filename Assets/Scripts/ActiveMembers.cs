@@ -36,7 +36,6 @@ public class ActiveMembers : MonoBehaviour
 
 	private void OnMessage(string sender, string message)
 	{
-		Debug.Log("Join command is: " + commands.GetJoinCommand());
 		if (message.Contains(commands.GetJoinCommand()))
 		{
 			var am = FindByUsername(sender);

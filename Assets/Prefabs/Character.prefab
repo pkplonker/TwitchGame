@@ -150,7 +150,7 @@ MonoBehaviour:
   canvas: {fileID: 6481705378254765372}
   model: {fileID: 7341057779750537633}
   flipper: {fileID: 5939084820279044415}
-  moveFrequency: 5
+  moveFrequency: 10
 --- !u!114 &618689967625809949
 MonoBehaviour:
   m_ObjectHideFlags: 0

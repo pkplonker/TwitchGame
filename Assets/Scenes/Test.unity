@@ -1499,6 +1499,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterPrefab: {fileID: 2584064754999522457, guid: 95f09f640cea1aa449fa21e478875903, type: 3}
   characters: []
+  commands: {fileID: 11400000, guid: 685ac6a4ae6248e4bbd0c548a125bc75, type: 2}
 --- !u!4 &686567414
 Transform:
   m_ObjectHideFlags: 0

@@ -45,27 +45,10 @@ public class Character : MonoBehaviour
 	private void Update()
 	{
 		moveTimer += Time.deltaTime;
-		if (Input.GetKeyDown(KeyCode.D))
-		{
-			Debug.Log("die");
-			animator.SetTrigger(DoDie);
-		}
-
-		if (Input.GetKeyDown(KeyCode.M))
-		{
-			Debug.Log("move");
-			animator.SetTrigger(DoMove);
-		}
-
-		if (Input.GetKeyDown(KeyCode.T))
-		{
-			targetLocation = new Vector3(UnityEngine.Random.Range(minX, maxX), 0f, 0f);
-		}
-
-		if (moveTimer > 5f && Vector3.Distance(transform.position, targetLocation) < 0.2f)
+		if (moveTimer > moveFrequency && Vector3.Distance(transform.position, targetLocation) < 0.2f)
 		{
 			moveTimer = 0;
-			SetDestination(new Vector3(UnityEngine.Random.Range(minX, maxX), 0, 0));
+			RandomMove();
 		}
 
 		UpdateLocation();
@@ -89,10 +72,29 @@ public class Character : MonoBehaviour
 		Move();
 	}
 
+	public void RandomMove()
+	{
+		SetDestination(new Vector3(UnityEngine.Random.Range(minX, maxX), 0, 0));
+	}
+
+	public void RequestMove()
+	{
+		moveTimer = 0;
+		RandomMove();
+	}
+
+	public void RequestMove(Vector3 position)
+	{
+		moveTimer = 0;
+		SetDestination(position);
+	}
+
 	private void Move()
 	{
-		Flip(targetLocation.x > transform.position.x);
-		transform.position = Vector3.MoveTowards(transform.position, targetLocation, moveSpeed * Time.deltaTime);
+		var position = transform.position;
+		Flip(targetLocation.x > position.x);
+		position = Vector3.MoveTowards(position, targetLocation, moveSpeed * Time.deltaTime);
+		transform.position = position;
 	}
 
 	private void Flip(bool isRight)
