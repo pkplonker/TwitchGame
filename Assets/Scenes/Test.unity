@@ -771,7 +771,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   username: pkplonker
   password: oauth:0in5yo6ik1xhxk6gzz986hq0thzghm
-  channelName: 'bigbhalu '
+  channelName: pkplonker
   pingFrequency: 30
 --- !u!4 &419598092
 Transform:

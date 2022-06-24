@@ -15,16 +15,9 @@ public class ActiveMembers : MonoBehaviour
 	public static event Action<string> OnMemberJoin;
 	public static event Action<string> OnMemberLeave;
 
-	private void Start()
-	{
-		StartCoroutine(CheckTimeouts());
-	}
-
-	protected virtual void OnEnable()
-	{
-		IRCParser.OnActiveMemberChange += OnMemberChange;
-		IRCParser.OnPRIVMSG += OnMessage;
-	}
+	private void Start() => StartCoroutine(CheckTimeouts());
+	protected virtual void OnEnable() => IRCParser.OnPRIVMSG += OnMessage;
+	protected virtual void OnDisable() => IRCParser.OnPRIVMSG += OnMessage;
 
 	private IEnumerator CheckTimeouts()
 	{
@@ -43,6 +36,7 @@ public class ActiveMembers : MonoBehaviour
 
 	private void OnMessage(string sender, string message)
 	{
+		Debug.Log("Join command is: " + commands.GetJoinCommand());
 		if (message.Contains(commands.GetJoinCommand()))
 		{
 			var am = FindByUsername(sender);
@@ -84,26 +78,6 @@ public class ActiveMembers : MonoBehaviour
 		OnMemberLeave?.Invoke(am.userName);
 	}
 
-	protected virtual void OnDisable()
-	{
-		IRCParser.OnActiveMemberChange -= OnMemberChange;
-		IRCParser.OnPRIVMSG += OnMessage;
-	}
-
-	private void OnMemberChange(string username, bool isJoiner)
-	{
-		if (string.IsNullOrWhiteSpace(username)) return;
-		var am = FindByUsername(username);
-		if (isJoiner)
-		{
-			if (am == null) MemberJoin(username);
-			else am.joinTime = Time.time;
-		}
-		else
-		{
-			if (am != null) activeMembers.Remove(am);
-		}
-	}
 
 	[Serializable]
 	private class ActiveMember

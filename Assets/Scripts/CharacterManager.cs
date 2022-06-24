@@ -42,6 +42,7 @@ public class CharacterManager : MonoBehaviour
 		foreach (var character in characters.Where(character => character.GetUserName() == username))
 		{
 			characters.Remove(character);
+			Destroy(character.gameObject);
 			return;
 		}
 	}

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8bb32adaf2e5db4aa2181c519898bf9, type: 3}
   m_Name: Commands
   m_EditorClassIdentifier: 
-  commandInitialChar: 
-  joinCommand: 
-  leaveCommand: 
-  fightcommand: 
-  moveCommand: 
+  commandInitialChar: '!'
+  joinCommand: join
+  leaveCommand: leave
+  fightcommand: '!fight'
+  moveCommand: '!move'
