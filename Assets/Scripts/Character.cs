@@ -18,11 +18,14 @@ public class Character : MonoBehaviour
 	private string userName;
 	[SerializeField] private CharacterUI characterUI;
 	public event Action<float, float> OnTakeDamage;
+	public event Action<Character> OnReachedDestination;
+
 	[SerializeField] private Canvas canvas;
 	[SerializeField] private GameObject model;
 	[SerializeField] private GameObject flipper;
 
 	[SerializeField] private float moveFrequency = 5f;
+	private bool isFighting = false;
 	private float moveTimer;
 	public string GetUserName() => userName;
 
@@ -45,7 +48,7 @@ public class Character : MonoBehaviour
 	private void Update()
 	{
 		moveTimer += Time.deltaTime;
-		if (moveTimer > moveFrequency && Vector3.Distance(transform.position, targetLocation) < 0.2f)
+		if (moveTimer > moveFrequency && Vector3.Distance(transform.position, targetLocation) < 0.2f && !isFighting)
 		{
 			moveTimer = 0;
 			RandomMove();
@@ -65,6 +68,7 @@ public class Character : MonoBehaviour
 		{
 			targetLocation = transform.position;
 			animator.SetTrigger(DoStop);
+			OnReachedDestination?.Invoke(this);
 			return;
 		}
 
@@ -83,6 +87,12 @@ public class Character : MonoBehaviour
 		RandomMove();
 	}
 
+	public void StartFight(Vector3 position)
+	{
+		RequestMove(position);
+		isFighting = true;
+	}
+
 	public void RequestMove(Vector3 position)
 	{
 		moveTimer = 0;
@@ -97,8 +107,17 @@ public class Character : MonoBehaviour
 		transform.position = position;
 	}
 
-	private void Flip(bool isRight)
+	public void Flip(bool isRight)
 	{
 		flipper.transform.localScale = isRight ? Vector3.one : new Vector3(-1, 1, 1);
 	}
+
+	public bool RequestDestroy()
+	{
+		if (isFighting) return false;
+		Invoke(nameof(DestroyObject), 0.1f);
+		return true;
+	}
+
+	public void DestroyObject() => Destroy(gameObject);
 }
