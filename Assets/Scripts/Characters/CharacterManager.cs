@@ -106,7 +106,6 @@ namespace Characters
 		{
 			const string dir = "/CharacterData/";
 			var path = Application.persistentDataPath + dir + userName+".txt";
-			Debug.Log(Application.persistentDataPath);
 
 			Directory.CreateDirectory(Application.persistentDataPath + dir);
 			if (!File.Exists(path))

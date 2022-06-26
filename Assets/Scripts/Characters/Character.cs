@@ -44,12 +44,13 @@ namespace Characters
 		public void Init(CharacterManager characterManager, string userName, CharacterStats characterStats)
 		{
 			this.userName = userName;
-			characterUI.SetName(userName);
 			SetStartPosition();
 			targetLocation = transform.position;
 			gameObject.name = userName;
 			currentHealth = maxHealth;
 			this.characterStats = characterStats;
+			characterUI.SetName(userName);
+
 		}
 
 		private void Update()

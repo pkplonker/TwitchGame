@@ -18,10 +18,16 @@ namespace Characters
 
 		private void EarnExp(Character winner, Character loser)
 		{
-			winner.GetCharacterStats().EarnXP(winnerXp);
-			Debug.Log(("winner earned " + winnerXp).WithColor(Color.green));
-			var p = Instantiate(popup, winner.transform);
-			p.SetXpText(winnerXp);
+			AllocateXP(winner, winnerXp);
+			AllocateXP(loser, loserXP);
+		}
+
+		private void AllocateXP(Character character, int amount)
+		{
+			character.GetCharacterStats().EarnXP(amount);
+			var p = Instantiate(popup, character.transform);
+			p.SetXpText(amount);
+			Debug.Log((character.name + " earned " + amount).WithColor(Color.green));
 		}
 	}
 }

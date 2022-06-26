@@ -14,12 +14,30 @@ namespace Characters
 
 		[SerializeField] private Character character;
 		private Coroutine cor;
-		private void OnEnable() => character.OnHealthChanged += TakeDamage;
-		private void OnDisable() => character.OnHealthChanged -= TakeDamage;
+
+		private void OnEnable()
+		{
+			character.OnHealthChanged += TakeDamage;
+			CharacterStats.OnLevelUp += LevelUp;
+		}
+
+		private void LevelUp(int level, CharacterStats stats)
+		{
+			if (stats.userName == character.GetUserName())
+			{
+				SetName(character.GetUserName());
+			}
+		}
+
+		private void OnDisable()
+		{
+			CharacterStats.OnLevelUp -= LevelUp;
+			character.OnHealthChanged -= TakeDamage;
+		}
 
 		private void Awake()
 		{
-			healthBarImage.SetActive(false);	
+			healthBarImage.SetActive(false);
 		}
 
 		private void TakeDamage(Character c, float max, float current)
@@ -38,7 +56,10 @@ namespace Characters
 		}
 
 		private void Start() => SetFill(1f, 1f);
-		public void SetName(string username) => userName.text = username;
+
+		public void SetName(string username) =>
+			userName.text = username + "(" + character.GetCharacterStats().currentLevel+ ")";
+
 		private void SetFill(float current, float max) => healthBarImageFill.fillAmount = current / max;
 
 		private IEnumerator HealthBar()
