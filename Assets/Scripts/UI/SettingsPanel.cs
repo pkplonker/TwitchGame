@@ -22,7 +22,7 @@ namespace UI
 		private void OnDisable() => TwitchCore.OnConnectionStatusChange -= ConnectionStateChanged;
 
 
-		public void Connect() => TwitchCore.Instance.Connect(); //ui button
+		public void Connect() => TwitchCore.Instance.AttemptConnection(); //ui button
 		public void Open() => Show(); //ui button
 		public void Close() => Hide(); //ui button
 
@@ -32,7 +32,6 @@ namespace UI
 			statusText.text = state switch
 			{
 				ConnectionState.Disconnected => "Status:Disconnected",
-				ConnectionState.Connected => "Status:Connected",
 				ConnectionState.ConnectionConfirmed => "Status:Connection Confirmed",
 				ConnectionState.ConnectionLost => "Status:Connection Lost",
 				ConnectionState.Connecting => "Status:Connecting",
