@@ -60,7 +60,7 @@ namespace Control
 			if (amm != null) amm.joinTime = Time.time;
 		}
 
-		private static ActiveMember FindByUsername(string sender) => activeMembers.Find(x => x.userName == sender);
+		public static ActiveMember FindByUsername(string sender) => activeMembers.Find(x => x.userName == sender);
 
 		public static bool IsActiveMember(Character character)
 		{
@@ -87,7 +87,7 @@ namespace Control
 
 
 		[Serializable]
-		private class ActiveMember
+		public class ActiveMember
 		{
 			public string userName;
 			public float joinTime;

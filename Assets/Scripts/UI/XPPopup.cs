@@ -29,7 +29,7 @@ namespace UI
 			transform.localScale = Vector3.zero;
 		}
 
-		public void SetXpText(int damage) => text.text = "XP + " + damage;
+		public void SetXpText(long damage) => text.text = "XP + " + damage;
 
 		private void Update()
 		{

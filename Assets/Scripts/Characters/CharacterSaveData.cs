@@ -6,7 +6,7 @@ namespace Characters
     public class CharacterSaveData
     {
         public string userName;
-        public int xp;
+        public long xp;
         public int level;
 
         public CharacterSaveData(string userName, int xp, int level)

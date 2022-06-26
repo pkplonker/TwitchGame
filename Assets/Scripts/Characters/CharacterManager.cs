@@ -16,7 +16,7 @@ namespace Characters
 	public class CharacterManager : GenericUnitySingleton<CharacterManager>
 	{
 		[SerializeField] private GameObject characterPrefab;
-		[SerializeField] private List<Character> characters = new List<Character>();
+		[SerializeField] private static List<Character> characters = new List<Character>();
 		[SerializeField] private Commands commands;
 		[SerializeField] private LevelData levelData;
 		public static event Action<Character, Character> OnFightRequested;
@@ -124,7 +124,7 @@ namespace Characters
 			return cs;
 		}
 
-		private Character GetCharacterByUserName(string un) =>
+		public static Character GetCharacterByUserName(string un) =>
 			characters.FirstOrDefault(character => character.GetUserName() == un);
 
 

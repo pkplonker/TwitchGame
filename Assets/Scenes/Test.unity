@@ -690,7 +690,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0751d150c3ccb55419f4a16ebbfea8d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeMembers: []
   commands: {fileID: 11400000, guid: 685ac6a4ae6248e4bbd0c548a125bc75, type: 2}
   timeOutMinutes: 1
 --- !u!114 &135609371
@@ -802,6 +801,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: -8, y: -5, z: -8, w: -5}
   m_Softness: {x: 0, y: 0}
+--- !u!1 &172354174
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 172354176}
+  - component: {fileID: 172354175}
+  m_Layer: 0
+  m_Name: Admin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &172354175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172354174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23393b921920ebe4dbbe53598d1887a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  expHandler: {fileID: 135609374}
+--- !u!4 &172354176
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172354174}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 297.17618, y: 271.77014, z: -10.60027}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &198172358
 GameObject:
   m_ObjectHideFlags: 0
@@ -3060,7 +3103,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterPrefab: {fileID: 2584064754999522457, guid: 95f09f640cea1aa449fa21e478875903, type: 3}
-  characters: []
   commands: {fileID: 11400000, guid: 685ac6a4ae6248e4bbd0c548a125bc75, type: 2}
   levelData: {fileID: 11400000, guid: c3b3225957245e1449c6fa1dea6bee64, type: 2}
 --- !u!4 &686567414

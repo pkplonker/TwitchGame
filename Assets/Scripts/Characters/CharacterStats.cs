@@ -16,7 +16,7 @@ namespace Characters
 	{
 		public string userName;
 		public int currentLevel = 1;
-		public int currentXP = 0;
+		public long currentXP = 0;
 		public LevelData levelData;
 		public static event Action<int, CharacterStats> OnLevelUp;
 
@@ -26,14 +26,23 @@ namespace Characters
 			this.levelData = levelData;
 		}
 
-		public void EarnXP(int amount)
+		public void EarnXP(long amount)
 		{
 			currentXP += amount;
-			if (currentXP > levelData.levels[currentLevel])
+			while (CheckForLevelUp())
 			{
-				LevelUp();
 			}
+
+			OnLevelUp?.Invoke(currentLevel, this);
+
 			Save();
+		}
+
+		private bool CheckForLevelUp()
+		{
+			if (currentXP <= levelData.levels[currentLevel]) return false;
+			LevelUp();
+			return true;
 		}
 
 		private void LevelUp()
@@ -46,7 +55,7 @@ namespace Characters
 		public void Save()
 		{
 			const string dir = "/CharacterData/";
-			var path = Application.persistentDataPath + dir + userName+".txt";
+			var path = Application.persistentDataPath + dir + userName + ".txt";
 			if (!Directory.Exists(Application.persistentDataPath + dir)) Directory.CreateDirectory(dir);
 			var json = JsonUtility.ToJson(new CharacterSaveData(this));
 			File.WriteAllText(path, json);

@@ -22,12 +22,26 @@ namespace Characters
 			AllocateXP(loser, loserXP);
 		}
 
-		private void AllocateXP(Character character, int amount)
+		private void AllocateXP(Character character, long amount)
 		{
 			character.GetCharacterStats().EarnXP(amount);
 			var p = Instantiate(popup, character.transform);
 			p.SetXpText(amount);
 			Debug.Log((character.name + " earned " + amount).WithColor(Color.green));
+		}
+
+		public void SetLevel(Character character, long level)
+		{
+			if (character == null) return;
+			if (level > character.GetCharacterStats().levelData.maxLevel)
+				level = character.GetCharacterStats().levelData.maxLevel;
+			character.GetCharacterStats().currentLevel = 1;
+			character.GetCharacterStats().currentXP = 0;
+
+
+			var x = character.GetCharacterStats().levelData.levels[level] - character.GetCharacterStats().currentXP;
+			Debug.Log("adding " + x + " exp");
+			character.GetCharacterStats().EarnXP((character.GetCharacterStats().levelData.levels[level]));
 		}
 	}
 }
