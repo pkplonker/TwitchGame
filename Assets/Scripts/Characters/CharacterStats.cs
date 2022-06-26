@@ -3,26 +3,27 @@
 //
 
 using System;
-using UnityEditor;
+using System.IO;
 using UnityEngine;
-using StuartHeathTools;
+
 namespace Characters
 {
 	/// <summary>
 	///CharacterStats full description
 	/// </summary>
-	[CreateAssetMenu(fileName = "New Character Stats", menuName = "Character Stats")]
-	public class CharacterStats : ScriptableObject
+	[Serializable]
+	public class CharacterStats
 	{
 		public string userName;
 		public int currentLevel = 1;
 		public int currentXP = 0;
-		[SerializeField] private LevelData levelData;
-		public event Action<int> OnLevelUp;
+		public LevelData levelData;
+		public static event Action<int, CharacterStats> OnLevelUp;
 
-		private void OnEnable()
+		public CharacterStats(string userName, LevelData levelData)
 		{
-			levelData = ScriptableObjectFuncs.GetAllInstances<LevelData>()[0];
+			this.userName = userName;
+			this.levelData = levelData;
 		}
 
 		public void EarnXP(int amount)
@@ -32,13 +33,31 @@ namespace Characters
 			{
 				LevelUp();
 			}
+			Save();
 		}
 
 		private void LevelUp()
 		{
 			if (currentLevel >= levelData.maxLevel) return;
 			currentLevel++;
-			OnLevelUp?.Invoke(currentLevel);
+			OnLevelUp?.Invoke(currentLevel, this);
+		}
+
+		public void Save()
+		{
+			const string dir = "/CharacterData/";
+			var path = Application.persistentDataPath + dir + userName+".txt";
+			if (!Directory.Exists(Application.persistentDataPath + dir)) Directory.CreateDirectory(dir);
+			var json = JsonUtility.ToJson(new CharacterSaveData(this));
+			File.WriteAllText(path, json);
+			Debug.Log(("Saved"+userName+" Character data to "+ dir+userName));
+		}
+
+		public void Load(CharacterSaveData sd)
+		{
+			currentLevel = sd.level;
+			currentXP = sd.xp;
+			userName = sd.userName;
 		}
 	}
 }

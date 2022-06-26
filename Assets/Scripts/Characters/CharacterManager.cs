@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Control;
 using StuartHeathTools;
@@ -17,8 +18,23 @@ namespace Characters
 		[SerializeField] private GameObject characterPrefab;
 		[SerializeField] private List<Character> characters = new List<Character>();
 		[SerializeField] private Commands commands;
+		[SerializeField] private LevelData levelData;
 		public static event Action<Character, Character> OnFightRequested;
-		public List<Character> GetCharacters() => characters;
+		private List<Character> pendingDestroys = new List<Character>();
+
+		private void Start() => InvokeRepeating(nameof(AttemptDestroy), 1f, 2f);
+
+		private void AttemptDestroy()
+		{
+			if (pendingDestroys.Count == 0) return;
+
+			for (var i = pendingDestroys.Count - 1; i >= 0; i--)
+			{
+				if (!pendingDestroys[i].RequestDestroy()) continue;
+				characters.Remove(pendingDestroys[i]);
+				pendingDestroys.RemoveAt(i);
+			}
+		}
 
 		private void OnEnable()
 		{
@@ -44,10 +60,7 @@ namespace Characters
 					return;
 				}
 			}
-			else if (message.Contains(commands.GetFightCommand()))
-			{
-				HandleFightRequest(sender, message);
-			}
+			else if (message.Contains(commands.GetFightCommand())) HandleFightRequest(sender, message);
 		}
 
 		private void HandleFightRequest(string sender, string message)
@@ -65,7 +78,6 @@ namespace Characters
 				requestedFighter2 = message.Remove(0, l);
 			}
 
-
 			var fighter1 = "";
 			var fighter2 = "";
 			foreach (var c in characters)
@@ -75,39 +87,64 @@ namespace Characters
 			}
 
 			if (string.IsNullOrWhiteSpace(fighter1) || string.IsNullOrEmpty(fighter2)) return;
-			OnFightRequested?.Invoke(GetCharacterByUserName(fighter1),GetCharacterByUserName(fighter2));
+			OnFightRequested?.Invoke(GetCharacterByUserName(fighter1), GetCharacterByUserName(fighter2));
 		}
 
 		private void MemberJoin(string username)
 		{
-			foreach (var character in characters.Where(character => character.GetUserName() == username))
+			if (characters.Any(character => character.GetUserName() == username))
 			{
 				return;
 			}
 
-			Character c = Instantiate(characterPrefab, transform).GetComponent<Character>();
+			var c = Instantiate(characterPrefab, transform).GetComponent<Character>();
 			characters.Add(c);
-			c.Init(this, username);
+			c.Init(this, username, GenerateCharacterStats(username));
 		}
 
-		private Character GetCharacterByUserName(string un)
+		private CharacterStats GenerateCharacterStats(string userName)
 		{
-			foreach (var character in characters.Where(character => character.GetUserName() == un))
+			const string dir = "/CharacterData/";
+			var path = Application.persistentDataPath + dir + userName+".txt";
+			Debug.Log(Application.persistentDataPath);
+
+			Directory.CreateDirectory(Application.persistentDataPath + dir);
+			if (!File.Exists(path))
 			{
-				return character;
+				Debug.Log(("creating new characterStats for " + userName).WithColor(Color.magenta));
+				var s = new CharacterStats(userName, levelData);
+				s.Save();
+				return s;
 			}
 
-			return null;
+			Debug.Log(("Loading existing characterStats for " + userName).WithColor(Color.magenta));
+			var json = File.ReadAllText(path);
+			CharacterSaveData sd = JsonUtility.FromJson<CharacterSaveData>(json);
+			var cs = new CharacterStats(userName, levelData);
+			cs.Load(sd);
+			return cs;
 		}
+
+		private Character GetCharacterByUserName(string un) =>
+			characters.FirstOrDefault(character => character.GetUserName() == un);
+
 
 		private void MemberLeave(string username)
 		{
 			if (characters.Count == 0) return;
 			foreach (var character in characters.Where(character => character.GetUserName() == username))
 			{
-				if(character.RequestDestroy()) characters.Remove(character);
-			
+				if (character.RequestDestroy()) characters.Remove(character);
+				else pendingDestroys.Add(character);
 				return;
+			}
+		}
+
+		public void SaveAllCharacters()
+		{
+			foreach (var c in characters)
+			{
+				c.SaveState();
 			}
 		}
 	}

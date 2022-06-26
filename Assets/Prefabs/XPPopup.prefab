@@ -148,9 +148,9 @@ GameObject:
   - component: {fileID: 3993133222268592737}
   - component: {fileID: 3993133222268592736}
   - component: {fileID: 3993133222268592767}
-  - component: {fileID: 6011020923661263369}
+  - component: {fileID: 4837403831095332327}
   m_Layer: 5
-  m_Name: ExpPopup
+  m_Name: XPPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -220,7 +220,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &3993133222268592767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,7 +238,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &6011020923661263369
+--- !u!114 &4837403831095332327
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -247,13 +247,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3993133222268592766}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9c0d1ce8ae66774280640636f031ba0, type: 3}
+  m_Script: {fileID: 11500000, guid: 669deda7f16e97045a4089e7d0374678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 3993133221123986903}
-  lifeTime: 1
-  minDistance: 0
-  maxDistance: 0.75
+  lifeTime: 1.5
 --- !u!1 &5950400415544834794
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@
 // Copyright (C) 2022 Stuart Heath. All rights reserved.
 //
 
+using Characters;
 using StuartHeathTools;
 using TMPro;
 using TwitchIntegration;
@@ -24,7 +25,6 @@ namespace UI
 		public void Connect() => TwitchCore.Instance.Connect(); //ui button
 		public void Open() => Show(); //ui button
 		public void Close() => Hide(); //ui button
-	
 
 
 		private void ConnectionStateChanged(ConnectionState state)
@@ -45,6 +45,16 @@ namespace UI
 			if (!Input.GetKeyDown(KeyCode.Escape)) return;
 			if (canvasGroup.alpha == 0) Open();
 			else Close();
+		}
+
+		public void Quit()
+		{
+			Debug.Log("Quitting");
+			CharacterManager.Instance.SaveAllCharacters();
+			Application.Quit();
+#if UNITY_EDITOR
+			UnityEditor.EditorApplication.isPlaying = false;
+#endif
 		}
 	}
 }

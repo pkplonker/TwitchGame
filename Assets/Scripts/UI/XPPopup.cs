@@ -22,21 +22,19 @@ namespace UI
 		private void Start()
 		{
 			var trans = transform;
-			trans.position += new Vector3(0, 1.75f, 0);
+			trans.position += new Vector3(0, 1.5f, 0);
 			trans.LookAt(2 * transform.position - Camera.main.transform.position);
 			initialPosition = trans.position;
 			targetPosition = initialPosition + new Vector3(0, 1.5f, 0f);
 			transform.localScale = Vector3.zero;
 		}
 
-		public void SetXpText(int damage) => text.text = damage.ToString();
+		public void SetXpText(int damage) => text.text = "XP + " + damage;
 
 		private void Update()
 		{
 			timer += Time.deltaTime;
 			if (timer > lifeTime) Destroy(gameObject);
-			
-			
 			transform.position = Vector3.Lerp(initialPosition, targetPosition, Mathf.Sin(timer / lifeTime));
 			transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, Mathf.Sin(timer / lifeTime));
 		}

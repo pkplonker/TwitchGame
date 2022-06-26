@@ -41,7 +41,7 @@ namespace Characters
 		public CharacterStats GetCharacterStats() => characterStats;
 		public void SetCharacterStats(CharacterStats stats) => characterStats = stats;
 
-		public void Init(CharacterManager characterManager, string userName)
+		public void Init(CharacterManager characterManager, string userName, CharacterStats characterStats)
 		{
 			this.userName = userName;
 			characterUI.SetName(userName);
@@ -49,16 +49,7 @@ namespace Characters
 			targetLocation = transform.position;
 			gameObject.name = userName;
 			currentHealth = maxHealth;
-			characterStats = ScriptableObject.CreateInstance<CharacterStats>();
-			characterStats.name = userName;
-			if (!AssetDatabase.IsValidFolder("Assets/Resources/CharacterStats"))
-			{
-				AssetDatabase.CreateFolder("Assets/Resources/", "CharacterStats");
-			}
-
-			AssetDatabase.CreateAsset(characterStats, "Assets/Resources/CharacterStats/"+userName);
-			characterStats.userName = userName;
-			AssetDatabase.SaveAssets();
+			this.characterStats = characterStats;
 		}
 
 		private void Update()
@@ -81,6 +72,7 @@ namespace Characters
 		public void Flip(bool isRight) => flipper.transform.localScale = isRight ? Vector3.one : new Vector3(-1, 1, 1);
 		public void DestroyObject() => Destroy(gameObject);
 		public bool GetIsDead() => isDead;
+		public void SaveState()=> 			characterStats.Save();
 
 		private void UpdateLocation()
 		{
@@ -126,6 +118,7 @@ namespace Characters
 		public bool RequestDestroy()
 		{
 			if (isFighting) return false;
+			SaveState();
 			Invoke(nameof(DestroyObject), 0.1f);
 			return true;
 		}
@@ -171,8 +164,10 @@ namespace Characters
 			currentHealth = maxHealth;
 			isFighting = false;
 			RandomMove();
-			animator.SetTrigger(DoStop);
+			animator.SetTrigger(DoMove);
 			OnHealthChanged?.Invoke(this, currentHealth, maxHealth);
 		}
+
+
 	}
 }
