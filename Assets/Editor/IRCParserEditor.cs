@@ -19,27 +19,37 @@ namespace Editor
 			using (new GUILayout.HorizontalScope())
 			{
 				if (GUILayout.Button("Join Testers", EditorStyles.miniButton))
-					IRCParser.JoinTesters();
+					IRCParser.JoinTesters("x","y");
 				if (GUILayout.Button("Fight Testers", EditorStyles.miniButton))
-					IRCParser.FightTesters();
+					IRCParser.FightTesters("x","y");
 			}
 
 			base.OnInspectorGUI();
 		}
 		
-		[MenuItem("TwitchGame/Test Join", false, 0)]
-		public static void JoinTesters()
+		[MenuItem("TwitchGame/Test Join XY", false, 0)]
+		public static void JoinTestersXY()
 		{
-			IRCParser.JoinTesters();
+			IRCParser.JoinTesters("x","y");
 
+		}
+		[MenuItem("TwitchGame/Test Join PKP", false, 0)]
+		public static void JoinTestersPKP()
+		{
+			IRCParser.JoinTesters("pkplonker", "pkplonkertest");
 		}
 
 
-		[MenuItem("TwitchGame/Test Fight", false, 0)]
-		public static void FightTesters()
+		[MenuItem("TwitchGame/Test Fight XY", false, 0)]
+		public static void FightTestersXY()
 		{
-			IRCParser.FightTesters();
+			IRCParser.FightTesters("x","y");
 
+		}
+		[MenuItem("TwitchGame/Test Fight PKP", false, 0)]
+		public static void FightTestersPKP()
+		{
+			IRCParser.FightTesters("pkplonker", "pkplonkertest");
 		}
 	}
 }

@@ -50,7 +50,6 @@ namespace Characters
 			if (!Directory.Exists(Application.persistentDataPath + dir)) Directory.CreateDirectory(dir);
 			var json = JsonUtility.ToJson(new CharacterSaveData(this));
 			File.WriteAllText(path, json);
-			Debug.Log(("Saved"+userName+" Character data to "+ dir+userName));
 		}
 
 		public void Load(CharacterSaveData sd)

@@ -5,6 +5,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Characters;
 using TwitchIntegration;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ namespace Control
 {
 	public class ActiveMembers : MonoBehaviour
 	{
-		[SerializeField] private List<ActiveMember> activeMembers = new List<ActiveMember>();
+		[SerializeField] private static List<ActiveMember> activeMembers = new List<ActiveMember>();
 		[SerializeField] private Commands commands;
 		[SerializeField] private float timeOutMinutes;
 		public static event Action<string> OnMemberJoin;
@@ -59,8 +60,12 @@ namespace Control
 			if (amm != null) amm.joinTime = Time.time;
 		}
 
-		private ActiveMember FindByUsername(string sender) => activeMembers.Find(x => x.userName == sender);
+		private static ActiveMember FindByUsername(string sender) => activeMembers.Find(x => x.userName == sender);
 
+		public static bool IsActiveMember(Character character)
+		{
+			return FindByUsername(character.GetUserName()) != null;
+		}
 
 		private void MemberJoin(string sender)
 		{

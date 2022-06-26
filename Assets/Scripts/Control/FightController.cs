@@ -1,7 +1,10 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Characters;
 using StuartHeathTools;
+using TwitchIntegration;
 using UnityEngine;
 
 namespace Control
@@ -23,6 +26,7 @@ namespace Control
 		private bool fightOver = false;
 		private void OnEnable() => CharacterManager.OnFightRequested += InitiateFight;
 		private void OnDisable() => CharacterManager.OnFightRequested -= InitiateFight;
+		private Queue<Tuple<Character, Character>> outstandingFights = new Queue<Tuple<Character, Character>>();
 
 		private void InitiateFight(Character fighter1, Character fighter2)
 		{
@@ -35,6 +39,17 @@ namespace Control
 			if (fightEventActive)
 			{
 				Debug.LogWarning("fight already underway");
+				if (CheckIfAlreadyInQueue(fighter1))
+				{
+					TwitchCore.Instance.PRIVMSGTToTwitch("You are already in the queue, Let someone else fight!");
+				}
+				else
+				{
+					TwitchCore.Instance.PRIVMSGTToTwitch("Fight Already Underway, You've been added to the queue");
+					outstandingFights.Enqueue(new Tuple<Character, Character>(fighter1, fighter2));
+				}
+
+				return;
 			}
 
 			fighter1.OnReachedDestination += ReachedDestination;
@@ -47,6 +62,10 @@ namespace Control
 			fighter2.StartFight(fightLocation2.transform.position);
 			fightEventActive = true;
 		}
+
+		private bool CheckIfAlreadyInQueue(Character requestor) =>
+			outstandingFights.Any(f => f.Item1 == requestor || f.Item2 == requestor);
+
 
 		private void ReachedDestination(Character c)
 		{
@@ -88,6 +107,20 @@ namespace Control
 			fightEventActive = false;
 			fightOver = false;
 			cor = null;
+
+			CheckQueue();
+		}
+
+		private void CheckQueue()
+		{
+			if (outstandingFights.Count == 0) return;
+			while (outstandingFights.Count != 0)
+			{
+				var x = outstandingFights.Dequeue();
+				if (!ActiveMembers.IsActiveMember(x.Item1) || !ActiveMembers.IsActiveMember(x.Item2)) continue;
+				InitiateFight(x.Item1, x.Item2);
+				return;
+			}
 		}
 
 
