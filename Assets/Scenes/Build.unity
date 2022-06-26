@@ -690,6 +690,7 @@ GameObject:
   - component: {fileID: 135609370}
   - component: {fileID: 135609373}
   - component: {fileID: 135609374}
+  - component: {fileID: 135609375}
   m_Layer: 0
   m_Name: Systems
   m_TagString: Untagged
@@ -768,6 +769,18 @@ MonoBehaviour:
   winnerXp: 150
   loserXP: 50
   popup: {fileID: 4837403831095332327, guid: 249e642035ba2c64b8c3e30982915f2a, type: 3}
+--- !u!114 &135609375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 135609369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53fe73bda8d0255499c0008474ed16f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &146046403
 GameObject:
   m_ObjectHideFlags: 0

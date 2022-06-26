@@ -27,7 +27,6 @@ namespace Characters
 			character.GetCharacterStats().EarnXP(amount);
 			var p = Instantiate(popup, character.transform);
 			p.SetXpText(amount);
-			Debug.Log((character.name + " earned " + amount).WithColor(Color.green));
 		}
 
 		public void SetLevel(Character character, long level)

@@ -61,11 +61,7 @@ namespace Control
 		}
 
 		public static ActiveMember FindByUsername(string sender) => activeMembers.Find(x => x.userName == sender);
-
-		public static bool IsActiveMember(Character character)
-		{
-			return FindByUsername(character.GetUserName()) != null;
-		}
+		public static bool IsActiveMember(Character character) => FindByUsername(character.GetUserName()) != null;
 
 		private void MemberJoin(string sender)
 		{
@@ -74,10 +70,8 @@ namespace Control
 			OnMemberJoin?.Invoke(sender);
 		}
 
-		private bool IsBanned(string sender)
-		{
-			return sender.ToLower() == "nightbot";
-		}
+		private bool IsBanned(string sender) => sender.ToLower() == "nightbot";
+
 
 		private void RemoveMember(ActiveMember am)
 		{

@@ -18,6 +18,8 @@ namespace Characters
 		public int currentLevel = 1;
 		public long currentXP = 0;
 		public LevelData levelData;
+		public int wins = 0;
+		public int loses = 0;
 		public static event Action<int, CharacterStats> OnLevelUp;
 
 		public CharacterStats(string userName, LevelData levelData)

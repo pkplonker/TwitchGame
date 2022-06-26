@@ -41,11 +41,13 @@ namespace Control
 				Debug.LogWarning("fight already underway");
 				if (CheckIfAlreadyInQueue(fighter1))
 				{
-					TwitchCore.Instance.PRIVMSGTToTwitch("You are already in the queue, Let someone else fight!");
+					TwitchCore.Instance.PRIVMSGTToTwitch("@" + fighter1.GetUserName() +
+					                                     " You are already in the queue, Let someone else fight!");
 				}
 				else
 				{
-					TwitchCore.Instance.PRIVMSGTToTwitch("Fight Already Underway, You've been added to the queue");
+					TwitchCore.Instance.PRIVMSGTToTwitch("@" + fighter1.GetUserName() +
+					                                     " Fight Already Underway, You've been added to the queue");
 					outstandingFights.Enqueue(new Tuple<Character, Character>(fighter1, fighter2));
 				}
 
@@ -117,6 +119,9 @@ namespace Control
 			while (outstandingFights.Count != 0)
 			{
 				var x = outstandingFights.Dequeue();
+				Debug.Log(x.Item1 + " is  active member = " + ActiveMembers.IsActiveMember(x.Item1));
+				Debug.Log(x.Item2 + " is  active member = " + ActiveMembers.IsActiveMember(x.Item2));
+
 				if (!ActiveMembers.IsActiveMember(x.Item1) || !ActiveMembers.IsActiveMember(x.Item2)) continue;
 				InitiateFight(x.Item1, x.Item2);
 				return;
