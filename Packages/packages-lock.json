@@ -5,7 +5,13 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "7594809e1d11a8537d6f1fa6abb3f3adb301a380"
+      "hash": "7a2d67fcb0547ce6fbb86c7bd900a5d71ba79971"
+    },
+    "com.unity.2d.sprite": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
     },
     "com.unity.collab-proxy": {
       "version": "1.13.5",

@@ -2,6 +2,7 @@
 // Copyright (C) 2022 Stuart Heath. All rights reserved.
 //
 
+using TwitchIntegration;
 using UnityEditor;
 using UnityEngine;
 
@@ -24,6 +25,21 @@ namespace Editor
 			}
 
 			base.OnInspectorGUI();
+		}
+		
+		[MenuItem("TwitchGame/Test Join", false, 0)]
+		public static void JoinTesters()
+		{
+			IRCParser.JoinTesters();
+
+		}
+
+
+		[MenuItem("TwitchGame/Test Fight", false, 0)]
+		public static void FightTesters()
+		{
+			IRCParser.FightTesters();
+
 		}
 	}
 }
