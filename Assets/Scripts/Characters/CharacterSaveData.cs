@@ -15,6 +15,8 @@ namespace Characters
             this.xp = xp;
             this.level = level;
         }
+        
+        
 
         public CharacterSaveData(CharacterStats stats)
         {
