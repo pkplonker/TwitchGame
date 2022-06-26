@@ -831,6 +831,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   expHandler: {fileID: 135609374}
+  admins:
+  - twitchfighterbot
+  - pkplonker
 --- !u!4 &172354176
 Transform:
   m_ObjectHideFlags: 0

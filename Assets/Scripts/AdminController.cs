@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Characters;
 using Control;
 using TwitchIntegration;
@@ -9,7 +10,7 @@ public class AdminController : MonoBehaviour
 {
 	[SerializeField] private ExpHandler expHandler;
 	private void OnEnable() => IRCParser.OnPRIVMSG += ParseMessage;
-
+	[SerializeField] private List<string> admins;
 
 	private void OnDisable() => IRCParser.OnPRIVMSG -= ParseMessage;
 
@@ -47,7 +48,7 @@ public class AdminController : MonoBehaviour
 	private bool IsValidAdmin(string sender)
 	{
 		sender = sender.ToLower();
-		if (sender == "pkplonker" || sender == "twitchfighterbot") return true;
+		if (admins.Any(a => a == sender)) return true;
 		TwitchCore.Instance.PRIVMSGTToTwitch("This is an admin only command, nice try.");
 		return false;
 	}
