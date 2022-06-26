@@ -1,9 +1,7 @@
-using System;
-using System.IO;
 using TMPro;
 using TwitchIntegration;
 using UnityEngine;
-using UnityEngine.UI;
+
 
 namespace UI
 {
