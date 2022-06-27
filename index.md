@@ -11,8 +11,11 @@ A few options are avaliable, located by pressing the esc key ingame.
 ## Logining in
 
 Logging in requires your twitch username, it's recommended to set up an additional account to name the bot whatever you choose.
+
 You will need an Oauth password, you can generate one [here](https://twitchapps.com/tmi/)
+
 You will then need to enter the channel to join, presumambly yours :)
+
 
 
 ## Below are the commands avaliable to use
