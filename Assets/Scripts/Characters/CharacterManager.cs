@@ -23,7 +23,6 @@ namespace Characters
 		private List<Character> pendingDestroys = new List<Character>();
 		[SerializeField] private List<Transform> markers;
 
-	
 
 		private void Start() => InvokeRepeating(nameof(AttemptDestroy), 1f, 2f);
 
@@ -59,6 +58,18 @@ namespace Characters
 			{
 				foreach (var c in characters.Where(c => c.GetUserName() == sender))
 				{
+					var s = message.Replace(commands.GetMoveCommand() + " ", "");
+					if (Int32.TryParse(s, out int result))
+					{
+						if (result >= 1 && result <= markers.Count + 1)
+						{
+							c.RequestMove(markers[result - 1].position);
+							Debug.Log(("moving to requested position "+ result).WithColor(Color.green));
+							return;
+						}
+					}
+					Debug.Log("moving to random position".WithColor(Color.red));
+
 					c.RequestMove();
 					return;
 				}
