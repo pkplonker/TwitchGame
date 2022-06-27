@@ -4,9 +4,9 @@
 
 A few options are avaliable, located by pressing the esc key ingame.
 
-1.Show/Hide Background
-2.Show/Hide Trees
-3.Login
+1. Show/Hide Background
+2. Show/Hide Trees
+3. Login
 
 
 ## Below are the commands avaliable to use
