@@ -16,7 +16,7 @@ namespace Control
 		[SerializeField] private string commandInitialChar;
 		[SerializeField] private string joinCommand;
 		[SerializeField] private string leaveCommand;
-		[SerializeField] private string fightcommand;
+		[SerializeField] private string fightCommand;
 		[SerializeField] private string moveCommand;
 		[SerializeField] private string commandsCommand;
 
@@ -29,13 +29,13 @@ namespace Control
 		{
 			if (message.Contains(GetCommandCommand()))
 			{
-				TwitchCore.Instance.PRIVMSGTToTwitch("www.stuartheath.co.uk");
+				TwitchCore.Instance.PRIVMSGTToTwitch("https://pkplonker.github.io/TwitchGame/");
 			}
 		}
 
 		public string GetJoinCommand() => commandInitialChar + joinCommand;
 		public string GetLeaveCommand() => commandInitialChar + leaveCommand;
-		public string GetFightCommand() => commandInitialChar + fightcommand;
+		public string GetFightCommand() => commandInitialChar + fightCommand;
 		public string GetMoveCommand() => commandInitialChar + moveCommand;
 		public string GetCommandCommand() => commandInitialChar + commandsCommand;
 	}

@@ -52,7 +52,7 @@ public class LootBoxSpawner : MonoBehaviour
 			transform).GetComponent<LootBox>();
 		currentLootBox.Init(this, lootBoxDuration);
 		timer = 0;
-		TwitchIntegration.TwitchCore.Instance.PRIVMSGTToTwitch("Juicy loot just dropped, can you get there in time?");
+		TwitchIntegration.TwitchCore.Instance.PRIVMSGTToTwitch("----Juicy loot just dropped, can you get there in time?----");
 	}
 
 	public void AwardLoot(List<Character> characters)

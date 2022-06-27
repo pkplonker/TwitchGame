@@ -20,11 +20,11 @@ public class LootBox : MonoBehaviour
 
 	private void CheckTargets()
 	{
-		var targets = Physics.OverlapSphere(transform.position, 2f);
+		var targets = Physics2D.OverlapCircleAll(transform.position, 2f);
 		var characters = new List<Character>();
 		foreach (var target in targets)
 		{
-			if (TryGetComponent<Character>(out var c))
+			if (target.TryGetComponent<Character>(out var c))
 			{
 				characters.Add(c);
 			}

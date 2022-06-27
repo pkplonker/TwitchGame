@@ -25,7 +25,7 @@ namespace UI
 			trans.position += new Vector3(0, 1.5f, 0);
 			trans.LookAt(2 * transform.position - Camera.main.transform.position);
 			initialPosition = trans.position;
-			targetPosition = initialPosition + new Vector3(0, 1.5f, 0f);
+			targetPosition = initialPosition + new Vector3(0, 1f, 0f);
 			transform.localScale = Vector3.zero;
 		}
 

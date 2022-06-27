@@ -52,7 +52,6 @@ namespace Characters
 			currentHealth = maxHealth;
 			this.characterStats = characterStats;
 			characterUI.SetName(userName);
-
 		}
 
 		private void Update()
@@ -68,14 +67,14 @@ namespace Characters
 			UpdateLocation();
 		}
 
-		private void SetStartPosition() => transform.position = new Vector3(UnityEngine.Random.Range(minX, maxX), 0, 0);
-		private void RandomMove() => SetDestination(new Vector3(UnityEngine.Random.Range(minX, maxX), 0, 0));
+		private void SetStartPosition() => transform.position = new Vector3(UnityEngine.Random.Range(minX, maxX), transform.parent.transform.position.y, 0);
+		private void RandomMove() => SetDestination(new Vector3(UnityEngine.Random.Range(minX, maxX), transform.parent.transform.position.y, 0));
 		private void SetDestination(Vector3 pos) => targetLocation = pos;
 
 		public void Flip(bool isRight) => flipper.transform.localScale = isRight ? Vector3.one : new Vector3(-1, 1, 1);
 		public void DestroyObject() => Destroy(gameObject);
 		public bool GetIsDead() => isDead;
-		public void SaveState()=> 			characterStats.Save();
+		public void SaveState() => characterStats.Save();
 
 		private void UpdateLocation()
 		{
@@ -93,18 +92,22 @@ namespace Characters
 
 		public void RequestMove()
 		{
+
 			moveTimer = 0;
 			RandomMove();
 		}
 
 		public void StartFight(Vector3 position)
 		{
+			position = new Vector3(position.x, transform.parent.transform.position.y, position.z);
 			RequestMove(position);
 			isFighting = true;
 		}
 
 		public void RequestMove(Vector3 position)
 		{
+			position = new Vector3(position.x, transform.parent.transform.position.y, position.z);
+
 			moveTimer = 0;
 			SetDestination(position);
 		}
@@ -170,7 +173,5 @@ namespace Characters
 			animator.SetTrigger(DoMove);
 			OnHealthChanged?.Invoke(this, currentHealth, maxHealth);
 		}
-
-
 	}
 }
