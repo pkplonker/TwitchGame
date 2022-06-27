@@ -19,3 +19,9 @@ Note, all commands are not case sensitive
 * !move -- Moves to random position
 * !move <number> -- Moves to designated area
 * !stats -- Outputs players stats
+* !commands -- Links you back to this site, why would you do that?
+  
+  
+# Admin commands
+
+* !setlevel <number> -- Sets your level to the requested level. Cheater.
