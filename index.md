@@ -32,7 +32,7 @@ Note, all commands are not case sensitive
   
   
  * [Stuart@StuartHeath.co.uk](https://stuart@stuartheath.co.uk/)
- * [LinkedIn]((https://linkedin.com/in/stuartheath1/) 
+ * [LinkedIn](https://linkedin.com/in/stuartheath1/) 
  * [Twitter](https://twitter.com/pkplonker) 
  * [Github](https://github.com/pkplonker/) 
  * [Itch.io](https://stuartheath.itch.io/)
