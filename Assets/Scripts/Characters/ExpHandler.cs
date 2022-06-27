@@ -22,7 +22,7 @@ namespace Characters
 			AllocateXP(loser, loserXP);
 		}
 
-		private void AllocateXP(Character character, long amount)
+		public void AllocateXP(Character character, long amount)
 		{
 			character.GetCharacterStats().EarnXP(amount);
 			var p = Instantiate(popup, character.transform);

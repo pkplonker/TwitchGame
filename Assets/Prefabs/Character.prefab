@@ -182,6 +182,7 @@ GameObject:
   - component: {fileID: 2584064754999522458}
   - component: {fileID: 2584064754999522469}
   - component: {fileID: 618689967625809949}
+  - component: {fileID: 102018094716110771}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -242,6 +243,32 @@ MonoBehaviour:
   healthBarImage: {fileID: 2758201234142339211}
   healthBarImageFill: {fileID: 5037310134940161724}
   character: {fileID: 2584064754999522469}
+--- !u!61 &102018094716110771
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2584064754999522457}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.5}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &2758201234142339211
 GameObject:
   m_ObjectHideFlags: 0

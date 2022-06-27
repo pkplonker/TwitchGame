@@ -21,7 +21,11 @@ namespace Control
 		private bool f2ReachedDestination;
 		private bool fightUnderWay;
 		private bool fightEventActive;
+		public bool GetIsFightEvent() => fightEventActive;
+		public Tuple<Character, Character> GetFighters() => new Tuple<Character, Character>(fighter1, fighter2);
 		public static event Action<Character, Character> OnFightOver;
+		public static event Action OnFightStart;
+
 		private Coroutine cor;
 		private bool fightOver = false;
 		private void OnEnable() => CharacterManager.OnFightRequested += InitiateFight;
@@ -63,6 +67,7 @@ namespace Control
 			fighter1.StartFight(fightLocation1.transform.position);
 			fighter2.StartFight(fightLocation2.transform.position);
 			fightEventActive = true;
+			OnFightStart?.Invoke();
 		}
 
 		private bool CheckIfAlreadyInQueue(Character requestor) =>

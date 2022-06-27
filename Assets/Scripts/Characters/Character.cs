@@ -18,6 +18,8 @@ namespace Characters
 
 		[SerializeField] private float moveFrequency = 5f;
 		private Vector3 targetLocation;
+		public float GetMinX() => minX;
+		public float GetMaxX() => maxX;
 
 		private static readonly int DoMove = Animator.StringToHash("doMove");
 		private static readonly int DoDie = Animator.StringToHash("doDie");
@@ -101,7 +103,7 @@ namespace Characters
 			isFighting = true;
 		}
 
-		private void RequestMove(Vector3 position)
+		public void RequestMove(Vector3 position)
 		{
 			moveTimer = 0;
 			SetDestination(position);
