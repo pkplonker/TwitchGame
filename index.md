@@ -28,7 +28,7 @@ Note, all commands are not case sensitive
 * !commands -- Links you back to this site, why would you do that?
   
   
-# Admin commands
+## Admin commands
 
 * !setlevel &lt;number&gt; -- Sets your level to the requested level. Cheater.
 
