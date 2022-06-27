@@ -21,6 +21,9 @@ namespace Characters
 		[SerializeField] private LevelData levelData;
 		public static event Action<Character, Character> OnFightRequested;
 		private List<Character> pendingDestroys = new List<Character>();
+		[SerializeField] private List<Transform> markers;
+
+	
 
 		private void Start() => InvokeRepeating(nameof(AttemptDestroy), 1f, 2f);
 
@@ -105,7 +108,7 @@ namespace Characters
 		private CharacterStats GenerateCharacterStats(string userName)
 		{
 			const string dir = "/CharacterData/";
-			var path = Application.persistentDataPath + dir + userName+".txt";
+			var path = Application.persistentDataPath + dir + userName + ".txt";
 
 			Directory.CreateDirectory(Application.persistentDataPath + dir);
 			if (!File.Exists(path))
