@@ -15,16 +15,16 @@ Note, all commands are not case sensitive
 
 * !join -- Joins you into the game
 * !leave -- Removes you from the fun
-* !fight &lt; other_players_username &gt; -- Triggers fight with another player
+* !fight &lt;other_players_username&gt; -- Triggers fight with another player
 * !move -- Moves to random position
-* !move <number> -- Moves to designated area
+* !move &lt;number&gt; -- Moves to designated area
 * !stats -- Outputs players stats
 * !commands -- Links you back to this site, why would you do that?
   
   
 # Admin commands
 
-* !setlevel <number> -- Sets your level to the requested level. Cheater.
+* !setlevel &lt;number&gt; -- Sets your level to the requested level. Cheater.
 
   
   
