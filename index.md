@@ -15,7 +15,7 @@ Note, all commands are not case sensitive
 
 * !join -- Joins you into the game
 * !leave -- Removes you from the fun
-* !fight &lt other_players_username &gt  -- Triggers fight with another player
+* !fight &lt; other_players_username &gt; -- Triggers fight with another player
 * !move -- Moves to random position
 * !move <number> -- Moves to designated area
 * !stats -- Outputs players stats
