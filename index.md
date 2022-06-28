@@ -8,7 +8,7 @@ A few options are avaliable, located by pressing the esc key ingame.
 2. Show/Hide Trees
 3. Login
 
-## Logining in
+## Logging in
 
 Logging in requires your twitch username, it's recommended to set up an additional account to name the bot whatever you choose.
 
