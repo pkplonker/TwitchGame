@@ -72,6 +72,8 @@ namespace Characters
 			currentLevel = sd.level;
 			currentXP = sd.xp;
 			userName = sd.userName;
+			wins = sd.wins;
+			loses = sd.loses;
 			characterClass = sd.characterClass;
 			bestWinStreak = sd.bestWinStreak;
 			currentWinStreak = sd.currentWinStreak;
