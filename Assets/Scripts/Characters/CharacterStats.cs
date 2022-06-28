@@ -35,9 +35,13 @@ namespace Characters
 		public void EarnXP(long amount)
 		{
 			currentXP += amount;
-			while (CheckForLevelUp())
+			if (currentLevel != levelData.maxLevel)
 			{
+				while (CheckForLevelUp())
+				{
+				}
 			}
+			
 
 			OnLevelUp?.Invoke(currentLevel, this);
 
