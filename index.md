@@ -30,7 +30,7 @@ Note, all commands are not case sensitive
 * !stats -- Outputs players stats
 * !commands -- Links you back to this site, why would you do that?
 * !classes -- Lists all available classes
-* !class &lt;Class_Name%gt; -- Changes your character to the requested class
+* !class &lt;Class_Name&gt; -- Changes your character to the requested class
 
   
 ## Admin commands
