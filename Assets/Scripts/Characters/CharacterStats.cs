@@ -20,12 +20,14 @@ namespace Characters
 		public LevelData levelData;
 		public int wins = 0;
 		public int loses = 0;
+		public CharacterClass characterClass;
 		public static event Action<int, CharacterStats> OnLevelUp;
 
-		public CharacterStats(string userName, LevelData levelData)
+		public CharacterStats(string userName, LevelData levelData, CharacterClassContainer ccc)
 		{
 			this.userName = userName;
 			this.levelData = levelData;
+			characterClass = ccc.classes[0];
 		}
 
 		public void EarnXP(long amount)
@@ -68,6 +70,22 @@ namespace Characters
 			currentLevel = sd.level;
 			currentXP = sd.xp;
 			userName = sd.userName;
+			characterClass = sd.characterClass;
 		}
+
+		public void SetCurrentClass(CharacterClass characterClass) => this.characterClass = characterClass;
+
+		public int GetNextLevel()
+		{
+			var level = currentLevel++;
+			if (currentLevel-1 == levelData.maxLevel)
+			{
+				return -1;
+			}
+
+			return level;
+		}
+
+		public long ExperienceRequiredForNextLevel() => levelData.levels[currentLevel] - currentXP;
 	}
 }

@@ -19,11 +19,11 @@ namespace Control
 		[SerializeField] private string fightCommand;
 		[SerializeField] private string moveCommand;
 		[SerializeField] private string commandsCommand;
+		[SerializeField] private string classCommand;
+		[SerializeField] private string classesCommand;
 
-		private void OnEnable()
-		{
-			IRCParser.OnPRIVMSG += OnMessage;
-		}
+		private void OnEnable()=>IRCParser.OnPRIVMSG += OnMessage;
+		
 
 		private void OnMessage(string sender, string message)
 		{
@@ -38,5 +38,9 @@ namespace Control
 		public string GetFightCommand() => commandInitialChar + fightCommand;
 		public string GetMoveCommand() => commandInitialChar + moveCommand;
 		public string GetCommandCommand() => commandInitialChar + commandsCommand;
+
+		public string GetClassCommand()=> commandInitialChar + classCommand;
+		public string GetClassesCommand()=> commandInitialChar + classCommand;
+
 	}
 }

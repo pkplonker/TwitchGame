@@ -857,6 +857,7 @@ GameObject:
   - component: {fileID: 135609374}
   - component: {fileID: 135609375}
   - component: {fileID: 135609376}
+  - component: {fileID: 135609377}
   m_Layer: 0
   m_Name: Systems
   m_TagString: Untagged
@@ -947,6 +948,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53fe73bda8d0255499c0008474ed16f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterManager: {fileID: 686567413}
 --- !u!114 &135609376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -959,6 +961,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98d5412d7570d9b41a43f032f09b7f90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &135609377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 135609369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aa36c48b133b4f439045b8b97a6dc86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterClassContainer: {fileID: 11400000, guid: 3fc31f0dfdb685b4d94f3b29a211946d, type: 2}
+  commands: {fileID: 11400000, guid: 685ac6a4ae6248e4bbd0c548a125bc75, type: 2}
 --- !u!1 &146046403
 GameObject:
   m_ObjectHideFlags: 0
@@ -4267,6 +4283,7 @@ MonoBehaviour:
   characterPrefab: {fileID: 2584064754999522457, guid: 95f09f640cea1aa449fa21e478875903, type: 3}
   commands: {fileID: 11400000, guid: 685ac6a4ae6248e4bbd0c548a125bc75, type: 2}
   levelData: {fileID: 11400000, guid: c3b3225957245e1449c6fa1dea6bee64, type: 2}
+  characterClassContainer: {fileID: 11400000, guid: 3fc31f0dfdb685b4d94f3b29a211946d, type: 2}
   markers:
   - {fileID: 967890157}
   - {fileID: 416651922}

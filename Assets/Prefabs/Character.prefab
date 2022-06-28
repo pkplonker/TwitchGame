@@ -227,6 +227,7 @@ MonoBehaviour:
   damagePopup: {fileID: 6011020923661263369, guid: cb3d0293e77e08449bdf6ada29f49eab, type: 3}
   moveFrequency: 10
   maxHealth: 100
+  spriteRenderer: {fileID: 6540640779607205850}
 --- !u!114 &618689967625809949
 MonoBehaviour:
   m_ObjectHideFlags: 0

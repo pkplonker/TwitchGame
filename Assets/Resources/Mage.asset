@@ -9,14 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8bb32adaf2e5db4aa2181c519898bf9, type: 3}
-  m_Name: Commands
+  m_Script: {fileID: 11500000, guid: 363124d35b4fde94bbf3a49d760334a9, type: 3}
+  m_Name: Mage
   m_EditorClassIdentifier: 
-  commandInitialChar: '!'
-  joinCommand: join
-  leaveCommand: leave
-  fightCommand: fight
-  moveCommand: move
-  commandsCommand: commands
-  classCommand: class
-  classesCommand: classes
+  className: Mage
+  sprite: {fileID: 3805063247507766641, guid: 4d701fb8bab94204e92af20e3e7b6a8a, type: 3}
+  animationControllerPath: MageAC

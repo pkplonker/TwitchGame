@@ -45,6 +45,7 @@ namespace Characters
 
 		public void Init(CharacterManager characterManager, string userName, CharacterStats characterStats)
 		{
+			animator = GetComponentInChildren<Animator>();
 			this.userName = userName;
 			SetStartPosition();
 			targetLocation = transform.position;
@@ -52,6 +53,8 @@ namespace Characters
 			currentHealth = maxHealth;
 			this.characterStats = characterStats;
 			characterUI.SetName(userName);
+			ChangeClass(characterStats.characterClass);
+			
 		}
 
 		private void Update()
@@ -75,6 +78,9 @@ namespace Characters
 		public void DestroyObject() => Destroy(gameObject);
 		public bool GetIsDead() => isDead;
 		public void SaveState() => characterStats.Save();
+		[SerializeField] SpriteRenderer spriteRenderer;
+
+		
 
 		private void UpdateLocation()
 		{
@@ -92,7 +98,6 @@ namespace Characters
 
 		public void RequestMove()
 		{
-
 			moveTimer = 0;
 			RandomMove();
 		}
@@ -107,7 +112,6 @@ namespace Characters
 		public void RequestMove(Vector3 position)
 		{
 			position = new Vector3(position.x, transform.parent.transform.position.y, position.z);
-
 			moveTimer = 0;
 			SetDestination(position);
 		}
@@ -172,6 +176,13 @@ namespace Characters
 			RandomMove();
 			animator.SetTrigger(DoMove);
 			OnHealthChanged?.Invoke(this, currentHealth, maxHealth);
+		}
+
+		public void ChangeClass(CharacterClass classs)
+		{
+			animator.runtimeAnimatorController = classs.GetAnimationController();
+			spriteRenderer.sprite = classs.sprite;
+			characterStats.SetCurrentClass(classs);
 		}
 	}
 }
