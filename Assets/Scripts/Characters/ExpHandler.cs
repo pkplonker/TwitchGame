@@ -24,7 +24,8 @@ namespace Characters
 
 		public void AllocateXP(Character character, long amount)
 		{
-			character.GetCharacterStats().EarnXP(amount);
+			var stats = character.GetCharacterStats();
+			stats.EarnXP(amount);
 			var p = Instantiate(popup, character.transform);
 			p.SetXpText(amount);
 		}

@@ -21,6 +21,8 @@ namespace Characters
 		public int wins = 0;
 		public int loses = 0;
 		public CharacterClass characterClass;
+		public int currentWinStreak;
+		public int bestWinStreak;
 		public static event Action<int, CharacterStats> OnLevelUp;
 
 		public CharacterStats(string userName, LevelData levelData, CharacterClassContainer ccc)
@@ -71,6 +73,8 @@ namespace Characters
 			currentXP = sd.xp;
 			userName = sd.userName;
 			characterClass = sd.characterClass;
+			bestWinStreak = sd.bestWinStreak;
+			currentWinStreak = sd.currentWinStreak;
 		}
 
 		public void SetCurrentClass(CharacterClass characterClass) => this.characterClass = characterClass;
@@ -78,7 +82,7 @@ namespace Characters
 		public int GetNextLevel()
 		{
 			var level = currentLevel++;
-			if (currentLevel-1 == levelData.maxLevel)
+			if (currentLevel - 1 == levelData.maxLevel)
 			{
 				return -1;
 			}
@@ -87,5 +91,18 @@ namespace Characters
 		}
 
 		public long ExperienceRequiredForNextLevel() => levelData.levels[currentLevel] - currentXP;
+
+		public void Lose()
+		{
+			loses++;
+			currentWinStreak = 0;
+		}
+
+		public void Win()
+		{
+			wins++;
+			currentWinStreak++;
+			if (currentWinStreak > bestWinStreak) bestWinStreak = currentWinStreak;
+		}
 	}
 }

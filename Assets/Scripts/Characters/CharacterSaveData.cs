@@ -11,6 +11,8 @@ namespace Characters
 		public int wins;
 		public int loses;
 		public CharacterClass characterClass;
+		public int currentWinStreak;
+		public int bestWinStreak;
 
 		public CharacterSaveData(CharacterStats stats)
 		{
@@ -20,6 +22,8 @@ namespace Characters
 			loses = stats.loses;
 			wins = stats.wins;
 			characterClass = stats.characterClass;
+			currentWinStreak = stats.currentWinStreak;
+			bestWinStreak = stats.bestWinStreak;
 		}
 	}
 }

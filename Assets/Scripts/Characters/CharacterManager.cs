@@ -144,17 +144,7 @@ namespace Characters
 		public static Character GetCharacterByUserName(string un) =>
 			characters.FirstOrDefault(character => character.GetUserName() == un);
 
-		public CharacterStats GetOfflineCharacterByUserName(string un)
-		{
-			var path = Application.persistentDataPath + dir + un + ".txt";
-			if (!File.Exists(path)) return null;
-
-				var json = File.ReadAllText(path);
-			CharacterSaveData sd = JsonUtility.FromJson<CharacterSaveData>(json);
-			var cs = new CharacterStats(un, levelData, characterClassContainer);
-			cs.Load(sd);
-			return cs;
-		}
+	
 
 		private void MemberLeave(string username)
 		{
