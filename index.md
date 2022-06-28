@@ -29,7 +29,9 @@ Note, all commands are not case sensitive
 * !move &lt;number&gt; -- Moves to designated area
 * !stats -- Outputs players stats
 * !commands -- Links you back to this site, why would you do that?
-  
+* !classes -- Lists all available classes
+* !class &lt;Class_Name%gt; -- Changes your character to the requested class
+
   
 ## Admin commands
 
