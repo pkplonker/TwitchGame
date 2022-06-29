@@ -14,8 +14,21 @@ public class ClassController : MonoBehaviour
 
 	private void ParseMessage(string sender, string message)
 	{
-		if (message.Contains(commands.GetClassCommand() + " ") ||
-		    CharacterManager.GetCharacterByUserName(sender) == null)
+		if (message == commands.GetClassesCommand())
+		{
+			var sb = new StringBuilder();
+			sb.Append("The available classes are");
+			foreach (var c in characterClassContainer.classes)
+			{
+				sb.Append(", ");
+				sb.Append(CapitaliseFirstLetter(c.GetClassName()));
+			}
+
+			sb.Append(".");
+			TwitchCore.Instance.PRIVMSGTToTwitch(sb.ToString());
+		}
+		else if (message.Contains((commands.GetClassCommand() + " ")) ||
+		         CharacterManager.GetCharacterByUserName(sender) == null)
 		{
 			message = StripCommand(message).ToLower();
 			foreach (var classs in characterClassContainer.classes)
@@ -25,19 +38,12 @@ public class ClassController : MonoBehaviour
 				c.ChangeClass(classs);
 			}
 		}
-		else if (message.Contains(commands.GetClassesCommand()))
-		{
-			var sb = new StringBuilder();
-			sb.Append("The available classes are");
-			foreach (var c in characterClassContainer.classes)
-			{
-				sb.Append(", ");
-				sb.Append(c.GetClassName());
-			}
+	}
 
-			sb.Append(".");
-			TwitchCore.Instance.PRIVMSGTToTwitch(sb.ToString());
-		}
+	private static string CapitaliseFirstLetter(string s)
+	{
+		var x = s[0].ToString().ToUpper();
+		return x + s.Remove(0, 1);
 	}
 
 	private string StripCommand(string message) => message.Replace(commands.GetClassCommand() + " ", "");

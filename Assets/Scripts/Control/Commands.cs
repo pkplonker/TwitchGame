@@ -36,7 +36,7 @@ namespace Control
 		public string GetMoveCommand() => commandInitialChar + moveCommand;
 		public string GetCommandCommand() => commandInitialChar + commandsCommand;
 		public string GetClassCommand()=> commandInitialChar + classCommand;
-		public string GetClassesCommand()=> commandInitialChar + classCommand;
+		public string GetClassesCommand()=> commandInitialChar + classesCommand;
 
 	}
 }
