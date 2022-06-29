@@ -5,6 +5,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Characters;
 using TwitchIntegration;
 using UnityEngine;
@@ -22,6 +23,7 @@ namespace Control
 		private void Start() => StartCoroutine(CheckTimeouts());
 		protected virtual void OnEnable() => IRCParser.OnPRIVMSG += OnMessage;
 		protected virtual void OnDisable() => IRCParser.OnPRIVMSG += OnMessage;
+		public List<ActiveMember> GetActiveMembers() => activeMembers;
 
 		private IEnumerator CheckTimeouts()
 		{

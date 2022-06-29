@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,15 +6,20 @@ namespace Control
 {
 	public class BackgroundController : MonoBehaviour
 	{
-		private List<SpriteRenderer> spriteRenderers = new List<SpriteRenderer>();
+		[SerializeField] private List<SpriteRenderer> spriteRenderers = new List<SpriteRenderer>();
+		[SerializeField] private GameObject sky;
 
-		private void Awake()
+		private void Awake() => sky.SetActive(PlayerPrefs.GetInt("sky") != 0);
+
+
+		public void ToggleSky()
 		{
-			foreach (var sr in GetComponentsInChildren<SpriteRenderer>())
-			{
-				spriteRenderers.Add(sr);
-			}
+			sky.SetActive(!sky.activeSelf);
+			PlayerPrefs.SetInt("sky", !sky.activeSelf ? 0 : 1);
 		}
+
+		public void ShowBackground() => EnableAllSpriteRenderers();
+		public void HideBackground() => DisableAllSpriteRenderers();
 
 		private void EnableSpriteRenderer(int index)
 		{
@@ -40,8 +46,6 @@ namespace Control
 			}
 		}
 
-		public void ShowBackground() => EnableAllSpriteRenderers();
-		public void HideBackground() => DisableAllSpriteRenderers();
 
 		public void ShowFloorOnly()
 		{
