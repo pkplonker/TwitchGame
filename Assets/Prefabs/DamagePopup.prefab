@@ -217,7 +217,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &3993133222268592767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,4 +250,4 @@ MonoBehaviour:
   text: {fileID: 3993133221123986903}
   lifeTime: 1
   minDistance: 0
-  maxDistance: 0.75
+  maxDistance: 0.5

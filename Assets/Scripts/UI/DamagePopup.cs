@@ -25,9 +25,9 @@ namespace UI
 		private void Start()
 		{
 			var trans = transform;
-			trans.position += new Vector3(0, 1.75f, 0);
+			trans.position += new Vector3(0, 1f, 0);
 			trans.LookAt(2 * transform.position - Camera.main.transform.position);
-			var direction = UnityEngine.Random.rotation.eulerAngles.x;
+			var direction = Random.rotation.eulerAngles.x;
 			initialPosition = trans.position;
 			var dist = Random.Range(minDistance, maxDistance);
 			targetPosition = initialPosition + (Quaternion.Euler(0, 0, direction) * new Vector3(dist, dist, 0f));
