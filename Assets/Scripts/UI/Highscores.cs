@@ -13,7 +13,7 @@ namespace UI
 		[SerializeField] private Transform entryContainer;
 		private List<HighscoresEntry> currentEntries = new List<HighscoresEntry>();
 		[SerializeField] private CharacterManager characterManager;
-		private bool isActive = false;
+		private bool isActive;
 		private void Awake() => Hide();
 		public void Close() => Hide();
 
@@ -36,11 +36,7 @@ namespace UI
 			var chars = CharacterManager.characters.OrderBy(x => x.GetCharacterStats().currentLevel).ToList();
 			var stats = chars.Select(character => character.GetCharacterStats()).ToList();
 			stats.Reverse();
-
-			for (var i = 0; i < chars.Count; i++)
-			{
-				GenerateHighscore(stats[i], i);
-			}
+			for (var i = 0; i < chars.Count; i++) GenerateHighscore(stats[i], i);
 		}
 
 		private void GetAllStats()

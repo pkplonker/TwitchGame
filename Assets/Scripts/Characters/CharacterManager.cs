@@ -112,7 +112,7 @@ namespace Characters
 			if (characters.Any(character => character.GetUserName() == username)) return;
 			var c = Instantiate(characterPrefab, transform).GetComponent<Character>();
 			characters.Add(c);
-			c.Init(this, username, GenerateCharacterStats(username));
+			c.Init(username, GenerateCharacterStats(username));
 		}
 
 		private CharacterStats GenerateCharacterStats(string userName)
@@ -126,7 +126,6 @@ namespace Characters
 				s.Save();
 				return s;
 			}
-
 			var json = File.ReadAllText(path);
 			var sd = JsonUtility.FromJson<CharacterSaveData>(json);
 			var cs = new CharacterStats(userName, levelData, characterClassContainer);
@@ -163,8 +162,7 @@ namespace Characters
 
 		public static Character GetCharacterByUserName(string un) =>
 			characters.FirstOrDefault(character => character.GetUserName() == un);
-
-
+		
 		private void MemberLeave(string username)
 		{
 			if (characters.Count == 0) return;
@@ -178,10 +176,7 @@ namespace Characters
 
 		public void SaveAllCharacters()
 		{
-			foreach (var c in characters)
-			{
-				c.SaveState();
-			}
+			foreach (var c in characters) c.SaveState();
 		}
 	}
 }

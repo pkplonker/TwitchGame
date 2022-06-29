@@ -23,10 +23,7 @@ namespace Characters
 
 		private void LevelUp(int level, CharacterStats stats)
 		{
-			if (stats.userName == character.GetUserName())
-			{
-				SetName(character.GetUserName());
-			}
+			if (stats.userName == character.GetUserName()) SetName(character.GetUserName());
 		}
 
 		private void OnDisable()
@@ -35,19 +32,14 @@ namespace Characters
 			character.OnHealthChanged -= TakeDamage;
 		}
 
-		private void Awake()
-		{
-			healthBarImage.SetActive(false);
-		}
+		private void Awake() => healthBarImage.SetActive(false);
+
 
 		private void TakeDamage(Character c, float max, float current)
 		{
 			healthBarImage.SetActive(true);
 			SetFill(max, current);
-			if (cor == null)
-			{
-				cor = StartCoroutine(HealthBar());
-			}
+			if (cor == null) cor = StartCoroutine(HealthBar());
 			else
 			{
 				StopCoroutine(cor);
@@ -58,7 +50,7 @@ namespace Characters
 		private void Start() => SetFill(1f, 1f);
 
 		public void SetName(string username) =>
-			userName.text = username + "(" + character.GetCharacterStats().currentLevel+ ")";
+			userName.text = username + "(" + character.GetCharacterStats().currentLevel + ")";
 
 		private void SetFill(float current, float max) => healthBarImageFill.fillAmount = current / max;
 

@@ -41,9 +41,8 @@ namespace Characters
 		private CharacterStats characterStats;
 
 		public CharacterStats GetCharacterStats() => characterStats;
-		public void SetCharacterStats(CharacterStats stats) => characterStats = stats;
 
-		public void Init(CharacterManager characterManager, string userName, CharacterStats characterStats)
+		public void Init( string userName, CharacterStats characterStats)
 		{
 			animator = GetComponentInChildren<Animator>();
 			this.userName = userName;
@@ -66,7 +65,6 @@ namespace Characters
 				moveTimer = 0;
 				RandomMove();
 			}
-
 			UpdateLocation();
 		}
 
@@ -76,12 +74,8 @@ namespace Characters
 
 		public void Flip(bool isRight) => flipper.transform.localScale = isRight ? Vector3.one : new Vector3(-1, 1, 1);
 		public void DestroyObject() => Destroy(gameObject);
-		public bool GetIsDead() => isDead;
 		public void SaveState() => characterStats.Save();
 		[SerializeField] SpriteRenderer spriteRenderer;
-
-		
-
 		private void UpdateLocation()
 		{
 			if (Vector3.Distance(transform.position, targetLocation) < 0.2f)
@@ -90,7 +84,6 @@ namespace Characters
 				OnReachedDestination?.Invoke(this);
 				return;
 			}
-
 			animator.SetTrigger(DoMove);
 			Move();
 		}
@@ -149,7 +142,6 @@ namespace Characters
 				Die();
 				return;
 			}
-
 			OnHealthChanged?.Invoke(this, currentHealth, maxHealth);
 		}
 
@@ -183,6 +175,7 @@ namespace Characters
 			animator.runtimeAnimatorController = classs.GetAnimationController();
 			spriteRenderer.sprite = classs.sprite;
 			characterStats.SetCurrentClass(classs);
+			SaveState();
 		}
 	}
 }

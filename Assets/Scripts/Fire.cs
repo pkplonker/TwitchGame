@@ -24,8 +24,7 @@ public class Fire : MonoBehaviour
 		animator.enabled = s;
 		if (!s) spriteRenderer.sprite = null;
 	}
-
-
+	
 	private void OnEnable()
 	{
 		FightController.OnFightOver += FightOver;

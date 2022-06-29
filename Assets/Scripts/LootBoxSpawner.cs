@@ -41,7 +41,6 @@ public class LootBoxSpawner : MonoBehaviour
 			SetNewSpawnTargetTime();
 			return;
 		}
-
 		SpawnLootBox();
 	}
 
@@ -57,9 +56,6 @@ public class LootBoxSpawner : MonoBehaviour
 
 	public void AwardLoot(List<Character> characters)
 	{
-		foreach (var c in characters)
-		{
-			xExpHandler.AllocateXP(c, lootBoxXP);
-		}
+		foreach (var c in characters) xExpHandler.AllocateXP(c, lootBoxXP);
 	}
 }

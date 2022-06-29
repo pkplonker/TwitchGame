@@ -26,6 +26,7 @@ namespace UI
 		public void Connect() => TwitchCore.Instance.AttemptConnection(); //ui button
 		public void Open() => Show(); //ui button
 		public void Close() => Hide(); //ui button
+		public void ShowHighscores() => highscores.Open();
 
 
 		private void ConnectionStateChanged(ConnectionState state)
@@ -47,13 +48,10 @@ namespace UI
 			else Close();
 		}
 
-		public void ShowHighscores()
-		{
-			highscores.Open();
-		}
 
 		public void Quit()
 		{
+			foreach (var character in CharacterManager.characters) character.SaveState();
 			Debug.Log("Quitting");
 			CharacterManager.Instance.SaveAllCharacters();
 			Application.Quit();

@@ -23,14 +23,8 @@ public class LevelData : ScriptableObject
 	public void CalculateLevelArray()
 	{
 		levels = new int[maxLevel+1];
-		for (int i = 0; i < maxLevel+1; i++)
-		{
-			levels[i] = (int) (Mathf.Floor(100 * (Mathf.Pow(i, 1.5f))));
-		}
+		for (int i = 0; i < maxLevel+1; i++) levels[i] = (int) (Mathf.Floor(100 * (Mathf.Pow(i, 1.5f))));
+		
 	}
-
-	public long GetXPForLevel(CharacterStats character, int level)
-	{
-		return levels[level];
-	}
+	
 }

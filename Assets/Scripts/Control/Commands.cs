@@ -27,10 +27,7 @@ namespace Control
 
 		private void OnMessage(string sender, string message)
 		{
-			if (message.Contains(GetCommandCommand()))
-			{
-				TwitchCore.Instance.PRIVMSGTToTwitch("https://pkplonker.github.io/TwitchGame/");
-			}
+			if (message.Contains(GetCommandCommand())) TwitchCore.Instance.PRIVMSGTToTwitch("https://pkplonker.github.io/TwitchGame/");
 		}
 
 		public string GetJoinCommand() => commandInitialChar + joinCommand;
@@ -38,7 +35,6 @@ namespace Control
 		public string GetFightCommand() => commandInitialChar + fightCommand;
 		public string GetMoveCommand() => commandInitialChar + moveCommand;
 		public string GetCommandCommand() => commandInitialChar + commandsCommand;
-
 		public string GetClassCommand()=> commandInitialChar + classCommand;
 		public string GetClassesCommand()=> commandInitialChar + classCommand;
 

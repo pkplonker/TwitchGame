@@ -44,7 +44,6 @@ namespace Characters
 			
 
 			OnLevelUp?.Invoke(currentLevel, this);
-
 			Save();
 		}
 
@@ -88,11 +87,7 @@ namespace Characters
 		public int GetNextLevel()
 		{
 			var level = currentLevel++;
-			if (currentLevel - 1 == levelData.maxLevel)
-			{
-				return -1;
-			}
-
+			if (currentLevel - 1 == levelData.maxLevel) return -1;
 			return level;
 		}
 

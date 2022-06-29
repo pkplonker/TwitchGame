@@ -40,8 +40,5 @@ public class ClassController : MonoBehaviour
 		}
 	}
 
-	private string StripCommand(string message)
-	{
-		return message.Replace(commands.GetClassCommand() + " ", "");
-	}
+	private string StripCommand(string message) => message.Replace(commands.GetClassCommand() + " ", "");
 }

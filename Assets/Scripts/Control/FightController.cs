@@ -27,34 +27,25 @@ namespace Control
 		public static event Action OnFightStart;
 
 		private Coroutine cor;
-		private bool fightOver = false;
+		private bool fightOver ;
 		private void OnEnable() => CharacterManager.OnFightRequested += InitiateFight;
 		private void OnDisable() => CharacterManager.OnFightRequested -= InitiateFight;
 		private Queue<Tuple<Character, Character>> outstandingFights = new Queue<Tuple<Character, Character>>();
 
 		private void InitiateFight(Character fighter1, Character fighter2)
 		{
-			if (fightLocation1 == null || fightLocation2 == null || fighter1 == null || fighter2 == null)
-			{
-				Debug.LogError("Missing data");
-				return;
-			}
+			if (fightLocation1 == null || fightLocation2 == null || fighter1 == null || fighter2 == null) return;
 
 			if (fightEventActive)
 			{
-				Debug.LogWarning("fight already underway");
-				if (CheckIfAlreadyInQueue(fighter1))
-				{
-					TwitchCore.Instance.PRIVMSGTToTwitch("@" + fighter1.GetUserName() +
+				if (CheckIfAlreadyInQueue(fighter1)) TwitchCore.Instance.PRIVMSGTToTwitch("@" + fighter1.GetUserName() +
 					                                     " You are already in the queue, Let someone else fight!");
-				}
 				else
 				{
 					TwitchCore.Instance.PRIVMSGTToTwitch("@" + fighter1.GetUserName() +
 					                                     " Fight Already Underway, You've been added to the queue");
 					outstandingFights.Enqueue(new Tuple<Character, Character>(fighter1, fighter2));
 				}
-
 				return;
 			}
 
@@ -86,7 +77,6 @@ namespace Control
 				c.Flip(false);
 				f2ReachedDestination = true;
 			}
-
 			if (f1ReachedDestination && f2ReachedDestination) FightersAtDestination();
 		}
 
@@ -105,7 +95,6 @@ namespace Control
 				fighter2.OnReachedDestination -= ReachedDestination;
 				fighter2.ResetAfterFight();
 			}
-
 			f1ReachedDestination = false;
 			f2ReachedDestination = false;
 			fighter1 = null;
@@ -123,12 +112,9 @@ namespace Control
 			if (outstandingFights.Count == 0) return;
 			while (outstandingFights.Count != 0)
 			{
-				var x = outstandingFights.Dequeue();
-				Debug.Log(x.Item1 + " is  active member = " + ActiveMembers.IsActiveMember(x.Item1));
-				Debug.Log(x.Item2 + " is  active member = " + ActiveMembers.IsActiveMember(x.Item2));
-
-				if (!ActiveMembers.IsActiveMember(x.Item1) || !ActiveMembers.IsActiveMember(x.Item2)) continue;
-				InitiateFight(x.Item1, x.Item2);
+				var (item1, item2) = outstandingFights.Dequeue();
+				if (!ActiveMembers.IsActiveMember(item1) || !ActiveMembers.IsActiveMember(item2)) continue;
+				InitiateFight(item1, item2);
 				return;
 			}
 		}
@@ -166,24 +152,9 @@ namespace Control
 		{
 			if (fightOver) return;
 			fightOver = true;
-
-			if (cor != null)
-			{
-				StopCoroutine(cor);
-			}
-
-			if (c == fighter1)
-			{
-				Debug.Log("fighter 2 wins");
-				OnFightOver?.Invoke(fighter2, fighter1);
-			}
-
-			else if (c == fighter2)
-			{
-				Debug.Log("fighter 1 wins");
-				OnFightOver?.Invoke(fighter1, fighter2);
-			}
-
+			if (cor != null) StopCoroutine(cor);
+			if (c == fighter1) OnFightOver?.Invoke(fighter2, fighter1);
+			else if (c == fighter2) OnFightOver?.Invoke(fighter1, fighter2);
 			fightUnderWay = false;
 			Invoke(nameof(FightOver), 4f);
 		}

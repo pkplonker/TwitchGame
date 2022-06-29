@@ -20,6 +20,8 @@ namespace Characters
 		{
 			AllocateXP(winner, winnerXp);
 			AllocateXP(loser, loserXP);
+			winner.SaveState();
+			loser.SaveState();
 		}
 
 		public void AllocateXP(Character character, long amount)

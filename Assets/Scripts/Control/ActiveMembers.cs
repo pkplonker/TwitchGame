@@ -14,7 +14,7 @@ namespace Control
 {
 	public class ActiveMembers : MonoBehaviour
 	{
-		[SerializeField] private static List<ActiveMember> activeMembers = new List<ActiveMember>();
+		private static List<ActiveMember> activeMembers = new List<ActiveMember>();
 		[SerializeField] private Commands commands;
 		[SerializeField] private float timeOutMinutes;
 		public static event Action<string> OnMemberJoin;
@@ -62,7 +62,7 @@ namespace Control
 			if (amm != null) amm.joinTime = Time.time;
 		}
 
-		public static ActiveMember FindByUsername(string sender) => activeMembers.Find(x => x.userName == sender);
+		private static ActiveMember FindByUsername(string sender) => activeMembers.Find(x => x.userName == sender);
 		public static bool IsActiveMember(Character character) => FindByUsername(character.GetUserName()) != null;
 
 		private void MemberJoin(string sender)

@@ -8,7 +8,6 @@ namespace Control
 	{
 		[SerializeField] private GameObject props;
 		[SerializeField] private GameObject floor;
-
 		[SerializeField] private GameObject sky;
 
 		private void Awake()

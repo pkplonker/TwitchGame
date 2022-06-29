@@ -24,10 +24,7 @@ public class LootBox : MonoBehaviour
 		var characters = new List<Character>();
 		foreach (var target in targets)
 		{
-			if (target.TryGetComponent<Character>(out var c))
-			{
-				characters.Add(c);
-			}
+			if (target.TryGetComponent<Character>(out var c)) characters.Add(c);
 		}
 
 		spawner.AwardLoot(characters);

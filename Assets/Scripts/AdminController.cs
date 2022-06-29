@@ -17,10 +17,7 @@ public class AdminController : MonoBehaviour
 
 	private void ParseMessage(string sender, string message)
 	{
-		if (message.Contains("!setlevel") && IsValidAdmin(sender))
-		{
-			SetLevel(sender, message);
-		}
+		if (message.Contains("!setlevel") && IsValidAdmin(sender)) SetLevel(sender, message);
 	}
 
 	private void SetLevel(string sender, string message)
@@ -29,10 +26,7 @@ public class AdminController : MonoBehaviour
 		if (int.TryParse(level, out var intValue))
 		{
 			var character = CharacterManager.GetCharacterByUserName(sender);
-			if (character == null)
-			{
-				Debug.LogWarning("Unable to find character");
-			}
+			if (character == null) Debug.LogWarning("Unable to find character");
 			else
 			{
 				Debug.Log("");

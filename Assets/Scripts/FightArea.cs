@@ -2,11 +2,9 @@
 // Copyright (C) 2022 Stuart Heath. All rights reserved.
 //
 
-using System;
 using Characters;
 using Control;
 using UnityEngine;
-using Random = System.Random;
 
 /// <summary>
 ///FightArea full description
@@ -35,10 +33,8 @@ public class FightArea : MonoBehaviour
 		}
 	}
 
-	private void OnTriggerEnter2D(Collider2D other)
-	{
-		CheckForPlayers(other);
-	}
+	private void OnTriggerEnter2D(Collider2D other)=>CheckForPlayers(other);
+			
 
 	private void MoveCharacterToSafeArea(Character character) =>
 		MoveChar(!(character.transform.position.x > fightPoint2.transform.position.x), character);
