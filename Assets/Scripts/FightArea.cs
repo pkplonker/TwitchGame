@@ -42,7 +42,6 @@ public class FightArea : MonoBehaviour
 
 	private void MoveChar(bool moveLeft, Character character)
 	{
-		Debug.Log("moving char due to fight");
 		character.RequestMove(moveLeft
 			? new Vector3(UnityEngine.Random.Range(character.GetMinX(), fightPoint1.transform.position.x), 0, 0)
 			: new Vector3(UnityEngine.Random.Range(character.GetMaxX(), fightPoint1.transform.position.x), 0, 0));

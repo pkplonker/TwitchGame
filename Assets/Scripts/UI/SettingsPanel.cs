@@ -59,5 +59,8 @@ namespace UI
 			UnityEditor.EditorApplication.isPlaying = false;
 #endif
 		}
+		
+		public void OAuth()=>Application.OpenURL("https://twitchapps.com/tmi/");
+		
 	}
 }
