@@ -35,6 +35,7 @@ namespace UI
 		{
 			var chars = CharacterManager.characters.OrderBy(x => x.GetCharacterStats().currentLevel).ToList();
 			var stats = chars.Select(character => character.GetCharacterStats()).ToList();
+			stats.Reverse();
 
 			for (var i = 0; i < chars.Count; i++)
 			{
@@ -44,8 +45,8 @@ namespace UI
 
 		private void GetAllStats()
 		{
-			Debug.Log("here");
-			var stats = characterManager.GetAllCharacterStatData();
+			var stats = characterManager.GetAllCharacterStatData().OrderBy(x => x.currentLevel).ToList();
+			stats.Reverse();
 
 			for (var i = 0; i < stats.Count(); i++)
 			{
