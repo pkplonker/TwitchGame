@@ -6,51 +6,37 @@ namespace Control
 {
 	public class BackgroundController : MonoBehaviour
 	{
-		[SerializeField] private List<SpriteRenderer> spriteRenderers = new List<SpriteRenderer>();
+		[SerializeField] private GameObject props;
+		[SerializeField] private GameObject floor;
+
 		[SerializeField] private GameObject sky;
 
-		private void Awake() => sky.SetActive(PlayerPrefs.GetInt("sky") != 0);
-
-
+		private void Awake()
+		{
+			sky.SetActive(PlayerPrefs.GetInt("sky") != 0);
+			floor.SetActive(PlayerPrefs.GetInt("floor") != 0);
+			props.SetActive(PlayerPrefs.GetInt("props") != 0);
+		} 
+		
 		public void ToggleSky()
 		{
 			sky.SetActive(!sky.activeSelf);
 			PlayerPrefs.SetInt("sky", !sky.activeSelf ? 0 : 1);
 		}
-
-		public void ShowBackground() => EnableAllSpriteRenderers();
-		public void HideBackground() => DisableAllSpriteRenderers();
-
-		private void EnableSpriteRenderer(int index)
+		public void ToggleFloor()
 		{
-			if (index > spriteRenderers.Count) return;
-			spriteRenderers[index].enabled = true;
+			floor.SetActive(!floor.activeSelf);
+			PlayerPrefs.SetInt("floor", !floor.activeSelf ? 0 : 1);
 		}
-
-		private void DisableSpriteRenderer(int index)
+		public void ToggleProps()
 		{
-			if (index > spriteRenderers.Count) return;
-			spriteRenderers[index].enabled = true;
+			props.SetActive(!props.activeSelf);
+			PlayerPrefs.SetInt("props", !props.activeSelf ? 0 : 1);
 		}
-
-		private void EnableAllSpriteRenderers()
-		{
-			foreach (var spriteRenderer in spriteRenderers) spriteRenderer.enabled = true;
-		}
-
-		private void DisableAllSpriteRenderers()
-		{
-			foreach (var spriteRenderer in spriteRenderers)
-			{
-				spriteRenderer.enabled = false;
-			}
-		}
+		
+		
 
 
-		public void ShowFloorOnly()
-		{
-			DisableAllSpriteRenderers();
-			EnableSpriteRenderer(0);
-		}
+		
 	}
 }

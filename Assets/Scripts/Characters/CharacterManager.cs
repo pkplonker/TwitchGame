@@ -109,11 +109,7 @@ namespace Characters
 
 		private void MemberJoin(string username)
 		{
-			if (characters.Any(character => character.GetUserName() == username))
-			{
-				return;
-			}
-
+			if (characters.Any(character => character.GetUserName() == username)) return;
 			var c = Instantiate(characterPrefab, transform).GetComponent<Character>();
 			characters.Add(c);
 			c.Init(this, username, GenerateCharacterStats(username));
@@ -126,25 +122,48 @@ namespace Characters
 			Directory.CreateDirectory(Application.persistentDataPath + dir);
 			if (!File.Exists(path))
 			{
-				Debug.Log(("creating new characterStats for " + userName).WithColor(Color.magenta));
 				var s = new CharacterStats(userName, levelData, characterClassContainer);
 				s.Save();
 				return s;
 			}
 
-			Debug.Log(("Loading existing characterStats for " + userName).WithColor(Color.magenta));
 			var json = File.ReadAllText(path);
-			CharacterSaveData sd = JsonUtility.FromJson<CharacterSaveData>(json);
+			var sd = JsonUtility.FromJson<CharacterSaveData>(json);
 			var cs = new CharacterStats(userName, levelData, characterClassContainer);
 			cs.Load(sd);
 			return cs;
+		}
+
+		public List<CharacterStats> GetAllCharacterStatData()
+		{
+			var path = Application.persistentDataPath + dir;
+			var files = Directory.GetFiles(path);
+			List<CharacterStats> stats = new List<CharacterStats>();
+			foreach (var file in files)
+			{
+				try
+				{
+					var json = File.ReadAllText(file);
+					var sd = JsonUtility.FromJson<CharacterSaveData>(json);
+					var s = new CharacterStats(sd.userName, levelData, characterClassContainer);
+					s.Load(sd);
+					stats.Add(s);
+				}
+				catch (Exception e)
+				{
+					Debug.LogError(e);
+					Debug.LogError(e.StackTrace);
+					throw;
+				}
+			}
+
+			return stats;
 		}
 
 
 		public static Character GetCharacterByUserName(string un) =>
 			characters.FirstOrDefault(character => character.GetUserName() == un);
 
-	
 
 		private void MemberLeave(string username)
 		{

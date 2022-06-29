@@ -16,6 +16,7 @@ namespace UI
 	public class SettingsPanel : CanvasGroupBase
 	{
 		[SerializeField] private TextMeshProUGUI statusText;
+		[SerializeField] private Highscores highscores;
 		private void Awake() => canvasGroup = GetComponent<CanvasGroup>();
 		private void Start() => Hide();
 		private void OnEnable() => TwitchCore.OnConnectionStatusChange += ConnectionStateChanged;
@@ -44,6 +45,11 @@ namespace UI
 			if (!Input.GetKeyDown(KeyCode.Escape)) return;
 			if (canvasGroup.alpha == 0) Open();
 			else Close();
+		}
+
+		public void ShowHighscores()
+		{
+			highscores.Open();
 		}
 
 		public void Quit()
