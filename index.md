@@ -1,6 +1,6 @@
 ## Welcome to Twitch Fighter Bot developed by [@pkplonker](https://github.com/pkplonker/)
 
-![Alt text](twitchsnip2.jpg?raw=true "Title Image")
+![twitchsnip2](https://user-images.githubusercontent.com/86880042/176750349-577a3d51-6061-4510-b2ef-39a0d5b38ddb.JPG)
 
 
 
@@ -18,7 +18,7 @@ Ensure the status is connection confirmed, if it's not after a few seconds of at
 
 Within OBS, use a Chroma Key effect filter to remove generate the overlay effect.
 
-![Alt text](twitchsnip3.jpg?raw=true "OBS Chroma Key")
+![twitchsnip3](https://user-images.githubusercontent.com/86880042/176750371-4e85a431-e991-499a-a5b3-6e2758b91e28.JPG)
 
 
 
