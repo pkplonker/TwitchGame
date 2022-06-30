@@ -2,11 +2,17 @@
 
 ## Setting up in game
 
+Load the game up and follow the below setup.
+
 A few options are avaliable, located by pressing the esc key ingame.
 
 1. Show/Hide Background
 2. Show/Hide Trees
 3. Login
+
+Ensure the status is connection confirmed, if it's not after a few seconds of attempting connection, try again.
+
+Within OBS, use a Chroma Key effect filter to remove generate the overlay effect.
 
 ## Logging in
 
