@@ -51,5 +51,13 @@ namespace Editor
 		{
 			IRCParser.FightTesters("pkplonker", "pkplonkertest");
 		}
+		
+		
+		[MenuItem("TwitchGame/Mass Test", false, 0)]
+		public static void MassJoin()
+		{
+			IRCParser.JoinTestersMass();
+		}
+
 	}
 }

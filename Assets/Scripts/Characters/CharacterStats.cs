@@ -23,13 +23,15 @@ namespace Characters
 		public CharacterClass characterClass;
 		public int currentWinStreak;
 		public int bestWinStreak;
+		private CharacterClassContainer characterClassContainer;
 		public static event Action<int, CharacterStats> OnLevelUp;
 
 		public CharacterStats(string userName, LevelData levelData, CharacterClassContainer ccc)
 		{
 			this.userName = userName;
 			this.levelData = levelData;
-			characterClass = ccc.classes[0];
+			characterClassContainer = ccc;
+			LoadDefaultClass();
 		}
 
 		public void EarnXP(long amount)
@@ -80,7 +82,11 @@ namespace Characters
 			characterClass = sd.characterClass;
 			bestWinStreak = sd.bestWinStreak;
 			currentWinStreak = sd.currentWinStreak;
+			characterClass = sd.characterClass;
+			if (characterClass == null) LoadDefaultClass();
 		}
+
+		public void LoadDefaultClass()=> characterClass = characterClassContainer.classes[0];
 
 		public void SetCurrentClass(CharacterClass characterClass) => this.characterClass = characterClass;
 

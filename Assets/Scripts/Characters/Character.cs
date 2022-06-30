@@ -172,6 +172,7 @@ namespace Characters
 
 		public void ChangeClass(CharacterClass classs)
 		{
+			if (classs == null) characterStats.LoadDefaultClass();
 			animator.runtimeAnimatorController = classs.GetAnimationController();
 			spriteRenderer.sprite = classs.sprite;
 			characterStats.SetCurrentClass(classs);
