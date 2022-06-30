@@ -1,5 +1,8 @@
 ## Welcome to Twitch Fighter Bot developed by [@pkplonker](https://github.com/pkplonker/)
 
+![Screenshot](twitchsnip3.png)
+
+
 ## Setting up in game
 
 Load the game up and follow the below setup.
@@ -13,6 +16,9 @@ A few options are avaliable, located by pressing the esc key ingame.
 Ensure the status is connection confirmed, if it's not after a few seconds of attempting connection, try again.
 
 Within OBS, use a Chroma Key effect filter to remove generate the overlay effect.
+
+![Screenshot](twitchsnip2.png)
+
 
 ## Logging in
 
