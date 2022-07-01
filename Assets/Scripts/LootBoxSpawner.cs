@@ -28,7 +28,7 @@ public class LootBoxSpawner : MonoBehaviour
 
 	private void Awake() => lootBoxSpawnPositions = GetComponentsInChildren<Transform>().ToList();
 	private void Start() => SetNewSpawnTargetTime();
-	private void SetNewSpawnTargetTime() => currentTargetTime = UnityEngine.Random.Range(lootSpawnMin, lootSpawnMax);
+	private void SetNewSpawnTargetTime() => currentTargetTime = UnityEngine.Random.Range(lootSpawnMin*60, lootSpawnMax*60);
 
 
 	private void Update()
