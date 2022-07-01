@@ -19,6 +19,7 @@ namespace Control
 		[SerializeField] private float timeOutMinutes;
 		public static event Action<string> OnMemberJoin;
 		public static event Action<string> OnMemberLeave;
+		[SerializeField] [Range(5,150)] private uint maxPlayers=50;
 
 		private void Start() => StartCoroutine(CheckTimeouts());
 		protected virtual void OnEnable() => IRCParser.OnPRIVMSG += OnMessage;
@@ -67,6 +68,11 @@ namespace Control
 
 		private void MemberJoin(string sender)
 		{
+			if (activeMembers.Count >= maxPlayers)
+			{
+				TwitchCore.Instance.PRIVMSGTToTwitch("This game is currently full, please wait and try again");
+				return;
+			}
 			if (IsBanned(sender)) return;
 			activeMembers.Add(new ActiveMember(sender, Time.time));
 			OnMemberJoin?.Invoke(sender);
