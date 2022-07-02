@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using StuartHeathTools;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Unity.Services.Authentication;
@@ -21,63 +22,25 @@ namespace Multiplayer
 	/// <summary>
 	///MultiplayerController full description
 	/// </summary>
-	public class MultiplayerController : MonoBehaviour
+	public class MultiplayerGameConnection : GenericUnitySingleton<MultiplayerGameConnection>
 	{
 		private string lobbyId;
-		private bool isSignedIn = false;
 		private RelayHostData relayHostData;
 		private RelayJoinData relayJoinData;
-
-		private async void Start()
-		{
-			await UnityServices.InitializeAsync();
-			SetupAuthEvents();
-			await SignInAnon();
-		}
-
-		private void SetupAuthEvents()
-		{
-			AuthenticationService.Instance.SignedIn += () =>
-			{
-				Debug.Log($"PlayerID: {AuthenticationService.Instance.PlayerId}");
-				Debug.Log($"Access Token: {AuthenticationService.Instance.AccessToken}");
-				isSignedIn = true;
-			};
-			AuthenticationService.Instance.SignInFailed += (err) =>
-			{
-				Debug.LogError(err);
-				isSignedIn = false;
-			};
-			AuthenticationService.Instance.SignedOut += () =>
-			{
-				Debug.Log("Player signed out");
-				isSignedIn = false;
-			};
-		}
-
-		async Task SignInAnon()
-		{
-			try
-			{
-				await AuthenticationService.Instance.SignInAnonymouslyAsync();
-				Debug.Log("Signed in anonymously!");
-			}
-			catch (Exception e)
-			{
-				Debug.LogException(e);
-				throw;
-			}
-		}
+		public static event Action OnFailedToFindGame;
+		public static event Action OnFailedToLogin;
+		public static event Action OnLoggedIn;
+		private Coroutine heartbeat;
 
 		public async void FindMatch()
 		{
 			Debug.Log("Looking for lobby...");
-			if (!isSignedIn)
-			{
-				Debug.LogWarning("Not signed in.");
-				return;
-			}
+			await HandleServerAuth();
+			await HandleJoinMatchmakingServer();
+		}
 
+		private async Task HandleJoinMatchmakingServer()
+		{
 			try
 			{
 				var options = new QuickJoinLobbyOptions();
@@ -111,44 +74,65 @@ namespace Multiplayer
 			catch (LobbyServiceException e)
 			{
 				Debug.Log("Unable to find lobby - " + e);
-				CreateMatch();
+				throw;
 			}
 		}
 
-		private async void CreateMatch()
+		private static async Task HandleServerAuth()
+		{
+			Debug.LogWarning("Not signed in.");
+			try
+			{
+				await ServerSignIn.Instance.SignInAnon();
+				OnLoggedIn?.Invoke();
+			}
+			catch (Exception e)
+			{
+				Debug.LogWarning("Failed to sign in - " + e);
+				OnFailedToLogin?.Invoke();
+			}
+		}
+
+
+		private async void CreateMatchmakingGame(bool isPrivate, string lobbyName)
+		{
+			await HandleServerAuth();
+			Debug.Log("Creating a new lobby");
+			await HandleCreateMatchmakingServer(isPrivate, lobbyName);
+		}
+
+
+		private async Task HandleCreateMatchmakingServer(bool isPrivate, string lobbyName)
 		{
 			var maxConnections = 1;
-			Debug.Log("Creating a new lobby");
-
-
+			if (string.IsNullOrWhiteSpace(lobbyName)) lobbyName = "Default_Lobby_Name";
 			try
 			{
 				var allocation = await Relay.Instance.CreateAllocationAsync(maxConnections);
-				relayHostData = new RelayHostData()
+				relayHostData = new RelayHostData
 				{
 					key = allocation.Key,
 					port = (ushort) allocation.RelayServer.Port,
 					allocationID = allocation.AllocationId,
 					allocationIDBytes = allocation.AllocationIdBytes,
 					connectionData = allocation.ConnectionData,
-					iPV4Address = allocation.RelayServer.IpV4
+					iPV4Address = allocation.RelayServer.IpV4,
+					joinCode = await Relay.Instance.GetJoinCodeAsync(allocation.AllocationId)
 				};
 
-				relayHostData.joinCode = await Relay.Instance.GetJoinCodeAsync(allocation.AllocationId);
-				const string lobbyName = "game_lobby";
 				const int maxPLayers = 2;
 				var options = new CreateLobbyOptions
 				{
-					IsPrivate = false
-				};
-				options.Data = new Dictionary<string, DataObject>()
-				{
-					{"joinCode", new DataObject(DataObject.VisibilityOptions.Member, relayHostData.joinCode)}
+					IsPrivate = isPrivate,
+					Data = new Dictionary<string, DataObject>()
+					{
+						{"joinCode", new DataObject(DataObject.VisibilityOptions.Member, relayHostData.joinCode)}
+					}
 				};
 				var lobby = await Lobbies.Instance.CreateLobbyAsync(lobbyName, maxPLayers, options);
 				lobbyId = lobby.Id;
 				Debug.Log("Created lobby: " + lobby.Id);
-				StartCoroutine(HeartBeatLobbyCor(lobby.Id, 15));
+				heartbeat = StartCoroutine(HeartBeatLobbyCor(lobby.Id, 15));
 
 				NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(
 					relayHostData.iPV4Address,
@@ -177,7 +161,13 @@ namespace Multiplayer
 			}
 		}
 
-		private void OnDestroy() => Lobbies.Instance.DeleteLobbyAsync(lobbyId);
+		private void OnDestroy()
+		{
+			if (Lobbies.Instance != null)
+			{
+				Lobbies.Instance.DeleteLobbyAsync(lobbyId);
+			}
+		}
 
 		public struct RelayHostData
 		{
