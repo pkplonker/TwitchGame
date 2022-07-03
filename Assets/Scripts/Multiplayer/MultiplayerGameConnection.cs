@@ -34,7 +34,6 @@ namespace Multiplayer
 		public static event Action OnJoinedGame;
 
 
-
 		private Coroutine heartbeat;
 
 		public UnityTransport Transport => NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>();
@@ -42,24 +41,15 @@ namespace Multiplayer
 		public bool IsRelayEnabled =>
 			Transport != null && Transport.Protocol == UnityTransport.ProtocolType.RelayUnityTransport;
 
-		private IEnumerator HeartBeatLobbyCor(string lobbyId, float waitTimeSeconds)
-		{
-			var delay = new WaitForSecondsRealtime(waitTimeSeconds);
-			while (true)
-			{
-				Lobbies.Instance.SendHeartbeatPingAsync(lobbyId);
-				Debug.Log("Lobby heartbeat");
-				yield return delay;
-			}
-		}
-
+	
 		public async Task<RelayHostData> SetupRelay()
 		{
 			try
 			{
 				OnCreatingGame?.Invoke();
-				var options = SetupEnvironment();
-				await Login(options);
+				InitializationOptions options = new InitializationOptions().SetEnvironmentName(environment);
+				await UnityServices.InitializeAsync(options);
+				await ServerSignIn.Instance.SignInAnonymouslyAsync();
 				Allocation allocation = await RelayService.Instance.CreateAllocationAsync(2);
 				RelayHostData relayHostData = new RelayHostData()
 				{
@@ -74,36 +64,37 @@ namespace Multiplayer
 				Transport.SetRelayServerData(relayHostData.IPv4Address, relayHostData.Port,
 					relayHostData.AllocationIDBytes,
 					relayHostData.Key, relayHostData.ConnectionData);
+				try
+				{
+					NetworkManager.Singleton.StartHost();
+				}
+				catch (Exception e)
+				{
+					Logger.Instance.LogError("Failed to start host " + e);
+				}
+				
 				OnGameCreated?.Invoke();
+				Logger.Instance.Log("Code is: " + relayHostData.JoinCode);
+
+				Logger.Instance.Log("Created game");
 				return relayHostData;
 			}
 			catch (Exception e)
 			{
-				Debug.Log(e);
+				Logger.Instance.LogError(e.ToString());
 				OnFailedToCreateGame?.Invoke();
 				throw;
 			}
 		}
 
-		private static async Task Login(InitializationOptions options)
-		{
-			await UnityServices.InitializeAsync(options);
-			await ServerSignIn.Instance.SignInAnonymouslyAsync();
-		}
-
-		private InitializationOptions SetupEnvironment()
-		{
-			InitializationOptions options = new InitializationOptions().SetEnvironmentName(environment);
-			return options;
-		}
 
 		public async Task<RelayJoinData> JoinRelay(string joinCode)
 		{
 			try
 			{
-				var options = SetupEnvironment();
-				await Login(options);
-
+				InitializationOptions options = new InitializationOptions().SetEnvironmentName(environment);
+				await UnityServices.InitializeAsync(options);
+				await ServerSignIn.Instance.SignInAnonymouslyAsync();
 				JoinAllocation allocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
 				RelayJoinData joinData = new RelayJoinData()
 				{
@@ -116,15 +107,17 @@ namespace Multiplayer
 					JoinCode = joinCode
 				};
 				Transport.SetRelayServerData(joinData.IPv4Address, joinData.Port,
-					joinData.AllocationIDBytes,
+					joinData.AllocationIDBytes, joinData.Key,
 					joinData.ConnectionData, joinData.HostConnectionData);
 				OnJoinedGame?.Invoke();
+				Logger.Instance.Log("Joined Game");
+
 				return joinData;
 			}
 			catch (Exception e)
 			{
-				Debug.Log(e);
-				OnFailedToCreateGame?.Invoke();
+				Logger.Instance.LogError(e.ToString());
+				OnFailedToJoinGame?.Invoke();
 				throw;
 			}
 		}

@@ -233,6 +233,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -242,8 +244,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -264,9 +266,12 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -1800,6 +1805,77 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      BAU Attack: -3813782614545376446
+      RA Attack: 5026972546934958715
+      BGU Hit Red: -8110590899558308026
+      RW Idle: -4667628145153450467
+      BA Idle: 4749904528282777558
+      BG Idle: -5908743213997753785
+      RGU Idle: -3385372371976808063
+      RS Hit: 9132216423428076053
+      RA Idle: 7110494968479972978
+      RSU Idle: -5325714947843674390
+      BGU Attack: 207178968290740852
+      BWU Idle: 1145669499519311739
+      BS Attack: -3387478527075654864
+      RW Attack: -4068256151103285213
+      RS Attack: -8816038613044792324
+      BA Attack: 9018646923762226945
+      BG Hit: 2222463801079782474
+      BS Hit Red: 4837840602407752856
+      RGU Attack: 8338569888481040020
+      BSU Attack: 7893245450136125235
+      BGU Die: -797345288293334197
+      RA Hit Red: -6978555727864421618
+      BWU Attack: 1814896009074319080
+      RWU Idle: 1552125296048368602
+      RSU Hit Red: -504634504403816024
+      BG Attack: 2473687490876715158
+      RS Hit Red: 8319982639285221730
+      BS Die: -5877259873991932285
+      RG Hit Red: 3751373364110516562
+      BSU Die: 5145048823938965306
+      RG Die: -6220024457818614411
+      RAA: 7476128397175872570
+      BAU Die: -2559619762054003050
+      RAU Hit: 4934799652423699161
+      RAU Die: -1213746384843948844
+      RG Idle: 6196606555088352618
+      BS Idle: -3154150011874791226
+      BG Die: 8678331415430427435
+      BGU Hit: -6180721501070938765
+      BSU Hit Red: 7339906270656204948
+      BAA: -5937618121108508431
+      BA Hit Red: 8777974672713614842
+      BA Die: -1539689639676168921
+      RA Hit: 8439226999888801368
+      RG Attack: 5136357203674067128
+      RS Idle: 8759150981705163766
+      RG Hit: -6025379319900620545
+      RAU Attack: -4587385282965195550
+      RAU Hit Red: 75332205279178075
+      BG Hit Red: -598267159285503414
+      RGU Hit: 2334716070153093768
+      RWU Attack: -3296969412554215656
+      RSU Die: 973039004434376389
+      RAU Idle: 2055389008599032140
+      RSU Hit: 6053436177387001487
+      RS Die: -6145295764767102903
+      BA Hit: 5835498782827802035
+      RSU Attack: -1620700546512529360
+      BAU Idle: -3875180428987827631
+      RGU Hit Red: -8176412890931608422
+      BAU Hit Red: -5256083238790965588
+      BS Hit: -7808734593389313954
+      BGU Idle: 661860490801623818
+      BW Idle: 3805063247507766641
+      BW Attack: 163955602261942339
+      BSU Idle: -8364913047766280116
+      BSU Hit: 631651796801477924
+      RA Die: 842016502522805355
+      RGU Die: 5699590749204039412
+      BAU Hit: 3690784489133827997
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
