@@ -14,18 +14,10 @@ namespace Multiplayer.UI
 		[SerializeField] private Color codeJoinColor;
 		public void Close() => Hide();
 
-		private void Start()
-		{
-			joinCodeText.text = joinCodeMessage + " TBC";
-		}
+		private void Start() => joinCodeText.text = joinCodeMessage + " TBC";
 
-		public void InputFieldUpdated()
-		{
-			GetInput();
-		}
-
+		public void InputFieldUpdated() => GetInput();
 		private string GetInput() => inputField.text;
-
 
 		public async void JoinPrivate()
 		{
@@ -33,34 +25,27 @@ namespace Multiplayer.UI
 			if (string.IsNullOrWhiteSpace(s)) return;
 			try
 			{
-				await MultiplayerGameConnection.Instance.HandleJoinServer(s);
-
+				await MultiplayerGameConnection.Instance.JoinRelay(s);
 			}
 			catch (Exception e)
 			{
-				Debug.LogError("Unable to join requested server" +e);
+				Debug.LogError("Unable to join requested server" + e);
 				throw;
 			}
-
-			//todo Implement join
 		}
 
 		public async void HostPrivate()
 		{
 			try
 			{
-				await MultiplayerGameConnection.Instance.CreateMatchmakingGame(true);
-				joinCodeText.text = joinCodeMessage + (MultiplayerGameConnection.Instance.lobbyCode).WithColor(codeJoinColor);
+				var hostData = await MultiplayerGameConnection.Instance.SetupRelay();
+				joinCodeText.text = joinCodeMessage +
+				                    (hostData.JoinCode).WithColor(codeJoinColor);
 			}
 			catch (Exception e)
 			{
 				Debug.Log("Failed to create private gam " + e);
 			}
-		}
-
-		public async void JoinMatchmaking()
-		{
-			await MultiplayerGameConnection.Instance.HandleJoinServer();
 		}
 	}
 }

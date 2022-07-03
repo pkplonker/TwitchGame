@@ -9,7 +9,6 @@ namespace Multiplayer
 {
 	public class ServerSignIn : GenericUnitySingleton<ServerSignIn>
 	{
-		private Task signInTask;
 		public static event Action OnSignedIn;
 		public static event Action OnSigningIn;
 
@@ -19,53 +18,74 @@ namespace Multiplayer
 		private async void Start()
 		{
 			await UnityServices.InitializeAsync();
-			SetupAuthEvents();
+			SignedOut();
 		}
 
-		private void SetupAuthEvents()
+		public bool GetSignInStatus()
 		{
-			AuthenticationService.Instance.SignedIn += () =>
+			if (AuthenticationService.Instance == null)
 			{
-				Debug.Log($"PlayerID: {AuthenticationService.Instance.PlayerId}");
-				Debug.Log($"Access Token: {AuthenticationService.Instance.AccessToken}");
-				OnSignedIn?.Invoke();
-			};
-			AuthenticationService.Instance.SignInFailed += (err) =>
-			{
-				Debug.LogError(err);
-				OnSignInFailed?.Invoke();
-			};
-			AuthenticationService.Instance.SignedOut += () =>
-			{
-				Debug.Log("Player signed out");
-				OnSignedOut?.Invoke();
-			};
-		}
-
-		public async Task SignInAnon()
-		{
-			Debug.Log("Attempting sign in");
-			if (signInTask == null)
-			{
-
-				signInTask = UnityServices.InitializeAsync();
-				await signInTask;
+				UnityServices.InitializeAsync();
+				return false;
 			}
 
-			if (AuthenticationService.Instance.IsAuthorized) return;
+			return AuthenticationService.Instance.IsSignedIn;
+		}
+
+		public void SignOut()
+		{
+			if (AuthenticationService.Instance == null) return;
+			AuthenticationService.Instance.SignOut();
+		}
+
+		private void SetupEvents()
+		{
+			AuthenticationService.Instance.SignedIn += () => { SignedIn(); };
+
+			AuthenticationService.Instance.SignInFailed += (err) => { SignInFailed(err); };
+
+			AuthenticationService.Instance.SignedOut += () => { SignedOut(); };
+		}
+
+		private static void SignedOut()
+		{
+			Debug.Log("Player signed out.");
+			OnSignedOut?.Invoke();
+		}
+
+		private static void SignInFailed(RequestFailedException err)
+		{
+			Debug.LogError(err);
+			OnSignInFailed?.Invoke();
+		}
+
+		private static void SignedIn()
+		{
+			Debug.Log($"PlayerID: {AuthenticationService.Instance.PlayerId}");
+			Debug.Log($"Access Token: {AuthenticationService.Instance.AccessToken}");
+			OnSignedIn?.Invoke();
+		}
+
+		public async Task SignInAnonymouslyAsync()
+		{
+			if (GetSignInStatus()) return;
+			OnSigningIn?.Invoke();
 			try
 			{
-				OnSigningIn?.Invoke();
-
 				await AuthenticationService.Instance.SignInAnonymouslyAsync();
-				Debug.Log("Signed in anonymously!");
-				signInTask = null;
+				Debug.Log("Sign in anonymously succeeded!");
+				Debug.Log($"PlayerID: {AuthenticationService.Instance.PlayerId}");
 				OnSignedIn?.Invoke();
 			}
-			catch (Exception e)
+			catch (AuthenticationException ex)
 			{
-				Debug.LogException(e);
-				throw;
+				Debug.LogException(ex);
+				OnSignInFailed?.Invoke();
+			}
+			catch (RequestFailedException ex)
+			{
+				Debug.LogException(ex);
+				OnSignInFailed?.Invoke();
 			}
 		}
 	}

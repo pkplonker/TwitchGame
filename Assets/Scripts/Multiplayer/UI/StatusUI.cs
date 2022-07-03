@@ -14,13 +14,18 @@ namespace Multiplayer.UI
             ServerSignIn.OnSignInFailed += SignInFailed;
             ServerSignIn.OnSignedIn += SignedIn;
        
-            MultiplayerGameConnection.OnFailedToFindGame += FailedToFindGame;
             MultiplayerGameConnection.OnFailedToJoinGame += FailedToJoinGame;
             MultiplayerGameConnection.OnFailedToCreateGame += FailedToCreateGame;
+            MultiplayerGameConnection.OnCreatingGame += CreatingGame;
+            MultiplayerGameConnection.OnGameCreated += GameCreated;
+            MultiplayerGameConnection.OnJoinedGame += JoinedGame;
 
         }
+        private void JoinedGame()=> gametext.text = "Joined Game";
 
-        private void FailedToFindGame() => gametext.text = "Unable to locate game";
+        private void GameCreated()=> gametext.text = "Game Created";
+        private void CreatingGame()=> gametext.text = "Creating game ";
+
         private void FailedToJoinGame() => gametext.text = "Unable to join game";
         private void FailedToCreateGame() => gametext.text = "Unable to create  game";
 
