@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using TwitchIntegration;
 using UnityEngine;
@@ -10,8 +11,11 @@ namespace UI
 		[SerializeField] private TMP_InputField channel;
 		[SerializeField] private TMP_InputField username;
 		[SerializeField] private TMP_InputField password;
+		
 
 		private void Awake() => LoadValues();
+
+	
 
 		//ui
 		public void OnUpdatedInput()

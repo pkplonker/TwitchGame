@@ -1,33 +1,66 @@
+using System;
 using StuartHeathTools;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Multiplayer.UI
 {
-    public class HostJoinButtons : CanvasGroupBase
-    {
-        [SerializeField] private InputField inputField;
+	public class HostJoinButtons : CanvasGroupBase
+	{
+		[SerializeField] private TMP_InputField inputField;
+		[SerializeField] private TextMeshProUGUI joinCodeText;
+		[SerializeField] private string joinCodeMessage = "Your Join code is:";
+		[SerializeField] private Color codeJoinColor;
+		public void Close() => Hide();
 
-        public void Close() => Hide();
-        public void InputFieldUpdated()
-        {
-            GetInput();
-        }
+		private void Start()
+		{
+			joinCodeText.text = joinCodeMessage + " TBC";
+		}
 
-        private string GetInput()=> inputField.text;
-        
+		public void InputFieldUpdated()
+		{
+			GetInput();
+		}
 
-        public void JoinPrivate()
-        {
-            
-        }
-        public void HostPrivate()
-        {
-        
-        }
-        public void JoinMatchmaking()
-        {
-        
-        }
-    }
+		private string GetInput() => inputField.text;
+
+
+		public async void JoinPrivate()
+		{
+			var s = GetInput();
+			if (string.IsNullOrWhiteSpace(s)) return;
+			try
+			{
+				await MultiplayerGameConnection.Instance.HandleJoinServer(s);
+
+			}
+			catch (Exception e)
+			{
+				Debug.LogError("Unable to join requested server" +e);
+				throw;
+			}
+
+			//todo Implement join
+		}
+
+		public async void HostPrivate()
+		{
+			try
+			{
+				await MultiplayerGameConnection.Instance.CreateMatchmakingGame(true);
+				joinCodeText.text = joinCodeMessage + (MultiplayerGameConnection.Instance.lobbyCode).WithColor(codeJoinColor);
+			}
+			catch (Exception e)
+			{
+				Debug.Log("Failed to create private gam " + e);
+			}
+		}
+
+		public async void JoinMatchmaking()
+		{
+			await MultiplayerGameConnection.Instance.HandleJoinServer();
+		}
+	}
 }

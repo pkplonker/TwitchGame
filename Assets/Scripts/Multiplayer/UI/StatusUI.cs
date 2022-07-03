@@ -1,18 +1,36 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class StatusUI : MonoBehaviour
+namespace Multiplayer.UI
 {
-    private TextMeshProUGUI text;
-
-    private void OnEnable()
+    public class StatusUI : MonoBehaviour
     {
-    }
+        [SerializeField]    private TextMeshProUGUI loginText;
+        [SerializeField]   private TextMeshProUGUI gametext;
 
-    private void OnDisable()
-    {
+        private void OnEnable()
+        {
+            ServerSignIn.OnSignedOut += SignedOut;
+            ServerSignIn.OnSignInFailed += SignInFailed;
+            ServerSignIn.OnSignedIn += SignedIn;
+       
+            MultiplayerGameConnection.OnFailedToFindGame += FailedToFindGame;
+            MultiplayerGameConnection.OnFailedToJoinGame += FailedToJoinGame;
+            MultiplayerGameConnection.OnFailedToCreateGame += FailedToCreateGame;
+
+        }
+
+        private void FailedToFindGame() => gametext.text = "Unable to locate game";
+        private void FailedToJoinGame() => gametext.text = "Unable to join game";
+        private void FailedToCreateGame() => gametext.text = "Unable to create  game";
+
+        private void SignedOut() => loginText.text = "Signed Out";
+        private void SignInFailed() => loginText.text = "Sign In Failed";
+        private void SignedIn() => loginText.text = "Signed In";
+
+
+        private void OnDisable()
+        {
+        }
     }
 }

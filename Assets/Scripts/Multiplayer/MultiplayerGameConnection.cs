@@ -30,25 +30,29 @@ namespace Multiplayer
 		public static event Action OnFailedToFindGame;
 		public static event Action OnFailedToLogin;
 		public static event Action OnLoggedIn;
+		public static event Action OnFailedToJoinGame;
+		public static event Action OnFailedToCreateGame;
+		public string lobbyCode;
+
 		private Coroutine heartbeat;
 
-		public async void FindMatch()
-		{
-			Debug.Log("Looking for lobby...");
-			await HandleServerAuth();
-			await HandleJoinMatchmakingServer();
-		}
 
-		private async Task HandleJoinMatchmakingServer()
+		public async Task HandleJoinServer(string joinCode = "")
 		{
+			await HandleServerAuth();
+
 			try
 			{
 				var options = new QuickJoinLobbyOptions();
-				var lobby = await LobbyService.Instance.QuickJoinLobbyAsync(options);
-				Debug.Log("Joined lobby:" + lobby.Id);
-				Debug.Log("Lobby players: " + lobby.Players.Count);
-				var joinCode = lobby.Data["joinCode"].Value;
-				Debug.Log("Received code: " + joinCode);
+				if (string.IsNullOrWhiteSpace(joinCode))
+				{
+					var lobby = await LobbyService.Instance.QuickJoinLobbyAsync(options);
+					Debug.Log("Joined lobby:" + lobby.Id);
+					Debug.Log("Lobby players: " + lobby.Players.Count);
+					joinCode = lobby.Data["joinCode"].Value;
+					Debug.Log("Received code: " + joinCode);
+				}
+
 				var allocation = await Relay.Instance.JoinAllocationAsync(joinCode);
 
 				relayJoinData = new RelayJoinData
@@ -74,7 +78,8 @@ namespace Multiplayer
 			catch (LobbyServiceException e)
 			{
 				Debug.Log("Unable to find lobby - " + e);
-				throw;
+				OnFailedToFindGame?.Invoke();
+				await CreateMatchmakingGame(false);
 			}
 		}
 
@@ -84,28 +89,33 @@ namespace Multiplayer
 			try
 			{
 				await ServerSignIn.Instance.SignInAnon();
-				OnLoggedIn?.Invoke();
 			}
 			catch (Exception e)
 			{
 				Debug.LogWarning("Failed to sign in - " + e);
-				OnFailedToLogin?.Invoke();
 			}
 		}
 
 
-		private async void CreateMatchmakingGame(bool isPrivate, string lobbyName)
+		public async Task CreateMatchmakingGame(bool isPrivate)
 		{
-			await HandleServerAuth();
-			Debug.Log("Creating a new lobby");
-			await HandleCreateMatchmakingServer(isPrivate, lobbyName);
+			try
+			{
+				await HandleServerAuth();
+				Debug.Log("Creating a new lobby");
+				await HandleCreateMatchmakingServer(isPrivate);
+			}
+			catch (Exception e)
+			{
+				OnFailedToCreateGame?.Invoke();
+			}
 		}
 
 
-		private async Task HandleCreateMatchmakingServer(bool isPrivate, string lobbyName)
+		private async Task HandleCreateMatchmakingServer(bool isPrivate)
 		{
-			var maxConnections = 1;
-			if (string.IsNullOrWhiteSpace(lobbyName)) lobbyName = "Default_Lobby_Name";
+			var maxConnections = 2;
+			var lobbyName = "Default_Lobby_Name";
 			try
 			{
 				var allocation = await Relay.Instance.CreateAllocationAsync(maxConnections);
@@ -142,10 +152,16 @@ namespace Multiplayer
 					relayHostData.connectionData
 				);
 				NetworkManager.Singleton.StartHost();
+				Debug.Log("is host - " + NetworkManager.Singleton.IsHost);
+				Debug.Log("is client - " + NetworkManager.Singleton.IsClient);
+
+				if (isPrivate) lobbyCode = lobby.LobbyCode;
+				Debug.LogError(lobby.LobbyCode);
 			}
 			catch (LobbyServiceException e)
 			{
 				Debug.Log(e);
+				OnFailedToCreateGame?.Invoke();
 				throw;
 			}
 		}
@@ -169,7 +185,7 @@ namespace Multiplayer
 			}
 		}
 
-		public struct RelayHostData
+		private struct RelayHostData
 		{
 			public string joinCode;
 			public string iPV4Address;
@@ -180,7 +196,7 @@ namespace Multiplayer
 			public byte[] key;
 		}
 
-		public struct RelayJoinData
+		private struct RelayJoinData
 		{
 			public string joinCode;
 			public string iPV4Address;
