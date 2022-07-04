@@ -1535,7 +1535,7 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 171501904}
-    PlayerPrefab: {fileID: 2252062343366470171, guid: b8baa5afa7a6b9545a4e08c5b8650a87, type: 3}
+    PlayerPrefab: {fileID: 0}
     NetworkPrefabs:
     - Override: 0
       Prefab: {fileID: 2252062343366470171, guid: b8baa5afa7a6b9545a4e08c5b8650a87, type: 3}
@@ -3170,6 +3170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   environment: development
+  maxNumberOfConnections: 10
 --- !u!114 &364470588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7607,8 +7608,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1498701173}
   m_HandleRect: {fileID: 1498701172}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.9999999
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -10284,6 +10285,7 @@ GameObject:
   - component: {fileID: 1481094031}
   - component: {fileID: 1481094033}
   - component: {fileID: 1481094032}
+  - component: {fileID: 1481094034}
   m_Layer: 5
   m_Name: Joincode
   m_TagString: Untagged
@@ -10408,6 +10410,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1481094030}
   m_CullTransparentMesh: 1
+--- !u!114 &1481094034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1481094030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 697e593f575fcc145b9cb804ddf5c2c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hostJoinButtons: {fileID: 665236112}
 --- !u!1 &1483272197
 GameObject:
   m_ObjectHideFlags: 0

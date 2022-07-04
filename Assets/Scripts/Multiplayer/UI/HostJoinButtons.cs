@@ -3,6 +3,7 @@ using StuartHeathTools;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Multiplayer.UI
@@ -13,10 +14,11 @@ namespace Multiplayer.UI
 		[SerializeField] private TextMeshProUGUI joinCodeText;
 		[SerializeField] private string joinCodeMessage = "Your Join code is:";
 		[SerializeField] private Color codeJoinColor;
+		private string code;
 		public void Close() => Hide();
 
 		private void Start() => joinCodeText.text = joinCodeMessage + " TBC";
-
+	
 		public void InputFieldUpdated() => GetInput();
 		private string GetInput() => inputField.text;
 
@@ -46,8 +48,9 @@ namespace Multiplayer.UI
 				if (MultiplayerGameConnection.Instance.IsRelayEnabled)
 				{
 					var hostData = await MultiplayerGameConnection.Instance.SetupRelay();
+					code = hostData.JoinCode;
 					joinCodeText.text = joinCodeMessage +
-					                    (hostData.JoinCode).WithColor(codeJoinColor);
+					                    (code).WithColor(codeJoinColor);
 				}
 				else Logger.Instance.LogError("Err here2");
 				if (NetworkManager.Singleton.StartHost()) Logger.Instance.Log("started host");
@@ -63,5 +66,8 @@ namespace Multiplayer.UI
 		public void Stop()
 		{
 		}
+
+
+		public string GetCode() => code;
 	}
 }
