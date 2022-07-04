@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 
 public class MoveTest : MonoBehaviour
 {
@@ -9,10 +10,12 @@ public class MoveTest : MonoBehaviour
 	private void Start()
 	{
 		startX = transform.position.x;
+		GetComponent<SpriteRenderer>().color = new Color(UnityEngine.Random.value, UnityEngine.Random.value,
+			UnityEngine.Random.value, 1);
 	}
 
 	private void Update()
 	{
-		transform.position = new Vector3(startX + Mathf.PingPong(Time.time, 2f), transform.position.y);
+		transform.position = new Vector3(startX + Mathf.PingPong(Time.time+ UnityEngine.Random.Range(0,0.05f), 8f), transform.position.y);
 	}
 }

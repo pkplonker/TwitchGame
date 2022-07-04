@@ -13,12 +13,7 @@ namespace Multiplayer.UI
             ServerSignIn.OnSignedOut += SignedOut;
             ServerSignIn.OnSignInFailed += SignInFailed;
             ServerSignIn.OnSignedIn += SignedIn;
-       
-            MultiplayerGameConnection.OnFailedToJoinGame += FailedToJoinGame;
-            MultiplayerGameConnection.OnFailedToCreateGame += FailedToCreateGame;
-            MultiplayerGameConnection.OnCreatingGame += CreatingGame;
-            MultiplayerGameConnection.OnGameCreated += GameCreated;
-            MultiplayerGameConnection.OnJoinedGame += JoinedGame;
+            
 
         }
         private void JoinedGame()=> gametext.text = "Joined Game";

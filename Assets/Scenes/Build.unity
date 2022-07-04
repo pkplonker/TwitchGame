@@ -1531,7 +1531,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RunInBackground: 1
-  LogLevel: 1
+  LogLevel: 0
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 171501904}
@@ -3133,6 +3133,8 @@ GameObject:
   m_Component:
   - component: {fileID: 364470586}
   - component: {fileID: 364470587}
+  - component: {fileID: 364470589}
+  - component: {fileID: 364470588}
   m_Layer: 0
   m_Name: Multiplayer
   m_TagString: Untagged
@@ -3168,6 +3170,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   environment: development
+--- !u!114 &364470588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 364470585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 1810535658
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!114 &364470589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 364470585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 818d772956f78ec4183592bcc4a4d503, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &416651921
 GameObject:
   m_ObjectHideFlags: 0
@@ -11537,9 +11567,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1215389873}
-        m_TargetAssemblyTypeName: Control.BackgroundController, Assembly-CSharp
-        m_MethodName: ToggleFloor
+      - m_Target: {fileID: 665236112}
+        m_TargetAssemblyTypeName: Multiplayer.UI.HostJoinButtons, Assembly-CSharp
+        m_MethodName: Stop
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
