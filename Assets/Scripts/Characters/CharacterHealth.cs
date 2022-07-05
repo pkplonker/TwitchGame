@@ -43,9 +43,9 @@ namespace Characters
 			currentHealth = maxHealth;
 			OnHealthChanged?.Invoke(this, currentHealth, maxHealth);		}
 
-		public void TakeDamage(int amount)
+		public bool TakeDamage(int amount)
 		{
-			if (isDead) return;
+			if (isDead) return false;
 			animator.SetTrigger(DoHit);
 			var popup = Instantiate(damagePopup, transform);
 			popup.SetDamageText(amount);
@@ -56,10 +56,11 @@ namespace Characters
 				currentHealth = 0;
 				OnHealthChanged?.Invoke(this, currentHealth, maxHealth);
 				Die();
-				return;
+				return true;
 			}
 
 			OnHealthChanged?.Invoke(this, currentHealth, maxHealth);
+			return false;
 		}
 
 		private void Die()
