@@ -962,6 +962,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   commands: {fileID: 11400000, guid: 685ac6a4ae6248e4bbd0c548a125bc75, type: 2}
   timeOutMinutes: 1
+  maxPlayers: 50
 --- !u!114 &135609371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1002,8 +1003,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fightLocation1: {fileID: 1362232970}
   fightLocation2: {fileID: 543925050}
-  minDamage: 5
-  maxDamage: 20
+  minDamage: 55
+  maxDamage: 99
 --- !u!114 &135609374
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -17,8 +17,7 @@
 		 public Sprite sprite;
 		 [SerializeField] private string animationControllerPath;
 		 public string GetClassName() => className.ToLower();
-
-		 public RuntimeAnimatorController GetAnimationController() => Resources.Load(animationControllerPath) as RuntimeAnimatorController;
+		 public string GetAnimationControllerPath() => animationControllerPath;
 	 }
 	 
  }

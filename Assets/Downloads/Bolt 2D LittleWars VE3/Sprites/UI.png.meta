@@ -83,6 +83,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -92,8 +94,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -114,9 +116,12 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -459,7 +464,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 1e46a1bdf33cdff30800000000000000
-      internalID: 4611056272523551969
+      internalID: -6065768427115596876
       vertices: []
       indices: 
       edges: []
@@ -543,7 +548,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 8693b5f3d21bf04b0800000000000000
-      internalID: -5471960214337275544
+      internalID: 4611056272523551969
       vertices: []
       indices: 
       edges: []
@@ -600,6 +605,27 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Portrait A: 6943562768184086589
+      Icon Hp: -2269638749862755701
+      Health R: -5866952569684716689
+      Portrait G: 7293623749340134194
+      Portrait W: 6492391481879774325
+      Icon Clear: 4611056272523551969
+      Portrait GU: -5878569456898858483
+      Health L: 1436338628549066657
+      Portrait S: 3580014446115393626
+      Icon Cost: 2047483964318851028
+      Bar Back: 5300179025838392481
+      Portrait WZ: -4325431805895911581
+      Icon Upgrade: -6065768427115596876
+      Portrait WU: 1964160008454016175
+      Panel: -6522886353871927248
+      Health C: -2145097280388239572
+      Portrait SU: 4545135470104253956
+      Portrait AU: -4535586968756965052
+      Bar Front: 6998131782875741384
+      Icon Atk: 4655956496605667762
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
