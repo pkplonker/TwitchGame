@@ -49,14 +49,14 @@ namespace Control
 				return;
 			}
 
-			fighter1.OnReachedDestination += ReachedDestination;
-			fighter2.OnReachedDestination += ReachedDestination;
+			fighter1.GetComponent<CharacterMovement>().OnReachedDestination += ReachedDestination;
+			fighter2.GetComponent<CharacterMovement>().OnReachedDestination += ReachedDestination;
 			fighter1.GetComponent<CharacterHealth>().OnDeath += OnDeath;
 			fighter2.GetComponent<CharacterHealth>().OnDeath += OnDeath;
 			this.fighter1 = fighter1;
 			this.fighter2 = fighter2;
-			fighter1.StartFight(fightLocation1.transform.position);
-			fighter2.StartFight(fightLocation2.transform.position);
+			fighter1.GetComponent<CharacterCombat>().StartFight(fightLocation1.transform.position);
+			fighter2.GetComponent<CharacterCombat>().StartFight(fightLocation2.transform.position);
 			fightEventActive = true;
 			OnFightStart?.Invoke();
 		}
@@ -65,16 +65,16 @@ namespace Control
 			outstandingFights.Any(f => f.Item1 == requestor || f.Item2 == requestor);
 
 
-		private void ReachedDestination(Character c)
+		private void ReachedDestination(CharacterMovement c)
 		{
-			if (c == fighter1)
+			if (c == fighter1.GetComponent<CharacterMovement>())
 			{
-				c.Flip(true);
+				c.GetComponent<CharacterMovement>().Flip(true);
 				f1ReachedDestination = true;
 			}
-			else if (c == fighter2)
+			else if (c == fighter2.GetComponent<CharacterMovement>())
 			{
-				c.Flip(false);
+				c.GetComponent<CharacterMovement>().Flip(false);
 				f2ReachedDestination = true;
 			}
 			if (f1ReachedDestination && f2ReachedDestination) FightersAtDestination();
@@ -85,15 +85,15 @@ namespace Control
 			if (fighter1 != null)
 			{
 				fighter1.GetComponent<CharacterHealth>().OnDeath -= OnDeath;
-				fighter1.OnReachedDestination -= ReachedDestination;
-				fighter1.ResetAfterFight();
+				fighter1.GetComponent<CharacterMovement>().OnReachedDestination -= ReachedDestination;
+				//fighter1.ResetAfterFight();
 			}
 
 			if (fighter2 != null)
 			{
 				fighter2.GetComponent<CharacterHealth>().OnDeath -= OnDeath;
-				fighter2.OnReachedDestination -= ReachedDestination;
-				fighter2.ResetAfterFight();
+				fighter2.GetComponent<CharacterMovement>().OnReachedDestination -= ReachedDestination;
+				//fighter2.ResetAfterFight();
 			}
 			f1ReachedDestination = false;
 			f2ReachedDestination = false;
@@ -132,6 +132,9 @@ namespace Control
 
 			var f1ch = fighter1.GetComponent<CharacterHealth>();
 			var f2ch = fighter2.GetComponent<CharacterHealth>();
+			var f1cc = fighter1.GetComponent<CharacterCombat>();
+			var f2cc = fighter2.GetComponent<CharacterCombat>();
+			
 			f1ch.OnDeath += OnDeath;
 			f2ch.OnDeath -= OnDeath;
 			var isF1Turn = UtilityRandom.RandomBool();
@@ -140,8 +143,8 @@ namespace Control
 				//attack
 				yield return new WaitForSeconds(1f);
 				isF1Turn = !isF1Turn;
-				if (isF1Turn) fighter1.Attack(fighter2);
-				else fighter2.Attack(fighter1);
+				if (isF1Turn) f1cc.Attack(fighter2);
+				else f2cc.Attack(fighter1);
 
 				//damage
 				yield return new WaitForSeconds(0.2f);

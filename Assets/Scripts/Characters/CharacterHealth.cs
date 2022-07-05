@@ -16,8 +16,8 @@ namespace Characters
 
 		private static readonly int DoDie = Animator.StringToHash("doDie");
 		private static readonly int DoHit = Animator.StringToHash("doHit");
+		private bool isDead = false;
 
-		private bool isDead;
 		private int currentHealth;
 
 		public event Action<float> OnTakeDamage;
@@ -43,7 +43,7 @@ namespace Characters
 
 		private void FightOver(Character arg1, Character arg2)
 		{
-			isDead = false;
+			isDead=false;
 			currentHealth = maxHealth;
 			OnHealthChanged?.Invoke(this, currentHealth, maxHealth);		}
 
@@ -70,9 +70,11 @@ namespace Characters
 		{
 			if (!isDead) animator.SetTrigger(DoDie);
 			isDead = true;
-			character.SetIsDead(true);
 			OnDeath?.Invoke(this);
 		}
+		public void SetIsDead(bool b) => isDead=b;
+
+		public bool GetIsDead() => isDead;
 	
 	}
 }
