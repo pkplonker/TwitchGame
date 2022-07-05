@@ -16,14 +16,8 @@ namespace Characters
 		public Sprite sprite;
 		public string animationControllerPath;
 		public string GetClassName() => className.ToLower();
+		public string GetAnimationControllerPath() => animationControllerPath;
+		
 
-	 public class CharacterClass : ScriptableObject
-	 {
-		 [SerializeField] private string className;
-		 public Sprite sprite;
-		 [SerializeField] private string animationControllerPath;
-		 public string GetClassName() => className.ToLower();
-		 public string GetAnimationControllerPath() => animationControllerPath;
-	 }
-	 
- }
+	}
+}
