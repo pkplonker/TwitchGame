@@ -1,12 +1,13 @@
 using System;
 using UI;
 using Unity.Mathematics;
+using Unity.Netcode;
 using UnityEditor;
 using UnityEngine;
 
 namespace Characters
 {
-	public class Character : MonoBehaviour
+	public class Character : NetworkBehaviour
 	{
 		[SerializeField] private Animator animator;
 		[SerializeField] private float moveSpeed;
@@ -15,7 +16,6 @@ namespace Characters
 		[SerializeField] private CharacterUI characterUI;
 		[SerializeField] private GameObject flipper;
 		[SerializeField] private DamagePopup damagePopup;
-
 		[SerializeField] private float moveFrequency = 5f;
 		private Vector3 targetLocation;
 		public float GetMinX() => minX;
@@ -49,7 +49,6 @@ namespace Characters
 			SetStartPosition();
 			targetLocation = transform.position;
 			gameObject.name = userName;
-			currentHealth = maxHealth;
 			this.characterStats = characterStats;
 			characterUI.SetName(userName);
 			ChangeClass(characterStats.characterClass);
@@ -173,10 +172,12 @@ namespace Characters
 		public void ChangeClass(CharacterClass classs)
 		{
 			if (classs == null) characterStats.LoadDefaultClass();
-			animator.runtimeAnimatorController = classs.GetAnimationController();
+			animator.runtimeAnimatorController = Resources.Load(classs.animationControllerPath) as RuntimeAnimatorController;
 			spriteRenderer.sprite = classs.sprite;
 			characterStats.SetCurrentClass(classs);
 			SaveState();
 		}
+
+		
 	}
 }

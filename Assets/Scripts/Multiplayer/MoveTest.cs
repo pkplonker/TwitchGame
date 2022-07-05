@@ -1,21 +1,20 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Random = System.Random;
 
-public class MoveTest : MonoBehaviour
+namespace Multiplayer
 {
-	private float startX;
-	private void Start()
+	public class MoveTest : MonoBehaviour
 	{
-		startX = transform.position.x;
-		GetComponent<SpriteRenderer>().color = new Color(UnityEngine.Random.value, UnityEngine.Random.value,
-			UnityEngine.Random.value, 1);
-	}
+		private float startX;
+		private void Start()
+		{
+			startX = transform.position.x;
+			GetComponent<SpriteRenderer>().color = new Color(UnityEngine.Random.value, UnityEngine.Random.value,
+				UnityEngine.Random.value, 1);
+		}
 
-	private void Update()
-	{
-		transform.position = new Vector3(startX + Mathf.PingPong(Time.time+ UnityEngine.Random.Range(0,0.05f), 8f), transform.position.y);
+		private void Update()
+		{
+			transform.position = new Vector3(startX + Mathf.PingPong(Time.time+ UnityEngine.Random.Range(0,0.05f), 8f), transform.position.y);
+		}
 	}
 }

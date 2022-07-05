@@ -22,6 +22,7 @@ namespace Multiplayer
 		{
 			NetworkManager.Singleton.OnClientConnectedCallback += ClientAdded;
 			NetworkManager.Singleton.OnClientDisconnectCallback += ClientRemoved;
+
 			NetworkManager.Singleton.OnServerStarted += () => Logger.Instance.Log("server started");
 		}
 
@@ -50,6 +51,8 @@ namespace Multiplayer
 			{
 				connectedClients.Value--;
 			}
+			Logger.Instance.Log("---disconnecting---");
+			
 		}
 	}
 }

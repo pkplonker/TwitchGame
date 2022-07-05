@@ -7,13 +7,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Control;
+using Multiplayer;
 using StuartHeathTools;
 using TwitchIntegration;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Characters
 {
-	public class CharacterManager : GenericUnitySingleton<CharacterManager>
+	public class CharacterManager : NetworkSingleton<CharacterManager>
 	{
 		[SerializeField] private GameObject characterPrefab;
 		public static List<Character> characters { get; private set; } = new List<Character>();
@@ -24,7 +26,6 @@ namespace Characters
 		private List<Character> pendingDestroys = new List<Character>();
 		[SerializeField] private List<Transform> markers;
 		const string dir = "/CharacterData/";
-
 
 		private void Start() => InvokeRepeating(nameof(AttemptDestroy), 1f, 2f);
 
@@ -109,11 +110,13 @@ namespace Characters
 
 		private void MemberJoin(string username)
 		{
+			
 			if (characters.Any(character => character.GetUserName() == username)) return;
 			var c = Instantiate(characterPrefab, transform).GetComponent<Character>();
 			characters.Add(c);
 			c.Init(username, GenerateCharacterStats(username));
 		}
+		
 
 		private CharacterStats GenerateCharacterStats(string userName)
 		{
@@ -126,6 +129,7 @@ namespace Characters
 				s.Save();
 				return s;
 			}
+
 			var json = File.ReadAllText(path);
 			var sd = JsonUtility.FromJson<CharacterSaveData>(json);
 			var cs = new CharacterStats(userName, levelData, characterClassContainer);
@@ -162,7 +166,7 @@ namespace Characters
 
 		public static Character GetCharacterByUserName(string un) =>
 			characters.FirstOrDefault(character => character.GetUserName() == un);
-		
+
 		private void MemberLeave(string username)
 		{
 			if (characters.Count == 0) return;
