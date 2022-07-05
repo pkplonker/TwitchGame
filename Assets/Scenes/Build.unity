@@ -1077,8 +1077,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fightLocation1: {fileID: 1362232970}
   fightLocation2: {fileID: 543925050}
-  minDamage: 5
-  maxDamage: 20
+  minDamage: 55
+  maxDamage: 99
 --- !u!114 &135609374
 MonoBehaviour:
   m_ObjectHideFlags: 0

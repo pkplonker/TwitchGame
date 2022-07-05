@@ -37,14 +37,14 @@ public class FightArea : MonoBehaviour
 			
 
 	private void MoveCharacterToSafeArea(Character character) =>
-		MoveChar(!(character.transform.position.x > fightPoint2.transform.position.x), character);
+		MoveChar(!(character.transform.position.x > fightPoint2.transform.position.x), character.GetComponent<CharacterMovement>());
 
 
-	private void MoveChar(bool moveLeft, Character character)
+	private void MoveChar(bool moveLeft, CharacterMovement characterMovement)
 	{
-		character.RequestMove(moveLeft
-			? new Vector3(UnityEngine.Random.Range(character.GetMinX(), fightPoint1.transform.position.x), 0, 0)
-			: new Vector3(UnityEngine.Random.Range(character.GetMaxX(), fightPoint1.transform.position.x), 0, 0));
+		characterMovement.RequestMove(moveLeft
+			? new Vector3(UnityEngine.Random.Range(characterMovement.GetMinX(), fightPoint1.transform.position.x), 0, 0)
+			: new Vector3(UnityEngine.Random.Range(characterMovement.GetMaxX(), fightPoint1.transform.position.x), 0, 0));
 	}
 	
 }

@@ -186,8 +186,9 @@ GameObject:
   - component: {fileID: 2584064754999522469}
   - component: {fileID: 618689967625809949}
   - component: {fileID: 102018094716110771}
-  - component: {fileID: 5991446887561929430}
-  - component: {fileID: -4558713473720051904}
+  - component: {fileID: 3096875699650785415}
+  - component: {fileID: 275665325821597439}
+  - component: {fileID: 448370105245246053}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -225,14 +226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 6713948948026114234}
-  moveSpeed: 3
-  minX: -9.9
-  maxX: 2.5
   characterUI: {fileID: 618689967625809949}
-  flipper: {fileID: 5939084820279044415}
-  damagePopup: {fileID: 6011020923661263369, guid: cb3d0293e77e08449bdf6ada29f49eab, type: 3}
-  moveFrequency: 10
-  maxHealth: 100
   spriteRenderer: {fileID: 6540640779607205850}
 --- !u!114 &618689967625809949
 MonoBehaviour:
@@ -249,7 +243,7 @@ MonoBehaviour:
   userName: {fileID: 1951513572628564420}
   healthBarImage: {fileID: 2758201234142339211}
   healthBarImageFill: {fileID: 5037310134940161724}
-  character: {fileID: 2584064754999522469}
+  character: {fileID: 3096875699650785415}
 --- !u!61 &102018094716110771
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -276,7 +270,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &5991446887561929430
+--- !u!114 &3096875699650785415
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -285,14 +279,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2584064754999522457}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Script: {fileID: 11500000, guid: fe38212a65f1b354a9ee4796654c3c9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 951099334
-  AlwaysReplicateAsRoot: 0
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
---- !u!114 &-4558713473720051904
+  damagePopup: {fileID: 6011020923661263369, guid: cb3d0293e77e08449bdf6ada29f49eab, type: 3}
+  maxHealth: 100
+--- !u!114 &275665325821597439
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -301,23 +293,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 2584064754999522457}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: dbecfdca59385d64b9e9bf4fc637ddb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SyncPositionX: 1
-  SyncPositionY: 1
-  SyncPositionZ: 0
-  SyncRotAngleX: 1
-  SyncRotAngleY: 1
-  SyncRotAngleZ: 1
-  SyncScaleX: 1
-  SyncScaleY: 1
-  SyncScaleZ: 1
-  PositionThreshold: 0.01
-  RotAngleThreshold: 1
-  ScaleThreshold: 0.01
-  InLocalSpace: 0
-  Interpolate: 1
+  moveSpeed: 3
+  minX: -9.9
+  maxX: 2.5
+  flipper: {fileID: 5939084820279044415}
+  moveFrequency: 5
+--- !u!114 &448370105245246053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2584064754999522457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aaffe48d63f4aa4abd38f2c1f5f0e5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2758201234142339211
 GameObject:
   m_ObjectHideFlags: 0

@@ -66,7 +66,7 @@ namespace Characters
 					{
 						if (result >= 1 && result <= markers.Count + 1)
 						{
-							c.RequestMove(markers[result - 1].position);
+							c.GetComponent<CharacterMovement>().RequestMove(markers[result - 1].position);
 							Debug.Log(("moving to requested position " + result).WithColor(Color.green));
 							return;
 						}
@@ -74,7 +74,7 @@ namespace Characters
 
 					Debug.Log("moving to random position".WithColor(Color.red));
 
-					c.RequestMove();
+					c.GetComponent<CharacterMovement>().RequestMove();
 					return;
 				}
 			}
