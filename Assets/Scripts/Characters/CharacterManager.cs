@@ -110,13 +110,13 @@ namespace Characters
 
 		private void MemberJoin(string username)
 		{
-			
 			if (characters.Any(character => character.GetUserName() == username)) return;
-			var c = Instantiate(characterPrefab, transform).GetComponent<Character>();
+			Character c = Instantiate(characterPrefab).GetComponent<Character>();
+			Logger.Instance.Log("attempt");
 			characters.Add(c);
 			c.Init(username, GenerateCharacterStats(username));
 		}
-		
+
 
 		private CharacterStats GenerateCharacterStats(string userName)
 		{

@@ -12,7 +12,7 @@ namespace Characters
 	///CharacterStats full description
 	/// </summary>
 	[Serializable]
-	public class CharacterStats
+	public class CharacterStats 
 	{
 		public string userName;
 		public int currentLevel = 1;

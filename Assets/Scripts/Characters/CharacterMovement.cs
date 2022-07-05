@@ -1,10 +1,11 @@
 using System;
 using Control;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Characters
 {
-	public class CharacterMovement : MonoBehaviour
+	public class CharacterMovement : NetworkBehaviour
 	{
 		[SerializeField] private float moveSpeed;
 		[SerializeField] private float minX = -9.9f;
@@ -22,6 +23,12 @@ namespace Characters
 		private Character character;
 		private CharacterHealth characterHealth;
 		private CharacterCombat characterCombat;
+
+		public override void OnNetworkSpawn()
+		{
+			base.OnNetworkSpawn();
+			Start();
+		}
 
 		private void Start()
 		{
@@ -52,7 +59,7 @@ namespace Characters
 		}
 
 		private void Update()
-		{
+		{/*
 			if (characterHealth.GetIsDead()) return;
 			moveTimer += Time.deltaTime;
 			if (moveTimer > moveFrequency && Vector3.Distance(transform.position, targetLocation) < 0.2f &&
@@ -63,6 +70,7 @@ namespace Characters
 			}
 
 			UpdateLocation();
+			*/
 		}
 
 		private void UpdateLocation()

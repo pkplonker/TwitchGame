@@ -7,14 +7,12 @@ using UnityEngine;
 
 namespace Characters
 {
-	public class Character : NetworkBehaviour
+	public class Character : NetworkBehaviour, INetworkSerializable
 	{
 		[SerializeField] private Animator animator;
-		[SerializeField] SpriteRenderer spriteRenderer;
+		SpriteRenderer spriteRenderer;
 		[SerializeField] private CharacterUI characterUI;
-
 		private static readonly int DoMove = Animator.StringToHash("doMove");
-
 		private string userName;
 	
 		public string GetUserName() => userName;
@@ -25,6 +23,7 @@ namespace Characters
 		private CharacterHealth characterHealth;
 		public void Init( string userName, CharacterStats characterStats)
 		{
+			spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 			animator = GetComponentInChildren<Animator>();
 			this.userName = userName;
 			gameObject.name = userName;
@@ -32,6 +31,7 @@ namespace Characters
 			characterUI.SetName(userName);
 			ChangeClass(characterStats.characterClass);
 			characterHealth = GetComponent<CharacterHealth>();
+			
 
 		}
 		public void DestroyObject() => Destroy(gameObject);
@@ -54,6 +54,11 @@ namespace Characters
 		}
 
 
-	
+		public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
+		{
+			serializer.SerializeValue(ref userName);
+
+			
+		}
 	}
 }

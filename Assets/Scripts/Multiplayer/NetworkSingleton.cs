@@ -6,7 +6,7 @@ namespace Multiplayer
 	/// <summary>
 	///GenericUnitySingleton - Persistent singleton class for Unity.
 	/// </summary>
-	public class NetworkSingleton<T> : NetworkBehaviour where T : MonoBehaviour
+	public class NetworkSingleton<T> : NetworkBehaviour where T : Component
 	{
 		private static T instance = null;
 
