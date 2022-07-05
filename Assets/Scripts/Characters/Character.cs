@@ -10,12 +10,10 @@ namespace Characters
 	public class Character : NetworkBehaviour
 	{
 		[SerializeField] private Animator animator;
-		
-
+		[SerializeField] SpriteRenderer spriteRenderer;
 		[SerializeField] private CharacterUI characterUI;
 
 		private static readonly int DoMove = Animator.StringToHash("doMove");
-		private static readonly int DoStop = Animator.StringToHash("doStop");
 
 		private string userName;
 	
@@ -29,7 +27,6 @@ namespace Characters
 		{
 			animator = GetComponentInChildren<Animator>();
 			this.userName = userName;
-			
 			gameObject.name = userName;
 			this.characterStats = characterStats;
 			characterUI.SetName(userName);
@@ -37,15 +34,8 @@ namespace Characters
 			characterHealth = GetComponent<CharacterHealth>();
 
 		}
-
-
-
-		
 		public void DestroyObject() => Destroy(gameObject);
 		public void SaveState() => characterStats.Save();
-		[SerializeField] SpriteRenderer spriteRenderer;
-		
-		
 		
 		public bool RequestDestroy()
 		{
@@ -54,11 +44,6 @@ namespace Characters
 			Invoke(nameof(DestroyObject), 0.1f);
 			return true;
 		}
-		
-		
-		
-	
-
 		public void ChangeClass(CharacterClass classs)
 		{
 			if (classs == null) characterStats.LoadDefaultClass();

@@ -42,7 +42,7 @@ namespace Characters
 		{
 			if (arg1 != character && arg2 != character) return;
 			moveTimer = 0;
-			RandomMove();
+			//RandomMove();
 			animator.SetTrigger(DoMove);
 		}
 
