@@ -61,7 +61,7 @@ namespace Characters
 		public void ChangeClass(CharacterClass classs)
 		{
 			if (classs == null) characterStats.LoadDefaultClass();
-			animator.runtimeAnimatorController = classs.GetAnimationController();
+			animator.runtimeAnimatorController = Resources.Load(classs.GetAnimationControllerPath()) as RuntimeAnimatorController;
 			spriteRenderer.sprite = classs.sprite;
 			characterStats.SetCurrentClass(classs);
 			SaveState();
