@@ -27,8 +27,7 @@ namespace Characters
 		{
 			animator = GetComponentInChildren<Animator>();
 			SetStartPosition();
-			targetLocation = transform.position;
-			character = GetComponent<Character>();
+//			character = GetComponent<Character>();
 			characterHealth = GetComponent<CharacterHealth>();
 			characterCombat = GetComponent<CharacterCombat>();
 		}
@@ -38,7 +37,6 @@ namespace Characters
 			FightController.OnFightOver += FightOver;
 		}
 
-		
 
 		private void FightOver(Character arg1, Character arg2)
 		{
@@ -57,7 +55,8 @@ namespace Characters
 		{
 			if (characterHealth.GetIsDead()) return;
 			moveTimer += Time.deltaTime;
-			if (moveTimer > moveFrequency && Vector3.Distance(transform.position, targetLocation) < 0.2f && !characterCombat.GetIsFighting())
+			if (moveTimer > moveFrequency && Vector3.Distance(transform.position, targetLocation) < 0.2f &&
+			    !characterCombat.GetIsFighting())
 			{
 				moveTimer = 0;
 				RandomMove();

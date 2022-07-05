@@ -124,6 +124,7 @@ namespace Control
 		{
 			if (fightUnderWay) return;
 			fightUnderWay = true;
+			Debug.Log("fighters at destination");
 			cor ??= StartCoroutine(Fight());
 		}
 
@@ -138,16 +139,19 @@ namespace Control
 			f1ch.OnDeath += OnDeath;
 			f2ch.OnDeath -= OnDeath;
 			var isF1Turn = UtilityRandom.RandomBool();
-			while (fightUnderWay)
+			while (!fightOver)
 			{
 				//attack
 				yield return new WaitForSeconds(1f);
+				if(fightOver) yield break;
+
 				isF1Turn = !isF1Turn;
 				if (isF1Turn) f1cc.Attack(fighter2);
 				else f2cc.Attack(fighter1);
 
 				//damage
 				yield return new WaitForSeconds(0.2f);
+				if(fightOver) yield break;
 				if (isF1Turn) f2ch.TakeDamage(UnityEngine.Random.Range(minDamage, maxDamage));
 				else f1ch.TakeDamage(UnityEngine.Random.Range(minDamage, maxDamage));
 				yield return null;
@@ -162,7 +166,7 @@ namespace Control
 			if (ch == fighter1.GetComponent<CharacterHealth>()) OnFightOver?.Invoke(fighter2, fighter1);
 			else if (ch == fighter2.GetComponent<CharacterHealth>()) OnFightOver?.Invoke(fighter1, fighter2);
 			fightUnderWay = false;
-			Invoke(nameof(FightOver), 4f);
+			Invoke(nameof(FightOver), 3f);
 		}
 	}
 }

@@ -31,15 +31,11 @@ namespace Characters
 			animator = GetComponentInChildren<Animator>();
 		}
 
-		private void OnEnable()
-		{
-			FightController.OnFightOver += FightOver;
-		}
+		private void OnEnable()=>FightController.OnFightOver += FightOver;
+		
 
-		private void OnDisable()
-		{
-			FightController.OnFightOver -= FightOver;
-		}
+		private void OnDisable()=>FightController.OnFightOver -= FightOver;
+		
 
 		private void FightOver(Character arg1, Character arg2)
 		{
@@ -68,6 +64,7 @@ namespace Characters
 
 		private void Die()
 		{
+			Debug.Log("req death");
 			if (!isDead) animator.SetTrigger(DoDie);
 			isDead = true;
 			OnDeath?.Invoke(this);

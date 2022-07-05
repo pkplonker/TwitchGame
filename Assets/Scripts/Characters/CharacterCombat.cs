@@ -29,23 +29,16 @@ namespace Characters
 			animator = GetComponentInChildren<Animator>();
 		}
 
-		private void OnEnable()
-		{
-			FightController.OnFightOver += FightOver;
+		private void OnEnable() => FightController.OnFightOver += FightOver;
+		private void OnDisable() => FightController.OnFightOver -= FightOver;
 
-		}
-
-		
 
 		private void FightOver(Character arg1, Character arg2)
 		{
-			if (arg1 != character && arg2 != character) return;
-			isFighting = false;
-		}
-
-		private void OnDisable()
-		{
-			FightController.OnFightOver -= FightOver;
+			if (arg1 == character || arg2 == character)
+			{
+				isFighting = false;
+			}
 		}
 
 
