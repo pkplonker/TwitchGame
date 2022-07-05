@@ -249,6 +249,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -1948,6 +1949,82 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      9_brightfire_spritesheet_8: -1665503013322516492
+      9_brightfire_spritesheet_23: -1473288609433731306
+      9_brightfire_spritesheet_2: -9071517282817548811
+      9_brightfire_spritesheet_27: 2390942464528506674
+      9_brightfire_spritesheet_20: 1023791138508955327
+      9_brightfire_spritesheet_11: -1953229981728515932
+      9_brightfire_spritesheet_12: 5186414982265772723
+      9_brightfire_spritesheet_35: -2183329127946052138
+      9_brightfire_spritesheet_28: -6390227146658590305
+      9_brightfire_spritesheet_44: 2966488115930154186
+      9_brightfire_spritesheet_33: 8927914430665346584
+      9_brightfire_spritesheet_56: -4534116201438350968
+      9_brightfire_spritesheet_68: 8585114173435985655
+      9_brightfire_spritesheet_64: 1511370653515502611
+      9_brightfire_spritesheet_66: 7084960776896199275
+      9_brightfire_spritesheet_52: -217503677135191608
+      9_brightfire_spritesheet_31: 335093914316318650
+      9_brightfire_spritesheet_34: 7107235374645944568
+      9_brightfire_spritesheet_60: -1769273148211566751
+      9_brightfire_spritesheet_55: 7934933882126231814
+      9_brightfire_spritesheet_0: -6558452601870386918
+      9_brightfire_spritesheet_72: 5453582219491059986
+      9_brightfire_spritesheet_61: -2590416889178442603
+      9_brightfire_spritesheet_43: -1719537705800022675
+      9_brightfire_spritesheet_50: 160136917904185498
+      9_brightfire_spritesheet_24: 4477203403193557427
+      9_brightfire_spritesheet_26: 3247315481461261031
+      9_brightfire_spritesheet_70: 9175660806032495948
+      9_brightfire_spritesheet_16: 3053915076868730950
+      9_brightfire_spritesheet_59: -1689651636669641139
+      9_brightfire_spritesheet_63: -9190452179093443080
+      9_brightfire_spritesheet_6: 7223964375592643700
+      9_brightfire_spritesheet_9: -6841263663549580795
+      9_brightfire_spritesheet_74: -5294801483339151306
+      9_brightfire_spritesheet_29: 938686038344875371
+      9_brightfire_spritesheet_1: -2465196466674716113
+      9_brightfire_spritesheet_14: 3497123677135596299
+      9_brightfire_spritesheet_17: -8848238324273062682
+      9_brightfire_spritesheet_45: -5097246636113490162
+      9_brightfire_spritesheet_51: -1671750968177010187
+      9_brightfire_spritesheet_47: -7181737775733733948
+      9_brightfire_spritesheet_7: 9211607798652828248
+      9_brightfire_spritesheet_25: 4445932191321339682
+      9_brightfire_spritesheet_41: -1656771884616462433
+      9_brightfire_spritesheet_58: -9173862495893681979
+      9_brightfire_spritesheet_19: -1331589761665662105
+      9_brightfire_spritesheet_53: 6804985082179121460
+      9_brightfire_spritesheet_3: -5952158568716484751
+      9_brightfire_spritesheet_18: 7169236984608765428
+      9_brightfire_spritesheet_38: 4795100877918301641
+      9_brightfire_spritesheet_30: 2179518683513091263
+      9_brightfire_spritesheet_40: 379114784657702843
+      9_brightfire_spritesheet_46: -7631247049102076789
+      9_brightfire_spritesheet_4: 448227872124431732
+      9_brightfire_spritesheet_37: 1778107091326574670
+      9_brightfire_spritesheet_10: -2104605989002759816
+      9_brightfire_spritesheet_39: 10131433668712052
+      9_brightfire_spritesheet_49: 6434014965283735744
+      9_brightfire_spritesheet_13: 8678432798149140542
+      9_brightfire_spritesheet_32: -687299775227578609
+      9_brightfire_spritesheet_71: 3557409770640410435
+      9_brightfire_spritesheet_62: 454628126545924811
+      9_brightfire_spritesheet_42: 2638449854011298771
+      9_brightfire_spritesheet_65: -813139355366874579
+      9_brightfire_spritesheet_15: 3290398892827020565
+      9_brightfire_spritesheet_36: -7744268219422363643
+      9_brightfire_spritesheet_57: -2480893072709772843
+      9_brightfire_spritesheet_21: 7672898474402729819
+      9_brightfire_spritesheet_69: -7579590778560066222
+      9_brightfire_spritesheet_22: -6403103267373643983
+      9_brightfire_spritesheet_54: -5253406765567998284
+      9_brightfire_spritesheet_73: -4120243781041648078
+      9_brightfire_spritesheet_48: 2425019959240539735
+      9_brightfire_spritesheet_67: -4462718162552577474
+      9_brightfire_spritesheet_5: -7610334878636687532
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

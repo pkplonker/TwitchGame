@@ -51,8 +51,8 @@ namespace Control
 
 			fighter1.OnReachedDestination += ReachedDestination;
 			fighter2.OnReachedDestination += ReachedDestination;
-			fighter1.OnDeath += OnDeath;
-			fighter2.OnDeath += OnDeath;
+			fighter1.GetComponent<CharacterHealth>().OnDeath += OnDeath;
+			fighter2.GetComponent<CharacterHealth>().OnDeath += OnDeath;
 			this.fighter1 = fighter1;
 			this.fighter2 = fighter2;
 			fighter1.StartFight(fightLocation1.transform.position);
@@ -84,14 +84,14 @@ namespace Control
 		{
 			if (fighter1 != null)
 			{
-				fighter1.OnDeath -= OnDeath;
+				fighter1.GetComponent<CharacterHealth>().OnDeath -= OnDeath;
 				fighter1.OnReachedDestination -= ReachedDestination;
 				fighter1.ResetAfterFight();
 			}
 
 			if (fighter2 != null)
 			{
-				fighter2.OnDeath -= OnDeath;
+				fighter2.GetComponent<CharacterHealth>().OnDeath -= OnDeath;
 				fighter2.OnReachedDestination -= ReachedDestination;
 				fighter2.ResetAfterFight();
 			}
@@ -129,8 +129,11 @@ namespace Control
 
 		private IEnumerator Fight()
 		{
-			fighter1.OnDeath += OnDeath;
-			fighter2.OnDeath += OnDeath;
+
+			var f1ch = fighter1.GetComponent<CharacterHealth>();
+			var f2ch = fighter2.GetComponent<CharacterHealth>();
+			f1ch.OnDeath += OnDeath;
+			f2ch.OnDeath -= OnDeath;
 			var isF1Turn = UtilityRandom.RandomBool();
 			while (fightUnderWay)
 			{
@@ -142,19 +145,19 @@ namespace Control
 
 				//damage
 				yield return new WaitForSeconds(0.2f);
-				if (isF1Turn) fighter2.TakeDamage(UnityEngine.Random.Range(minDamage, maxDamage));
-				else fighter1.TakeDamage(UnityEngine.Random.Range(minDamage, maxDamage));
+				if (isF1Turn) f2ch.TakeDamage(UnityEngine.Random.Range(minDamage, maxDamage));
+				else f1ch.TakeDamage(UnityEngine.Random.Range(minDamage, maxDamage));
 				yield return null;
 			}
 		}
 
-		private void OnDeath(Character c)
+		private void OnDeath(CharacterHealth ch)
 		{
 			if (fightOver) return;
 			fightOver = true;
 			if (cor != null) StopCoroutine(cor);
-			if (c == fighter1) OnFightOver?.Invoke(fighter2, fighter1);
-			else if (c == fighter2) OnFightOver?.Invoke(fighter1, fighter2);
+			if (ch == fighter1.GetComponent<CharacterHealth>()) OnFightOver?.Invoke(fighter2, fighter1);
+			else if (ch == fighter2.GetComponent<CharacterHealth>()) OnFightOver?.Invoke(fighter1, fighter2);
 			fightUnderWay = false;
 			Invoke(nameof(FightOver), 4f);
 		}

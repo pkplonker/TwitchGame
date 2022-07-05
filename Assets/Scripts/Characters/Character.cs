@@ -14,30 +14,23 @@ namespace Characters
 		[SerializeField] private float maxX = 2.5f;
 		[SerializeField] private CharacterUI characterUI;
 		[SerializeField] private GameObject flipper;
-		[SerializeField] private DamagePopup damagePopup;
-
 		[SerializeField] private float moveFrequency = 5f;
 		private Vector3 targetLocation;
+		private bool isDead = false;
 		public float GetMinX() => minX;
 		public float GetMaxX() => maxX;
 
 		private static readonly int DoMove = Animator.StringToHash("doMove");
-		private static readonly int DoDie = Animator.StringToHash("doDie");
 		private static readonly int DoStop = Animator.StringToHash("doStop");
-		private static readonly int DoHit = Animator.StringToHash("doHit");
+
 		private static readonly int DoAttack = Animator.StringToHash("doAttack");
 		private string userName;
-		public event Action<Character, float, float> OnHealthChanged;
-		public event Action<float> OnTakeDamage;
-
-		public event Action<Character> OnDeath;
+		
 		public event Action<Character> OnReachedDestination;
 		private bool isFighting = false;
 		private float moveTimer;
 		public string GetUserName() => userName;
-		private int currentHealth;
-		[SerializeField] int maxHealth = 100;
-		private bool isDead;
+		
 		private CharacterStats characterStats;
 
 		public CharacterStats GetCharacterStats() => characterStats;
@@ -49,7 +42,6 @@ namespace Characters
 			SetStartPosition();
 			targetLocation = transform.position;
 			gameObject.name = userName;
-			currentHealth = maxHealth;
 			this.characterStats = characterStats;
 			characterUI.SetName(userName);
 			ChangeClass(characterStats.characterClass);
@@ -116,8 +108,7 @@ namespace Characters
 			position = Vector3.MoveTowards(position, targetLocation, moveSpeed * Time.deltaTime);
 			transform.position = position;
 		}
-
-
+		
 		public bool RequestDestroy()
 		{
 			if (isFighting) return false;
@@ -125,49 +116,20 @@ namespace Characters
 			Invoke(nameof(DestroyObject), 0.1f);
 			return true;
 		}
-
-
-		public void TakeDamage(int amount)
-		{
-			if (isDead) return;
-			animator.SetTrigger(DoHit);
-			var popup = Instantiate(damagePopup, transform);
-			popup.SetDamageText(amount);
-			OnTakeDamage?.Invoke(amount);
-			currentHealth -= amount;
-			if (currentHealth <= 0)
-			{
-				currentHealth = 0;
-				OnHealthChanged?.Invoke(this, currentHealth, maxHealth);
-				Die();
-				return;
-			}
-			OnHealthChanged?.Invoke(this, currentHealth, maxHealth);
-		}
-
-		private void Die()
-		{
-			if (!isDead) animator.SetTrigger(DoDie);
-			isDead = true;
-			OnDeath?.Invoke(this);
-		}
-
+		
 		public void Attack(Character opp)
 		{
 			if (isDead) return;
 			animator.SetTrigger(DoAttack);
 		}
-
-
+		
 		public void ResetAfterFight()
 		{
 			moveTimer = 0;
 			isDead = false;
-			currentHealth = maxHealth;
 			isFighting = false;
 			RandomMove();
 			animator.SetTrigger(DoMove);
-			OnHealthChanged?.Invoke(this, currentHealth, maxHealth);
 		}
 
 		public void ChangeClass(CharacterClass classs)
@@ -178,5 +140,7 @@ namespace Characters
 			characterStats.SetCurrentClass(classs);
 			SaveState();
 		}
+
+		public void SetIsDead(bool b) => isDead=b;
 	}
 }

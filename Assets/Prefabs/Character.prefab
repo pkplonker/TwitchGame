@@ -183,6 +183,7 @@ GameObject:
   - component: {fileID: 2584064754999522469}
   - component: {fileID: 618689967625809949}
   - component: {fileID: 102018094716110771}
+  - component: {fileID: 3096875699650785415}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -224,9 +225,7 @@ MonoBehaviour:
   maxX: 2.5
   characterUI: {fileID: 618689967625809949}
   flipper: {fileID: 5939084820279044415}
-  damagePopup: {fileID: 6011020923661263369, guid: cb3d0293e77e08449bdf6ada29f49eab, type: 3}
   moveFrequency: 10
-  maxHealth: 100
   spriteRenderer: {fileID: 6540640779607205850}
 --- !u!114 &618689967625809949
 MonoBehaviour:
@@ -243,7 +242,7 @@ MonoBehaviour:
   userName: {fileID: 1951513572628564420}
   healthBarImage: {fileID: 2758201234142339211}
   healthBarImageFill: {fileID: 5037310134940161724}
-  character: {fileID: 2584064754999522469}
+  character: {fileID: 3096875699650785415}
 --- !u!61 &102018094716110771
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -270,6 +269,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &3096875699650785415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2584064754999522457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe38212a65f1b354a9ee4796654c3c9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damagePopup: {fileID: 6011020923661263369, guid: cb3d0293e77e08449bdf6ada29f49eab, type: 3}
+  maxHealth: 100
 --- !u!1 &2758201234142339211
 GameObject:
   m_ObjectHideFlags: 0
