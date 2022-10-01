@@ -31,18 +31,20 @@ public class AdminController : MonoBehaviour
 			{
 				Debug.Log("");
 				expHandler.SetLevel(character, intValue);
+				TwitchCore.Instance.PRIVMSGTToTwitch($"Set {character.GetUserName()} to level {intValue}");
 			}
 		}
 		else
 		{
 			Debug.LogWarning("unable to parse level change request");
+			TwitchCore.Instance.PRIVMSGTToTwitch("Unable to parse level change request");
 		}
 	}
 
 	private bool IsValidAdmin(string sender)
 	{
 		sender = sender.ToLower();
-		if (admins.Any(a => a == sender)) return true;
+		if (admins.Any(a => a.ToLower() == sender)) return true;
 		TwitchCore.Instance.PRIVMSGTToTwitch("This is an admin only command, nice try.");
 		return false;
 	}

@@ -50,6 +50,8 @@ namespace Control
 				if (am == null)
 				{
 					MemberJoin(sender);
+					TwitchCore.Instance.PRIVMSGTToTwitch("@" + sender + " has joined the game.");
+
 				}
 			}
 			else if (message.Contains(commands.GetLeaveCommand()))
@@ -58,6 +60,7 @@ namespace Control
 				var am = FindByUsername(sender.ToLower());
 				if (am == null) return;
 				RemoveMember(am);
+				TwitchCore.Instance.PRIVMSGTToTwitch("@" + sender + " has left the game.");
 			}
 
 			var amm = FindByUsername(sender);
