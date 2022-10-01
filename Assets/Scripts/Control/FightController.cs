@@ -147,25 +147,27 @@ namespace Control
 				if (fightOver) yield break;
 
 				isF1Turn = !isF1Turn;
-				if (isF1Turn) f1cc.Attack(fighter2);
-				else f2cc.Attack(fighter1);
+				if (isF1Turn)
+				{
+					Debug.Log("1 attacks");
+					f1cc.Attack(fighter2);
+				}
+				else
+				{
+					Debug.Log("2 attacks");
+					f2cc.Attack(fighter1);
+				}
 
 				//damage
 				yield return new WaitForSeconds(0.2f);
 				if (fightOver) yield break;
 				if (isF1Turn)
 				{
-					if (f2ch.TakeDamage(UnityEngine.Random.Range(minDamage, maxDamage)))
-					{
-						OnDeath(f2ch);
-					}
+					if (f2ch.TakeDamage(UnityEngine.Random.Range(minDamage, maxDamage))) OnDeath(f2ch);
 				}
 				else
 				{
-					if (f2ch.TakeDamage(UnityEngine.Random.Range(minDamage, maxDamage)))
-					{
-						OnDeath(f2ch);
-					}
+					if (f1ch.TakeDamage(UnityEngine.Random.Range(minDamage, maxDamage))) OnDeath(f1ch);
 				}
 
 				yield return null;
