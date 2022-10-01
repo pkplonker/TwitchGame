@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Control;
 using UI;
 using UnityEngine;
@@ -37,11 +38,18 @@ namespace Characters
 		private void OnDisable()=>FightController.OnFightOver -= FightOver;
 		
 
-		private void FightOver(Character arg1, Character arg2)
+		private void FightOver(Character arg1, Character arg2)=>StartCoroutine(AwaitDeathFlagRemoval());
+			
+			
+		
+
+		private IEnumerator AwaitDeathFlagRemoval()
 		{
-			isDead=false;
+			yield return new WaitForSeconds(2);
+			isDead = false;
 			currentHealth = maxHealth;
-			OnHealthChanged?.Invoke(this, currentHealth, maxHealth);		}
+			OnHealthChanged?.Invoke(this, currentHealth, maxHealth);
+		}
 
 		public bool TakeDamage(int amount)
 		{
