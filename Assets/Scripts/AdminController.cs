@@ -25,7 +25,7 @@ public class AdminController : MonoBehaviour
 		var level = message.Replace("!setlevel", "");
 		if (int.TryParse(level, out var intValue))
 		{
-			var character = CharacterManager.GetCharacterByUserName(sender);
+			var character = CharacterManager.GetCharacterByUserName(sender.ToLower());
 			if (character == null) Debug.LogWarning("Unable to find character");
 			else
 			{

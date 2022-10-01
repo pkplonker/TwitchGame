@@ -18,7 +18,7 @@ namespace Characters
 
 		private string userName;
 	
-		public string GetUserName() => userName;
+		public string GetUserName() => userName.ToLower();
 		
 		private CharacterStats characterStats;
 
@@ -26,8 +26,9 @@ namespace Characters
 		private CharacterHealth characterHealth;
 		public void Init( string userName, CharacterStats characterStats)
 		{
+			userName = userName.ToLower();
 			animator = GetComponentInChildren<Animator>();
-			this.userName = userName;
+			this.userName = userName.ToLower();
 			
 			gameObject.name = userName;
 			this.characterStats = characterStats;

@@ -43,6 +43,7 @@ namespace Control
 
 		private void OnMessage(string sender, string message)
 		{
+			sender = sender.ToLower();
 			if (message.Contains(commands.GetJoinCommand()))
 			{
 				var am = FindByUsername(sender);
@@ -63,11 +64,12 @@ namespace Control
 			if (amm != null) amm.joinTime = Time.time;
 		}
 
-		private static ActiveMember FindByUsername(string sender) => activeMembers.Find(x => x.userName == sender);
-		public static bool IsActiveMember(Character character) => FindByUsername(character.GetUserName()) != null;
+		private static ActiveMember FindByUsername(string sender) => activeMembers.Find(x => x.userName.ToLower() == sender.ToLower());
+		public static bool IsActiveMember(Character character) => FindByUsername(character.GetUserName().ToLower()) != null;
 
 		private void MemberJoin(string sender)
 		{
+			sender = sender.ToLower();
 			if (activeMembers.Count >= maxPlayers)
 			{
 				TwitchCore.Instance.PRIVMSGTToTwitch("This game is currently full, please wait and try again");
@@ -96,7 +98,7 @@ namespace Control
 
 			public ActiveMember(string userName, float joinTime)
 			{
-				this.userName = userName;
+				this.userName = userName.ToLower();
 				this.joinTime = joinTime;
 			}
 		}

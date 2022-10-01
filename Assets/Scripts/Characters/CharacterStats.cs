@@ -66,7 +66,7 @@ namespace Characters
 		public void Save()
 		{
 			const string dir = "/CharacterData/";
-			var path = Application.persistentDataPath + dir + userName + ".txt";
+			var path = Application.persistentDataPath + dir + userName.ToLower() + ".txt";
 			if (!Directory.Exists(Application.persistentDataPath + dir)) Directory.CreateDirectory(dir);
 			var json = JsonUtility.ToJson(new CharacterSaveData(this));
 			File.WriteAllText(path, json);

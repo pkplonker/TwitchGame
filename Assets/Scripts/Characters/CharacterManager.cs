@@ -117,6 +117,7 @@ namespace Characters
 
 		private CharacterStats GenerateCharacterStats(string userName)
 		{
+			Debug.Log(Application.persistentDataPath);
 			var path = Application.persistentDataPath + dir + userName + ".txt";
 
 			Directory.CreateDirectory(Application.persistentDataPath + dir);
@@ -161,12 +162,12 @@ namespace Characters
 
 
 		public static Character GetCharacterByUserName(string un) =>
-			characters.FirstOrDefault(character => character.GetUserName() == un);
+			characters.FirstOrDefault(character => character.GetUserName().ToLower() == un.ToLower());
 		
 		private void MemberLeave(string username)
 		{
 			if (characters.Count == 0) return;
-			foreach (var character in characters.Where(character => character.GetUserName() == username))
+			foreach (var character in characters.Where(character => character.GetUserName().ToLower() == username.ToLower()))
 			{
 				if (character.RequestDestroy()) characters.Remove(character);
 				else pendingDestroys.Add(character);

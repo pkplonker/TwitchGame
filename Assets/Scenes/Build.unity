@@ -5990,7 +5990,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1498701173}
   m_HandleRect: {fileID: 1498701172}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -7271,8 +7271,8 @@ MonoBehaviour:
   xExpHandler: {fileID: 135609374}
   lootBoxDuration: 15
   lootBoxXP: 200
-  lootSpawnMin: 6
-  lootSpawnMax: 12
+  lootSpawnMin: 10
+  lootSpawnMax: 20
 --- !u!4 &1191643394
 Transform:
   m_ObjectHideFlags: 0
