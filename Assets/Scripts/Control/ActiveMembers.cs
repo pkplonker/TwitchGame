@@ -55,7 +55,7 @@ namespace Control
 			else if (message.Contains(commands.GetLeaveCommand()))
 			{
 				if (activeMembers.Count == 0) return;
-				var am = FindByUsername(sender);
+				var am = FindByUsername(sender.ToLower());
 				if (am == null) return;
 				RemoveMember(am);
 			}
