@@ -72,7 +72,7 @@ namespace Control
 			sender = sender.ToLower();
 			if (activeMembers.Count >= maxPlayers)
 			{
-				TwitchCore.Instance.PRIVMSGTToTwitch("This game is currently full, please wait and try again");
+				TwitchCore.Instance.PRIVMSGTToTwitch($"This game is currently full, please wait and try again {activeMembers.Count}/{maxPlayers}");
 				return;
 			}
 			if (IsBanned(sender)) return;
