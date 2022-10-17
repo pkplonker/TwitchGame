@@ -20,10 +20,10 @@ public class ScreenScaler : MonoBehaviour
 		var deviceScreenResolution = new Vector2(Screen.width, Screen.height);
 		var aspect = deviceScreenResolution.x / deviceScreenResolution.y;
 		
-		transform.localScale = new Vector3(Screen.width / (float)targetWidth, Screen.height / (float)targetHeight, 1);
-		cam.aspect = aspect;
-		var camHeight = 100.0f * cam.orthographicSize*2.0f;
-		var camWidth = camHeight * cam.aspect;
+		transform.localScale = new Vector3((float)targetWidth/Screen.width  ,  (float)targetHeight/Screen.height, 1);
+		//cam.aspect = aspect;
+		//var camHeight = 100.0f * cam.orthographicSize*2.0f;
+		//var camWidth = camHeight * cam.aspect;
 		
 
 	}
