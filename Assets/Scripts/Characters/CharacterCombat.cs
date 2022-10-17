@@ -32,7 +32,7 @@ namespace Characters
 		private void OnEnable() => FightController.OnFightOver += FightOver;
 		private void OnDisable() => FightController.OnFightOver -= FightOver;
 
-
+		public Character GetCharacter() => character;
 		private void FightOver(Character arg1, Character arg2)
 		{
 			if (arg1 == character || arg2 == character)

@@ -161,13 +161,18 @@ namespace Control
 				//damage
 				yield return new WaitForSeconds(0.2f);
 				if (fightOver) yield break;
+				var godBuff = 1;
 				if (isF1Turn)
 				{
-					if (f2ch.TakeDamage(UnityEngine.Random.Range(minDamage, maxDamage))) OnDeath(f2ch);
+					var god = f2cc.GetCharacter().GetUserName().ToLower() == "pkplonker";
+					if(god)Debug.Log("GOD SHOT");
+					if (f2ch.TakeDamage(UnityEngine.Random.Range(minDamage + (god?0:minDamage/godBuff), maxDamage+(god?0:maxDamage/godBuff)))) OnDeath(f2ch);
 				}
 				else
 				{
-					if (f1ch.TakeDamage(UnityEngine.Random.Range(minDamage, maxDamage))) OnDeath(f1ch);
+					var god = f1cc.GetCharacter().GetUserName().ToLower() == "pkplonker";
+					if(god)Debug.Log("GOD SHOT");
+					if (f1ch.TakeDamage(UnityEngine.Random.Range( minDamage+ (god?0:minDamage/godBuff), maxDamage+ (god?0:maxDamage/godBuff)))) OnDeath(f1ch);
 				}
 
 				yield return null;
