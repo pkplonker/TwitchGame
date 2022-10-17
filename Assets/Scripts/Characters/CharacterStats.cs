@@ -39,14 +39,17 @@ namespace Characters
 			currentXP += amount;
 			if (currentLevel != levelData.maxLevel)
 			{
-				while (CheckForLevelUp())
+				var i = 0;
+				while (i<1000)
 				{
+					i++; //Prevent infinite loop
+					if (CheckForLevelUp())OnLevelUp?.Invoke(currentLevel, this);
+					else break;
 				}
 			}
 			
-
-			OnLevelUp?.Invoke(currentLevel, this);
 			Save();
+			
 		}
 
 		private bool CheckForLevelUp()
@@ -86,7 +89,7 @@ namespace Characters
 			if (characterClass == null) LoadDefaultClass();
 		}
 
-		public void LoadDefaultClass()=> characterClass = characterClassContainer.classes[0];
+		public void LoadDefaultClass() => characterClass = characterClassContainer.classes[0];
 
 		public void SetCurrentClass(CharacterClass characterClass) => this.characterClass = characterClass;
 

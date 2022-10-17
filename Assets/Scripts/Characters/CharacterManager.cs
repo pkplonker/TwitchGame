@@ -56,6 +56,8 @@ namespace Characters
 
 		private void ParseMessage(string sender, string message)
 		{
+			sender = sender.ToLower();
+			message = message.ToLower();
 			if (message.Contains(commands.GetMoveCommand()))
 			{
 				foreach (var c in characters.Where(c => c.GetUserName() == sender))
@@ -90,6 +92,8 @@ namespace Characters
 				if (l > message.Length)
 				{
 					Debug.LogError("Math error");
+					throw new Exception("Math error");
+					
 				}
 
 				requestedFighter2 = message.Remove(0, l);
@@ -103,7 +107,11 @@ namespace Characters
 				else if (c.GetUserName() == requestedFighter2) fighter2 = c.GetUserName();
 			}
 
-			if (string.IsNullOrWhiteSpace(fighter1) || string.IsNullOrEmpty(fighter2)) return;
+			if (string.IsNullOrWhiteSpace(fighter1) || string.IsNullOrEmpty(fighter2))
+			{
+				TwitchCore.Instance.PRIVMSGTToTwitch($"@{fighter1}, I currently cannot find the requested opponent. Try checking your spelling.");
+				return;
+			}
 			OnFightRequested?.Invoke(GetCharacterByUserName(fighter1), GetCharacterByUserName(fighter2));
 		}
 

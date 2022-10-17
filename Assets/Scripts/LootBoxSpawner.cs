@@ -22,8 +22,8 @@ public class LootBoxSpawner : MonoBehaviour
 
 	[SerializeField] private float lootSpawnMin = 10f;
 	[SerializeField] private float lootSpawnMax = 30f;
-	private float currentTargetTime;
-	private float timer;
+	public float currentTargetTime;
+	public float timer;
 	private LootBox currentLootBox;
 
 	private void Awake() => lootBoxSpawnPositions = GetComponentsInChildren<Transform>().ToList();
