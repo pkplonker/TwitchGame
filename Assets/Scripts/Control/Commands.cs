@@ -30,13 +30,13 @@ namespace Control
 			if (message.Contains(GetCommandCommand())) TwitchCore.Instance.PRIVMSGTToTwitch("https://pkplonker.github.io/TwitchGame/");
 		}
 
-		public string GetJoinCommand() => commandInitialChar + joinCommand;
-		public string GetLeaveCommand() => commandInitialChar + leaveCommand;
-		public string GetFightCommand() => commandInitialChar + fightCommand;
-		public string GetMoveCommand() => commandInitialChar + moveCommand;
-		public string GetCommandCommand() => commandInitialChar + commandsCommand;
-		public string GetClassCommand()=> commandInitialChar + classCommand;
-		public string GetClassesCommand()=> commandInitialChar + classesCommand;
+		public string GetJoinCommand() => commandInitialChar + joinCommand.ToLower();
+		public string GetLeaveCommand() => commandInitialChar + leaveCommand.ToLower();
+		public string GetFightCommand() => commandInitialChar + fightCommand.ToLower();
+		public string GetMoveCommand() => commandInitialChar + moveCommand.ToLower();
+		public string GetCommandCommand() => commandInitialChar + commandsCommand.ToLower();
+		public string GetClassCommand()=> commandInitialChar + classCommand.ToLower();
+		public string GetClassesCommand()=> commandInitialChar + classesCommand.ToLower();
 
 	}
 }

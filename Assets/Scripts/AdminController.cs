@@ -11,18 +11,18 @@ public class AdminController : MonoBehaviour
 	[SerializeField] private ExpHandler expHandler;
 	private void OnEnable() => IRCParser.OnPRIVMSG += ParseMessage;
 	[SerializeField] private List<string> admins;
-
+	[SerializeField] private string setLevelCommand="!setlevel";
 	private void OnDisable() => IRCParser.OnPRIVMSG -= ParseMessage;
 
 
 	private void ParseMessage(string sender, string message)
 	{
-		if (message.Contains("!setlevel") && IsValidAdmin(sender)) SetLevel(sender, message);
+		if (message.Contains(setLevelCommand.ToLower()) && IsValidAdmin(sender)) SetLevel(sender, message);
 	}
 
 	private void SetLevel(string sender, string message)
 	{
-		var level = message.Replace("!setlevel", "");
+		var level = message.Replace(setLevelCommand.ToLower(), "");
 		if (int.TryParse(level, out var intValue))
 		{
 			var character = CharacterManager.GetCharacterByUserName(sender.ToLower());

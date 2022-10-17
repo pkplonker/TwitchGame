@@ -83,7 +83,7 @@ namespace Control
 			OnMemberJoin?.Invoke(sender);
 		}
 
-		private bool IsBanned(string sender) => sender.ToLower() == "nightbot";
+		private bool IsBanned(string sender) => sender.ToLower() == "nightbot".ToLower();
 
 
 		private void RemoveMember(ActiveMember am)
