@@ -22,8 +22,27 @@ namespace Control
 		[SerializeField] [Range(5,150)] private uint maxPlayers=50;
 
 		private void Start() => StartCoroutine(CheckTimeouts());
-		protected virtual void OnEnable() => IRCParser.OnPRIVMSG += OnMessage;
-		protected virtual void OnDisable() => IRCParser.OnPRIVMSG += OnMessage;
+
+		protected virtual void OnEnable()
+		{
+			IRCParser.OnPRIVMSG += OnMessage;
+			IRCParser.OnActiveMemberChange += OnActiveMemberChange;
+		}
+
+		protected virtual void OnDisable()
+		{
+			IRCParser.OnPRIVMSG += OnMessage;
+			IRCParser.OnActiveMemberChange -= OnActiveMemberChange;
+
+		}
+
+		private void OnActiveMemberChange(string player, bool join)
+		{
+			
+			if(join) JoinPlayer(player);
+			else RemovePlayer(player);
+		}
+
 		public List<ActiveMember> GetActiveMembers() => activeMembers;
 
 		private IEnumerator CheckTimeouts()
@@ -46,25 +65,35 @@ namespace Control
 			sender = sender.ToLower();
 			if (message.Contains(commands.GetJoinCommand()))
 			{
-				var am = FindByUsername(sender);
-				if (am == null)
-				{
-					MemberJoin(sender);
-					TwitchCore.Instance.PRIVMSGTToTwitch("@" + sender + " has joined the game.");
-
-				}
+				JoinPlayer(sender);
 			}
 			else if (message.Contains(commands.GetLeaveCommand()))
 			{
-				if (activeMembers.Count == 0) return;
-				var am = FindByUsername(sender.ToLower());
-				if (am == null) return;
-				RemoveMember(am);
-				TwitchCore.Instance.PRIVMSGTToTwitch("@" + sender + " has left the game.");
+				if (RemovePlayer(sender)) return;
 			}
 
 			var amm = FindByUsername(sender);
 			if (amm != null) amm.joinTime = Time.time;
+		}
+
+		private bool RemovePlayer(string sender)
+		{
+			if (activeMembers.Count == 0) return true;
+			var am = FindByUsername(sender.ToLower());
+			if (am == null) return true;
+			RemoveMember(am);
+			TwitchCore.Instance.PRIVMSGTToTwitch("@" + sender + " has left the game.");
+			return false;
+		}
+
+		private void JoinPlayer(string sender)
+		{
+			var am = FindByUsername(sender);
+			if (am == null)
+			{
+				MemberJoin(sender);
+				TwitchCore.Instance.PRIVMSGTToTwitch("@" + sender + " has joined the game.");
+			}
 		}
 
 		private static ActiveMember FindByUsername(string sender) => activeMembers.Find(x => x.userName.ToLower() == sender.ToLower());
