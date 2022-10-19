@@ -35,8 +35,9 @@ namespace Characters
 		private void Awake() => healthBarImage.SetActive(false);
 
 
-		private void TakeDamage(CharacterHealth c, float max, float current)
+		private void TakeDamage(CharacterHealth c, float current, float max)
 		{
+			if (current == max) return;
 			healthBarImage.SetActive(true);
 			SetFill(max, current);
 			if (cor == null) cor = StartCoroutine(HealthBar());
@@ -52,7 +53,7 @@ namespace Characters
 		public void SetName(string username) =>
 			userName.text = username + "(" + character.GetComponent<Character>().GetCharacterStats().currentLevel + ")";
 
-		private void SetFill(float current, float max) => healthBarImageFill.fillAmount = current / max;
+		private void SetFill(float max, float current) => healthBarImageFill.fillAmount = current / max;
 
 		private IEnumerator HealthBar()
 		{

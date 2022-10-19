@@ -93,10 +93,10 @@ namespace Characters
 				{
 					Debug.LogError("Math error");
 					throw new Exception("Math error");
-					
 				}
 
 				requestedFighter2 = message.Remove(0, l);
+				if (requestedFighter2[0] == '@') requestedFighter2 = requestedFighter2.Remove(0, 1);
 			}
 
 			var fighter1 = "";
@@ -107,9 +107,18 @@ namespace Characters
 				else if (c.GetUserName() == requestedFighter2) fighter2 = c.GetUserName();
 			}
 
-			if (string.IsNullOrWhiteSpace(fighter1) || string.IsNullOrEmpty(fighter2))
+			
+
+			if (string.IsNullOrWhiteSpace(fighter1))
 			{
-				TwitchCore.Instance.PRIVMSGTToTwitch($"@{fighter1}, I currently cannot find the requested opponent. Try checking your spelling.");
+				TwitchCore.Instance.PRIVMSGTToTwitch(
+					$"@{sender}, You're not an active player in this game. Please join the game first. You can use the command !join");
+				return;
+			}
+			if (string.IsNullOrEmpty(fighter2))
+			{
+				TwitchCore.Instance.PRIVMSGTToTwitch(
+					$"@{sender}, I currently cannot find the requested opponent. Try checking your spelling.");
 				return;
 			}
 			OnFightRequested?.Invoke(GetCharacterByUserName(fighter1), GetCharacterByUserName(fighter2));
@@ -135,6 +144,7 @@ namespace Characters
 				s.Save();
 				return s;
 			}
+
 			var json = File.ReadAllText(path);
 			var sd = JsonUtility.FromJson<CharacterSaveData>(json);
 			var cs = new CharacterStats(userName, levelData, characterClassContainer);
@@ -171,11 +181,12 @@ namespace Characters
 
 		public static Character GetCharacterByUserName(string un) =>
 			characters.FirstOrDefault(character => character.GetUserName().ToLower() == un.ToLower());
-		
+
 		private void MemberLeave(string username)
 		{
 			if (characters.Count == 0) return;
-			foreach (var character in characters.Where(character => character.GetUserName().ToLower() == username.ToLower()))
+			foreach (var character in characters.Where(character =>
+				         character.GetUserName().ToLower() == username.ToLower()))
 			{
 				if (character.RequestDestroy()) characters.Remove(character);
 				else pendingDestroys.Add(character);
