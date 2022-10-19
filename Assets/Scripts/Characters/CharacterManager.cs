@@ -97,6 +97,7 @@ namespace Characters
 				}
 
 				requestedFighter2 = message.Remove(0, l);
+				if(requestedFighter2[0]=='@') requestedFighter2 = requestedFighter2.Remove(0, 1);
 			}
 
 			var fighter1 = "";
