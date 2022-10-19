@@ -109,8 +109,14 @@ namespace Control
 			CheckQueue();
 		}
 
+		private void Update()
+		{
+			CheckQueue();
+		}
+
 		private void CheckQueue()
 		{
+			if(fightUnderWay || fightEventActive) return;
 			if (outstandingFights.Count == 0) return;
 			while (outstandingFights.Count != 0)
 			{
