@@ -10,7 +10,9 @@ namespace Characters
 		[SerializeField] private float minX = -9.9f;
 		[SerializeField] private float maxX = 2.5f;
 		[SerializeField] private GameObject flipper;
-		[SerializeField] private float moveFrequency = 5f;
+		[SerializeField] private float moveFrequencyMin = 8f;
+		[SerializeField] private float moveFrequencyMax = 15f;
+		private float moveFrequency;
 
 		private Vector3 targetLocation;
 		private float moveTimer;
@@ -22,9 +24,10 @@ namespace Characters
 		private Character character;
 		private CharacterHealth characterHealth;
 		private CharacterCombat characterCombat;
-
+private void SetMoveFrequency()=> moveFrequency = UnityEngine.Random.Range(moveFrequencyMin, moveFrequencyMax);
 		private void Start()
 		{
+			SetMoveFrequency();
 			animator = GetComponentInChildren<Animator>();
 			SetStartPosition();
 //			character = GetComponent<Character>();
@@ -88,8 +91,12 @@ namespace Characters
 		private void SetStartPosition() => transform.position = new Vector3(UnityEngine.Random.Range(minX, maxX),
 			transform.parent.transform.position.y, 0);
 
-		private void RandomMove() => SetDestination(new Vector3(UnityEngine.Random.Range(minX, maxX),
-			transform.parent.transform.position.y, 0));
+		private void RandomMove()
+		{
+			SetDestination(new Vector3(UnityEngine.Random.Range(minX, maxX),
+				transform.parent.transform.position.y, 0));
+			SetMoveFrequency();
+		} 
 
 		private void SetDestination(Vector3 pos) => targetLocation = pos;
 
