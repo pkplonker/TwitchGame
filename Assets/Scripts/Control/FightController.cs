@@ -67,6 +67,12 @@ namespace Control
 
 		private void ReachedDestination(CharacterMovement c)
 		{
+			if (fighter1 == null || fighter2 == null)
+			{
+				FightOver();
+				return;
+			}
+
 			if (c == fighter1.GetComponent<CharacterMovement>())
 			{
 				c.GetComponent<CharacterMovement>().Flip(true);
@@ -116,7 +122,7 @@ namespace Control
 
 		private void CheckQueue()
 		{
-			if(fightUnderWay || fightEventActive) return;
+			if (fightUnderWay || fightEventActive) return;
 			if (outstandingFights.Count == 0) return;
 			while (outstandingFights.Count != 0)
 			{
@@ -171,14 +177,16 @@ namespace Control
 				if (isF1Turn)
 				{
 					var god = f2cc.GetCharacter().GetUserName().ToLower() == "pkplonker";
-					if(god)Debug.Log("GOD SHOT");
-					if (f2ch.TakeDamage(UnityEngine.Random.Range(minDamage + (god?0:minDamage/godBuff), maxDamage+(god?0:maxDamage/godBuff)))) OnDeath(f2ch);
+					if (god) Debug.Log("GOD SHOT");
+					if (f2ch.TakeDamage(UnityEngine.Random.Range(minDamage + (god ? 0 : minDamage / godBuff),
+						    maxDamage + (god ? 0 : maxDamage / godBuff)))) OnDeath(f2ch);
 				}
 				else
 				{
 					var god = f1cc.GetCharacter().GetUserName().ToLower() == "pkplonker";
-					if(god)Debug.Log("GOD SHOT");
-					if (f1ch.TakeDamage(UnityEngine.Random.Range( minDamage+ (god?0:minDamage/godBuff), maxDamage+ (god?0:maxDamage/godBuff)))) OnDeath(f1ch);
+					if (god) Debug.Log("GOD SHOT");
+					if (f1ch.TakeDamage(UnityEngine.Random.Range(minDamage + (god ? 0 : minDamage / godBuff),
+						    maxDamage + (god ? 0 : maxDamage / godBuff)))) OnDeath(f1ch);
 				}
 
 				yield return null;
