@@ -17,6 +17,7 @@ namespace UI
 	{
 		[SerializeField] private TextMeshProUGUI statusText;
 		[SerializeField] private Highscores highscores;
+		[SerializeField] private Customisation customisation;
 		private void Awake() => canvasGroup = GetComponent<CanvasGroup>();
 		private void Start() => Hide();
 		private void OnEnable() => TwitchCore.OnConnectionStatusChange += ConnectionStateChanged;
@@ -27,6 +28,7 @@ namespace UI
 		public void Open() => Show(); //ui button
 		public void Close() => Hide(); //ui button
 		public void ShowHighscores() => highscores.Open();
+		public void ShowCustomisation() => customisation.Open();
 
 
 		private void ConnectionStateChanged(ConnectionState state)
